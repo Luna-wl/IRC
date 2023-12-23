@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/12/23 17:58:11 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/12/23 18:17:21 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 Server::Server( const std::string & port, const std::string & pass )
 {
 	// std::cout << "Server constructor called." << std::endl;
-	this->port = port;
-	this->pass = pass;
+	this->_port = port;
+	this->_pass = pass;
 }
 
 Server::~Server( void )
@@ -40,7 +40,7 @@ void Server::start( void )
 	// ผูกซ็อกเก็ตกับที่อยู่
 	struct sockaddr_in addr;
 	addr.sin_family = AF_INET;
-	addr.sin_port = htons(stoi(port));
+	addr.sin_port = htons(stoi(_port));
 	addr.sin_addr.s_addr = INADDR_ANY;
 	if (bind(sockfd, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
 		std::cerr << "Error binding socket" << std::endl;
@@ -69,6 +69,10 @@ void Server::start( void )
 		std::string text(buffer);
 		text.pop_back();
 		std::cout << "receive : " << text << std::endl;
+
+		// use parser here
+		_parser.invoke(text);
+
 		bzero(buffer, strlen(buffer));
 		if (nread < 0) {
 			std::cerr << "Error receiving data" << std::endl;
