@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/07 21:42:08 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/07 22:28:29 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,138 +52,142 @@ void Server::start( void )
 		exit(1);
 	}
 
-	
+	listen(sockfd, 2);
 	// next step is listen for connection
 	server_loop(sockfd);
 }
 
-// void server_loop(int sockfd) // poll version
+void server_loop(int sockfd)
+{
+    std::vector<pollfd> fds;
+
+    pollfd server_poll_fd;
+    server_poll_fd.fd = sockfd;
+    server_poll_fd.events = POLLIN;
+
+    fds.push_back(server_poll_fd);
+    std::cout << "socketfd is " << fds[0].fd << "\n";
+
+    bool run = true;
+    char buffer[1024];
+	std::cout << "------------------------------------" << std::endl; //DEBUG
+    while (run)
+    {
+        std::cout << "waiting for poll . . .\n"; // DEBUG
+        poll(&fds[0], fds.size(), -1);
+        std::cout << "Has some signal from poll! ---size[" << fds.size() << "]\n"; // DEBUG
+        for (int i = 0; i < fds.size(); i++)
+        {
+            if (fds[i].revents & POLLIN)
+            {
+				std::cout << "[Poll IN!]\n";
+                if (fds[i].fd == sockfd)
+                {
+                    pollfd client_poll_fd;
+
+                    struct sockaddr_in client_addr;
+                    socklen_t client_addr_len = sizeof(client_addr);
+                    client_poll_fd.fd = accept(sockfd, (struct sockaddr *)&client_addr, &client_addr_len);
+                    if (client_poll_fd.fd < 0)
+                    {
+                        std::cerr << "Error accepting connection" << std::endl;
+                        exit(1);
+                    }
+                    fds.push_back(client_poll_fd);
+                    std::cout << "Connected from : " << client_poll_fd.fd << std::endl;
+                }
+                else
+                {
+					std::cout << "caught data ! ! ! \n";
+                    int nread = recv(fds[i].fd, buffer, sizeof(buffer), 0);
+                    /* Parser (cut after \n character) */
+                    std::string text(buffer);
+                    int found = text.find("\n");
+                    if (found != std::string::npos)
+                        text = text.substr(0, found);
+                    /* detect information */
+                    std::cout << "receive : " << text << std::endl;
+                    if (text == "stop")
+                        run = false;
+
+                    /* clear buffer */
+                    memset(buffer, 0, sizeof(buffer));
+
+                    if (nread < 0)
+                    {
+                        std::cerr << "Error receiving data" << std::endl;
+                        exit(1);
+                    }
+                    // ส่งข้อมูลกลับ
+                    send(fds[i].fd, buffer, nread, 0);
+                }
+            }
+            else if (fds[i].revents & POLLOUT)
+            {
+				std::cout << "[Poll Out!]\n";
+            }
+            else if (fds[i].revents & POLLERR)
+            {
+				std::cout << "[Poll Error!]\n";
+            }
+        }
+    }
+
+    for (int i = 0; i < fds.size(); i++)
+    {
+        close(fds[i].fd);
+    }
+}
+
+
+
+// void server_loop(int sockfd) // original version
 // {
-// 	// ฟังการเชื่อมต่อ
+// 	//	ฟังการเชื่อมต่อ
 // 	std::cout << "waiting for connection . . .\n"; //DEBUG
+// 	listen(sockfd, 1);
 
-// 	std::vector<pollfd> fds;
-	
-// 	pollfd server_poll_fd;
-// 	server_poll_fd.fd = sockfd;
-// 	server_poll_fd.events = POLLIN;
+// 	// รับการเชื่อมต่อ
+// 	struct sockaddr_in client_addr;
+// 	socklen_t client_addr_len = sizeof(client_addr);
+// 	int clientfd = accept(sockfd, (struct sockaddr *)&client_addr, &client_addr_len);
+// 	if (clientfd < 0) {
+// 		std::cerr << "Error accepting connection" << std::endl;
+// 		exit(1);
+// 	}
+// 	std::cout << "Connected from : " << clientfd << std::endl;
 
-// 	fds.push_back(server_poll_fd);
-// 	std::cout << "socketfd is " << fds[0].fd << "\n";
-
-// 	bool run = true;
+// 	//----------------------------
+// 	// รับข้อมูล
 // 	char buffer[1024];
+// 	bool run = true;
 // 	while (run)
 // 	{
-// 		std::cout << "waiting for poll . . .\n"; //DEBUG
-// 		poll(&fds[0], fds.size(), -1);
-// 		std::cout << "Has some siganl from poll!\n"; //DEBUG
-// 		for (int i = 1; i < fds.size(); i++)
-// 		{
-// 			if (fds[i].revents & POLLIN) // There is data to read. Seem like data is ready to recv() on this socket
-// 			{
-// 				if (fds[i].fd == sockfd) // create a new connection
-// 				{
-// 					pollfd client_poll_fd;
-					
-// 					struct sockaddr_in client_addr;
-// 					socklen_t client_addr_len = sizeof(client_addr);
-// 					client_poll_fd.fd = accept(sockfd, (struct sockaddr *)&client_addr, &client_addr_len);
-// 					if (client_poll_fd.fd < 0)
-// 					{
-// 						std::cerr << "Error accepting connection" << std::endl;
-// 						exit(1);
-// 					}
-// 					fds.push_back(client_poll_fd);
-// 					std::cout << "Connected from : " << client_poll_fd.fd << std::endl;
-// 				}
-// 				else // connection is already exists.
-// 				{
-// 					int nread = recv(fds[i].fd, buffer, sizeof(buffer), 0);
-// 					/* Parser (cut after \n character) */
-// 					std::string text(buffer);
-// 					int found = text.find("\n");
-// 					if (found != std::string::npos)
-// 						text = text.substr(0, found);
-// 					/* detect information */
-// 					std::cout << "receive : " << text << std::endl;
-// 					if (text == "stop")
-// 						run = false;
-// 					/* clear buffer */
-// 					bzero(buffer, strlen(buffer));
-				
-// 					if (nread < 0) {
-// 						std::cerr << "Error receiving data" << std::endl;
-// 						exit(1);
-// 					}
-// 					// ส่งข้อมูลกลับ
-// 					send(fds[i].fd, buffer, nread, 0);
-// 				}
-// 			}
-// 			else if (fds[i].revents & POLLOUT) // Writing is now possible, though a write larger than the available space in a socket or pipe will still block
-// 			{
-// 			}
-// 			else if (fds[i].revents & POLLERR) // This bit is also set for a file descriptor referring to the write end of a pipe when the read end has been closed
-// 			{
-// 			}
-// 		}
-// 	}
-// 	// close(clientfd);
-// 	// close(sockfd);
-// 	for (int i = 0; i < fds.size(); i++)
-// 	{
-// 		close(fds[i].fd);
-// 	}
-// }
+// 		int nread = recv(clientfd, buffer, sizeof(buffer), 0);
 
-
-void server_loop(int sockfd) // original version
-{
-	//	ฟังการเชื่อมต่อ
-	std::cout << "waiting for connection . . .\n"; //DEBUG
-	listen(sockfd, 1);
-
-	// รับการเชื่อมต่อ
-	struct sockaddr_in client_addr;
-	socklen_t client_addr_len = sizeof(client_addr);
-	int clientfd = accept(sockfd, (struct sockaddr *)&client_addr, &client_addr_len);
-	if (clientfd < 0) {
-		std::cerr << "Error accepting connection" << std::endl;
-		exit(1);
-	}
-	std::cout << "Connected from : " << clientfd << std::endl;
-
-	//----------------------------
-	// รับข้อมูล
-	char buffer[1024];
-	bool run = true;
-	while (run)
-	{
-		int nread = recv(clientfd, buffer, sizeof(buffer), 0);
-
-		/* Parser (cut after \n character) */
-		std::string text(buffer);
-		int found = text.find("\n");
-		if (found != std::string::npos)
-			text = text.substr(0, found);
-		/* detect information */
-		std::cout << "receive : " << text << std::endl;
-		if (text == "stop")
-			run = false;
-		/* clear buffer */
-		bzero(buffer, strlen(buffer));
+// 		/* Parser (cut after \n character) */
+// 		std::string text(buffer);
+// 		int found = text.find("\n");
+// 		if (found != std::string::npos)
+// 			text = text.substr(0, found);
+// 		/* detect information */
+// 		std::cout << "receive : " << text << std::endl;
+// 		if (text == "stop")
+// 			run = false;
+// 		/* clear buffer */
+// 		bzero(buffer, strlen(buffer));
 	
-		if (nread < 0) {
-			std::cerr << "Error receiving data" << std::endl;
-			exit(1);
-		}
+// 		if (nread < 0) {
+// 			std::cerr << "Error receiving data" << std::endl;
+// 			exit(1);
+// 		}
 
-		// ส่งข้อมูลกลับ
-		send(clientfd, buffer, nread, 0);
-	}
-	//----------------------------
+// 		// ส่งข้อมูลกลับ
+// 		send(clientfd, buffer, nread, 0);
+// 	}
+// 	//----------------------------
 
-	// ปิดซ็อกเก็ต
-	close(clientfd);
-	close(sockfd);
-}
+// 	// ปิดซ็อกเก็ต
+// 	close(clientfd);
+// 	close(sockfd);
+// }
