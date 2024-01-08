@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/07 22:28:29 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/08 12:37:35 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,25 @@ void server_loop(int sockfd)
 	std::cout << "------------------------------------" << std::endl; //DEBUG
     while (run)
     {
-        std::cout << "waiting for poll . . .\n"; // DEBUG
-        poll(&fds[0], fds.size(), -1);
-        std::cout << "Has some signal from poll! ---size[" << fds.size() << "]\n"; // DEBUG
+        // std::cout << "waiting for poll . . .\n"; // DEBUG
+        int events = poll(&fds[0], fds.size(), -1);
+
+		if (events < 0)
+        {
+            std::cerr << "Error in poll: " << strerror(errno) << std::endl;
+            break;
+        }
+        else if (events == 0)
+        {
+            std::cout << "No events to process.\n";
+            continue; // No events to process, continue waiting
+        }
+
         for (int i = 0; i < fds.size(); i++)
         {
             if (fds[i].revents & POLLIN)
             {
-				std::cout << "[Poll IN!]\n";
+				// std::cout << "[Poll IN!]\n";
                 if (fds[i].fd == sockfd)
                 {
                     pollfd client_poll_fd;
@@ -98,7 +109,6 @@ void server_loop(int sockfd)
                 }
                 else
                 {
-					std::cout << "caught data ! ! ! \n";
                     int nread = recv(fds[i].fd, buffer, sizeof(buffer), 0);
                     /* Parser (cut after \n character) */
                     std::string text(buffer);
@@ -106,7 +116,7 @@ void server_loop(int sockfd)
                     if (found != std::string::npos)
                         text = text.substr(0, found);
                     /* detect information */
-                    std::cout << "receive : " << text << std::endl;
+                    std::cout << "receive [" << fds[i].fd << "]: " << text << std::endl;
                     if (text == "stop")
                         run = false;
 
@@ -122,14 +132,10 @@ void server_loop(int sockfd)
                     send(fds[i].fd, buffer, nread, 0);
                 }
             }
-            else if (fds[i].revents & POLLOUT)
-            {
-				std::cout << "[Poll Out!]\n";
-            }
-            else if (fds[i].revents & POLLERR)
-            {
-				std::cout << "[Poll Error!]\n";
-            }
+            else if (fds[i].revents & POLLOUT){ std::cout << "[Poll Out!]\n"; }
+            else if (fds[i].revents & POLLERR){ std::cout << "[Poll Error!]\n"; }
+            else if (fds[i].revents & POLLHUP){ std::cout << "[Poll Hup!]\n"; }
+            else if (fds[i].revents & POLLNVAL){ std::cout << "[Poll Nval!]\n"; }
         }
     }
 
