@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/09 14:28:15 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/09 16:11:51 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,31 +139,35 @@ void Server::receive_message( std::vector<pollfd> &fds , std::vector<pollfd>::it
 {
 	char buffer[1024];
 	int nread = recv(it->fd, buffer, sizeof(buffer), 0);
-	
+
+	if (nread < 0)
+	{
+		std::cerr << "[server]: Error receiving data." << std::endl;
+		close(it->fd);
+		fds.erase(it);
+	}
+
 	/* Parser (cut after \n character) */
 	std::string text(buffer);
 	int found = text.find("\n");
 	if (found != std::string::npos)
 		text = text.substr(0, found);
-	
+
 	/* check information */
-	std::cout << "receive [" << it->fd << "]: " << text << std::endl;
-	if (text == "stop")
-		_run = false;
-	else if (text == "exit")
+	if (nread == 0 || text == "exit")
 	{
+		std::cout << "[server]: Disconnect from user [" << it->fd << "]\n";
 		close(it->fd);
 		fds.erase(it);
 	}
+	else if (text == "stop")
+	{
+		_run = false;
+		std::cout << "[server]: shutting down . . .\n";
+	}
 	else if (text == "status")
-	{
 		std::cout << "[server]: [" << fds.size() - 1 << "] online users.\n"; 
-	}
-
-	if (nread < 0)
-	{
-		std::cerr << "Error receiving data" << std::endl;
-		exit(1);
-	}
+	else
+		std::cout << "receive [" << it->fd << "]: " << text << std::endl;
 	memset(buffer, 0, sizeof(buffer));
 }
