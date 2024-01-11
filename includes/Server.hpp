@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:22:30 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/11 16:44:43 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/11 23:16:55 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,13 @@
 #include <netinet/in.h>
 #include <unistd.h>
 #include <poll.h>
-#include <Client.hpp>
 #include <map>
+
 #include "Color.hpp"
+#include "Client.hpp"
+#include "Parser.hpp"
+
+class Parser;
 
 class Server
 {
@@ -31,6 +35,7 @@ class Server
 		std::vector<pollfd> 		_fds;
 		std::map<const int, Client> _clients;
 		bool						_run;
+		Parser*						_parser;
 	public:
 		Server( const std::string & port, const std::string & pass );
 		~Server( void );
@@ -38,7 +43,8 @@ class Server
 		int start( void );
 		void server_loop( void );
 		void create_connection( void );
-		void receive_message(std::vector<pollfd>::iterator it);
+		void receive_message(int fd);
+		// void receive_message(std::vector<pollfd>::iterator it);
 		void add_client(int client_fd);
 		void add_pollfd(int fd);
 };

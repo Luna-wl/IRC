@@ -3,7 +3,8 @@ NAME = ircserv
 SRC =	srcs/main.cpp \
 		srcs/Server.cpp \
 		srcs/Server_util.cpp \
-		srcs/Client.cpp
+		srcs/Client.cpp \
+		srcs/Parser.cpp
 INCLUDES = -I ./includes
 
 CC = g++

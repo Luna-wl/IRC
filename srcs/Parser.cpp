@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Client.cpp                                         :+:      :+:    :+:   */
+/*   Parser.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/08 16:53:39 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/11 23:14:40 by csantivimol      ###   ########.fr       */
+/*   Created: 2024/01/11 22:50:18 by csantivimol       #+#    #+#             */
+/*   Updated: 2024/01/11 23:14:49 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Client.hpp"
+#include "Parser.hpp"
 
-Client::Client( const int &client_fd )
+void Parser::analyze(Client &client, std::string &text)
 {
-    _client_fd = client_fd;
-}
-
-Client::~Client()
-{
-    
-}
-
-int Client::getFd()
-{
-    return _client_fd;
+    // client._nickname = "New Client 001";
+	std::cout << "receive [" << client.getFd() << "]: " << text << std::endl;
 }

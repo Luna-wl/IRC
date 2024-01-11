@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/11 17:18:36 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/11 22:58:03 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,20 +77,26 @@ void Server::server_loop()
 
 		for (std::vector<pollfd>::iterator it = _fds.begin(); it != _fds.end(); it++)
 		{
-			if (it->revents & POLLIN)
+			if (it->revents & POLLHUP)
+			{
+				// std::cout << YELLOW << "[POLLHUP!]" << DEFAULT << std::endl;
+				std::cout << "[server]: Disconnect from user [" << it->fd << "]\n";
+				close(it->fd);
+				_fds.erase(it);
+				break;
+			}
+			else if (it->revents & POLLIN)
 			{
 				if (it->fd == _server_fd)
 					create_connection();
 				else
-					receive_message(it);
+					receive_message(it->fd);
 				break;
 			}
 			else if (it->revents & POLLOUT)
 				std::cout << YELLOW << "[POLLOUT!]" << DEFAULT << std::endl;
 			else if (it->revents & POLLERR)
 				std::cout << YELLOW << "[POLLERR!]" << DEFAULT << std::endl;
-			else if (it->revents & POLLHUP)
-				std::cout << YELLOW << "[POLLHUP!]" << DEFAULT << std::endl;
 			else if (it->revents & POLLNVAL)
 				std::cout << YELLOW<< "[POLLNVAL!]" << DEFAULT << std::endl;
 		}
