@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/12/23 17:58:11 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:18:36 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 Server::Server( const std::string & port, const std::string & pass )
 {
 	// std::cout << "Server constructor called." << std::endl;
-	this->port = port;
-	this->pass = pass;
+	_port = port;
+	_pass = pass;
+	_run = true;
 }
 
 Server::~Server( void )
@@ -24,63 +25,79 @@ Server::~Server( void )
 	// std::cout << "Server deconstructure called." << std::endl;
 }
 
-void Server::start( void )
+int Server::start( void )
 {
-	// สร้างซ็อกเก็ต TCP
-	int sockfd = socket(AF_INET, SOCK_STREAM, 0);
-	if (sockfd < 0) {
-		std::cerr << "Error creating socket" << std::endl;
-		exit(1);
+	_server_fd = socket(AF_INET, SOCK_STREAM, 0); // create a TCP socket
+	if (_server_fd < 0)
+	{
+		std::cerr << RED << "Error creating socket" << DEFAULT << std::endl;
+		return(1);
 	}
 
-	// ตั้งค่าตัวเลือกซ็อกเก็ต
 	int optval = 1;
-	setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval));
+	if (setsockopt(_server_fd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval)) < 0)
+	{
+		std::cerr << RED << "Error set socket" << DEFAULT << std::endl;
+		return(1);
+	}
 
-	// ผูกซ็อกเก็ตกับที่อยู่
 	struct sockaddr_in addr;
 	addr.sin_family = AF_INET;
-	addr.sin_port = htons(stoi(port));
+	addr.sin_port = htons(stoi(_port));
 	addr.sin_addr.s_addr = INADDR_ANY;
-	if (bind(sockfd, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
-		std::cerr << "Error binding socket" << std::endl;
-		exit(1);
+
+	// bind the socket to the specified address and port
+	if (bind(_server_fd, (struct sockaddr *)&addr, sizeof(addr)) != 0) {
+		std::cerr << RED << "Error binding socket" << std::endl;
+		return(1);
 	}
+	listen(_server_fd, 5); // backlog = 5
 
-	// ฟังการเชื่อมต่อ
-	listen(sockfd, 1);
+	return (0);
+}
 
-	// รับการเชื่อมต่อ
-	struct sockaddr_in client_addr;
-	socklen_t client_addr_len = sizeof(client_addr);
-	int clientfd = accept(sockfd, (struct sockaddr *)&client_addr, &client_addr_len);
-	if (clientfd < 0) {
-		std::cerr << "Error accepting connection" << std::endl;
-		exit(1);
-	}
-	std::cout << "Connected from : " << clientfd << std::endl;
+void Server::server_loop()
+{
+	add_pollfd(_server_fd);
 
-	//----------------------------
-	// รับข้อมูล
-	char buffer[1024];
-	while (strcmp(buffer, "stop\n") != 0)
+	while (_run)
 	{
-		int nread = recv(clientfd, buffer, sizeof(buffer), 0);
-		std::string text(buffer);
-		text.pop_back();
-		std::cout << "receive : " << text << std::endl;
-		bzero(buffer, strlen(buffer));
-		if (nread < 0) {
-			std::cerr << "Error receiving data" << std::endl;
-			exit(1);
+		int events = poll(&_fds[0], _fds.size(), -1);
+
+		if (events < 0)
+		{
+			std::cerr << RED << "Error in poll" << DEFAULT << std::endl;
+			break;
+		}
+		else if (events == 0)
+		{
+			std::cout << "No events to process." << std::endl;
+			continue;
+		}
+
+		for (std::vector<pollfd>::iterator it = _fds.begin(); it != _fds.end(); it++)
+		{
+			if (it->revents & POLLIN)
+			{
+				if (it->fd == _server_fd)
+					create_connection();
+				else
+					receive_message(it);
+				break;
+			}
+			else if (it->revents & POLLOUT)
+				std::cout << YELLOW << "[POLLOUT!]" << DEFAULT << std::endl;
+			else if (it->revents & POLLERR)
+				std::cout << YELLOW << "[POLLERR!]" << DEFAULT << std::endl;
+			else if (it->revents & POLLHUP)
+				std::cout << YELLOW << "[POLLHUP!]" << DEFAULT << std::endl;
+			else if (it->revents & POLLNVAL)
+				std::cout << YELLOW<< "[POLLNVAL!]" << DEFAULT << std::endl;
+		}
 	}
 
-	// ส่งข้อมูลกลับ
-	send(clientfd, buffer, nread, 0);
+	for (int i = 0; i < _fds.size(); i++)
+	{
+		close(_fds[i].fd);
 	}
-	//----------------------------
-
-	// ปิดซ็อกเก็ต
-	close(clientfd);
-	close(sockfd);
 }
