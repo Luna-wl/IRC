@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/09 16:11:51 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/11 17:18:36 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,149 +25,79 @@ Server::~Server( void )
 	// std::cout << "Server deconstructure called." << std::endl;
 }
 
-void Server::start( void )
+int Server::start( void )
 {
-	// สร้างซ็อกเก็ต TCP
-	_server_fd = socket(AF_INET, SOCK_STREAM, 0);
-	if (_server_fd < 0) {
-		std::cerr << "Error creating socket" << std::endl;
-		exit(1);
+	_server_fd = socket(AF_INET, SOCK_STREAM, 0); // create a TCP socket
+	if (_server_fd < 0)
+	{
+		std::cerr << RED << "Error creating socket" << DEFAULT << std::endl;
+		return(1);
 	}
 
-	// ตั้งค่าตัวเลือกซ็อกเก็ต
 	int optval = 1;
-	setsockopt(_server_fd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval));
+	if (setsockopt(_server_fd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval)) < 0)
+	{
+		std::cerr << RED << "Error set socket" << DEFAULT << std::endl;
+		return(1);
+	}
 
-	// ผูกซ็อกเก็ตกับที่อยู่
 	struct sockaddr_in addr;
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(stoi(_port));
 	addr.sin_addr.s_addr = INADDR_ANY;
 
-	std::cout << "------------------------------------" << std::endl; //DEBUG
-	std::cout << "starting server\n"; //DEBUG
-	std::cout << "Port : " << _port << std::endl; //DEBUG
-	std::cout << "Pass : " << _pass << std::endl; //DEBUG
-
-	if (bind(_server_fd, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
-		std::cerr << "Error binding socket" << std::endl;
-		exit(1);
+	// bind the socket to the specified address and port
+	if (bind(_server_fd, (struct sockaddr *)&addr, sizeof(addr)) != 0) {
+		std::cerr << RED << "Error binding socket" << std::endl;
+		return(1);
 	}
+	listen(_server_fd, 5); // backlog = 5
 
-	listen(_server_fd, 2);
-	// next step is polling
-	server_loop();
+	return (0);
 }
 
 void Server::server_loop()
 {
-	std::vector<pollfd> fds;
-
-	pollfd server_poll_fd;
-	server_poll_fd.fd = _server_fd;
-	server_poll_fd.events = POLLIN;
-
-	fds.push_back(server_poll_fd);
-	std::cout << "socket fd is " << fds[0].fd << "\n";
-	std::cout << "------------------------------------" << std::endl; //DEBUG
+	add_pollfd(_server_fd);
 
 	while (_run)
 	{
-		int events = poll(&fds[0], fds.size(), -1);
+		int events = poll(&_fds[0], _fds.size(), -1);
 
 		if (events < 0)
 		{
-			std::cerr << "Error in poll: " << strerror(errno) << std::endl;
+			std::cerr << RED << "Error in poll" << DEFAULT << std::endl;
 			break;
 		}
 		else if (events == 0)
 		{
-			std::cout << "No events to process.\n";
+			std::cout << "No events to process." << std::endl;
 			continue;
 		}
 
-		for (std::vector<pollfd>::iterator it = fds.begin(); it != fds.end(); it++)
+		for (std::vector<pollfd>::iterator it = _fds.begin(); it != _fds.end(); it++)
 		{
 			if (it->revents & POLLIN)
 			{
-				if (it->fd == _server_fd) 
-					create_connection(fds);
+				if (it->fd == _server_fd)
+					create_connection();
 				else
-					receive_message(fds, it);
+					receive_message(it);
 				break;
 			}
 			else if (it->revents & POLLOUT)
-				std::cout << "[POLLOUT!]\n";
+				std::cout << YELLOW << "[POLLOUT!]" << DEFAULT << std::endl;
 			else if (it->revents & POLLERR)
-				std::cout << "[POLLERR!]\n";
+				std::cout << YELLOW << "[POLLERR!]" << DEFAULT << std::endl;
 			else if (it->revents & POLLHUP)
-				std::cout << "[POLLHUP!]\n";
+				std::cout << YELLOW << "[POLLHUP!]" << DEFAULT << std::endl;
 			else if (it->revents & POLLNVAL)
-				std::cout<< "[POLLNVAL!]\n";
+				std::cout << YELLOW<< "[POLLNVAL!]" << DEFAULT << std::endl;
 		}
 	}
 
-	for (int i = 0; i < fds.size(); i++)
+	for (int i = 0; i < _fds.size(); i++)
 	{
-		close(fds[i].fd);
+		close(_fds[i].fd);
 	}
-}
-
-void Server::create_connection( std::vector<pollfd> &fds )
-{
-	pollfd client_poll_fd;
-
-	struct sockaddr_in client_addr;
-	socklen_t client_addr_len = sizeof(client_addr);
-
-	int client_fd = accept(_server_fd, (struct sockaddr *)&client_addr, &client_addr_len);
-
-	client_poll_fd.fd = client_fd;
-	Client client(client_fd);
-
-	if (client_fd < 0)
-	{
-		std::cerr << "Error accepting connection" << std::endl;
-		exit(1);
-	}
-	fds.push_back(client_poll_fd);
-	_clients.insert(std::pair<int, Client>(client_fd, client));
-	std::cout << "Connected from : " << client_fd << std::endl;	
-}
-
-void Server::receive_message( std::vector<pollfd> &fds , std::vector<pollfd>::iterator it)
-{
-	char buffer[1024];
-	int nread = recv(it->fd, buffer, sizeof(buffer), 0);
-
-	if (nread < 0)
-	{
-		std::cerr << "[server]: Error receiving data." << std::endl;
-		close(it->fd);
-		fds.erase(it);
-	}
-
-	/* Parser (cut after \n character) */
-	std::string text(buffer);
-	int found = text.find("\n");
-	if (found != std::string::npos)
-		text = text.substr(0, found);
-
-	/* check information */
-	if (nread == 0 || text == "exit")
-	{
-		std::cout << "[server]: Disconnect from user [" << it->fd << "]\n";
-		close(it->fd);
-		fds.erase(it);
-	}
-	else if (text == "stop")
-	{
-		_run = false;
-		std::cout << "[server]: shutting down . . .\n";
-	}
-	else if (text == "status")
-		std::cout << "[server]: [" << fds.size() - 1 << "] online users.\n"; 
-	else
-		std::cout << "receive [" << it->fd << "]: " << text << std::endl;
-	memset(buffer, 0, sizeof(buffer));
 }
