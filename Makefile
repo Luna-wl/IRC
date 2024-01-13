@@ -4,12 +4,14 @@ SRC =	srcs/main.cpp \
 		srcs/Server.cpp \
 		srcs/Server_util.cpp \
 		srcs/Client.cpp \
-		srcs/Parser.cpp
+		srcs/Parser.cpp \
+		srcs/Command.cpp \
+		srcs/Nick.cpp
 INCLUDES = -I ./includes
 
 CC = g++
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror # -g -fsanitize=address
 
 CPPFLAGS = -std=c++98
 

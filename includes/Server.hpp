@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:22:30 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/11 23:16:55 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/14 01:25:28 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ class Server
 		std::string 				_pass;
 		int							_server_fd;
 		std::vector<pollfd> 		_fds;
-		std::map<const int, Client> _clients;
+		std::map<const int, Client *> _clients;
 		bool						_run;
 		Parser*						_parser;
 	public:

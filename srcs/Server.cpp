@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/11 22:58:03 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/14 01:33:48 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@ Server::Server( const std::string & port, const std::string & pass )
 	_port = port;
 	_pass = pass;
 	_run = true;
+	_parser = new Parser();
 }
 
 Server::~Server( void )
 {
 	// std::cout << "Server deconstructure called." << std::endl;
+	delete _parser;
 }
 
 int Server::start( void )
@@ -81,6 +83,7 @@ void Server::server_loop()
 			{
 				// std::cout << YELLOW << "[POLLHUP!]" << DEFAULT << std::endl;
 				std::cout << "[server]: Disconnect from user [" << it->fd << "]\n";
+				delete _clients[it->fd];
 				close(it->fd);
 				_fds.erase(it);
 				break;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server_util.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:43:27 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/11 23:12:17 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/14 01:27:36 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ void Server::create_connection()
 
 void Server::add_client(int client_fd)
 {
-	Client client(client_fd);
-	_clients.insert(std::pair<const int, Client>(client_fd, client));
+	_clients[client_fd] = new Client(client_fd);
+	// Client client(client_fd);
+	// _clients.insert(std::pair<const int, Client>(client_fd, client));
 	std::cout << "Connected from : " << client_fd << std::endl;	
 }
 
@@ -43,7 +44,7 @@ void Server::add_pollfd(int fd)
 
 void Server::receive_message(int fd)
 {
-	Client client = _clients.at(fd);
+	Client * client = _clients.at(fd);
 	char buffer[1024];
 	
 	recv(fd, buffer, sizeof(buffer), 0);
