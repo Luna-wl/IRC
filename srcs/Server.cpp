@@ -6,11 +6,13 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/14 01:33:48 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/14 01:59:10 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Server.hpp"
+
+bool Server::_run = true;
 
 Server::Server( const std::string & port, const std::string & pass )
 {
@@ -25,6 +27,14 @@ Server::~Server( void )
 {
 	// std::cout << "Server deconstructure called." << std::endl;
 	delete _parser;
+	for (std::map<const int, Client *>::iterator it=_clients.begin(); it!=_clients.end(); it++)
+	{
+		delete it->second;
+	}
+	for (int i = 0; i < _fds.size(); i++)
+	{
+		close(_fds[i].fd);
+	}
 }
 
 int Server::start( void )
@@ -64,6 +74,8 @@ void Server::server_loop()
 
 	while (_run)
 	{
+		// if (poll(&_fds[0], _fds.size(), -1) < 0)
+		// 	break;
 		int events = poll(&_fds[0], _fds.size(), -1);
 
 		if (events < 0)
@@ -104,9 +116,9 @@ void Server::server_loop()
 				std::cout << YELLOW<< "[POLLNVAL!]" << DEFAULT << std::endl;
 		}
 	}
+}
 
-	for (int i = 0; i < _fds.size(); i++)
-	{
-		close(_fds[i].fd);
-	}
+void Server::set_state(bool state)
+{
+	Server::_run = state;
 }

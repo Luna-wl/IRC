@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:22:30 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/14 01:25:28 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/14 01:47:44 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,15 @@ class Parser;
 class Server
 {
 	private:
-		std::string 				_port;
-		std::string 				_pass;
-		int							_server_fd;
-		std::vector<pollfd> 		_fds;
-		std::map<const int, Client *> _clients;
-		bool						_run;
-		Parser*						_parser;
+		std::string 					_port;
+		std::string 					_pass;
+		int								_server_fd;
+		std::vector<pollfd> 			_fds;
+		std::map<const int, Client *> 	_clients;
+		Parser*							_parser;
+		static bool						_run;
 	public:
+		
 		Server( const std::string & port, const std::string & pass );
 		~Server( void );
 
@@ -47,6 +48,8 @@ class Server
 		// void receive_message(std::vector<pollfd>::iterator it);
 		void add_client(int client_fd);
 		void add_pollfd(int fd);
+
+		static void set_state(bool state);
 };
 
 #endif
