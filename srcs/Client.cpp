@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Client.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:53:39 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/15 15:56:50 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/15 18:02:57 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,14 @@ void Client::setFullname(std::string name)
 void Client::setUsername(std::string name)
 {
     _username = name;
+}
+
+bool Client::isRegist()
+{
+    return _regist;
+}
+
+void Client::setRegist(bool state)
+{
+    _regist = state;
 }

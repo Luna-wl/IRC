@@ -3,23 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   Parser.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 22:50:18 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/15 15:57:16 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/15 18:12:14 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Parser.hpp"
 
-Parser::Parser()
+Parser::Parser(Server * srv)
 {
-	_cmd["NICK"] = new Nick();
+	_srv = srv;
+	_cmd["NICK"] = new Nick(srv);
+	_cmd["PASS"] = new Pass(srv);
 }
 
 Parser::~Parser()
 {
 	delete _cmd["NICK"];
+	delete _cmd["PASS"];
 }
 
 void Parser::analyze(Client *client, std::string &text)

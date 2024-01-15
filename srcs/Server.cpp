@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/15 15:54:22 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/15 18:15:58 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ Server::Server( const std::string & port, const std::string & pass )
 	_port = port;
 	_pass = pass;
 	_run = true;
-	_parser = new Parser();
+	_parser = new Parser(this);
 }
 
 Server::~Server( void )
@@ -122,4 +122,9 @@ void Server::server_loop()
 void Server::set_state(bool state)
 {
 	Server::_run = state;
+}
+
+std::string Server::getPass()
+{
+	return _pass;
 }

@@ -6,7 +6,8 @@ SRC =	srcs/main.cpp \
 		srcs/Client.cpp \
 		srcs/Parser.cpp \
 		srcs/Command.cpp \
-		srcs/Nick.cpp
+		srcs/Nick.cpp	\
+		srcs/Pass.cpp
 INCLUDES = -I ./includes
 
 CC = g++

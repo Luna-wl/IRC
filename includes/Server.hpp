@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:22:30 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/14 01:47:44 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:15:34 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ class Server
 		void add_pollfd(int fd);
 
 		static void set_state(bool state);
+
+		// getter
+		std::string getPass();
 };
 
 #endif

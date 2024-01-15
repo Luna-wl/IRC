@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Nick.cpp                                           :+:      :+:    :+:   */
+/*   Pass.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/13 23:16:57 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/15 18:14:37 by tkraikua         ###   ########.fr       */
+/*   Created: 2024/01/15 17:06:48 by tkraikua          #+#    #+#             */
+/*   Updated: 2024/01/15 18:16:40 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Command.hpp"
 
-Nick::Nick(Server * srv) : Command(srv) {}
+Pass::Pass(Server * srv) : Command(srv) {}
+Pass::~Pass() {}
 
-Nick::~Nick() {}
-
-void Nick::execute(Client * client, std::vector<std::string> &args)
+void Pass::execute(Client * client, std::vector<std::string> & args)
 {
-	std::cout << "[NICK] executed" << std::endl;
-
-	if (args[1].empty()) {
-		client->send_error("TOO FEW ARGUMENTS");
-	} else {
-		client->setNickname(args[1]);
-		client->send_debug("set nickname > " + client->getNickname());
+	if ( args.size() == 1 ) {
+		client->receive_message(ERR_NEEDMOREPARAMS(args[0]));
+	}
+	else if ( client->isRegist() ) {
+		client->receive_message(ERR_ALREADYREGISTRED);
+	}
+	else if ( args[1] == _srv->getPass()) {
+		client->setRegist(true);
 	}
 }

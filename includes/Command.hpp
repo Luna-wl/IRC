@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:12:18 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/14 01:26:45 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:18:40 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include <sys/socket.h>
 
 # include "Client.hpp"
+# include "replies.hpp"
+
+class Server;
 
 class Command
 {
@@ -26,20 +29,35 @@ class Command
 		// std::string            _cmd;
 		// std::string            _prefix;
 		// bool                   _valid;
+	protected:
+		Server * _srv;
 	public:
-		Command(/* args */);
+		Command(Server * srv);
 		virtual ~Command();
 
 		virtual void execute(Client * client, std::vector<std::string> &args) = 0;
 };
 
+/* Command */
+
+class Pass : public Command
+{
+	public:
+		Pass(Server * srv);
+		~Pass();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
 class Nick : public Command
 {
 	public:
-		Nick();
+		Nick(Server * srv);
 		~Nick();
 
 		void execute(Client * client, std::vector<std::string> &args);
 };
+
+# include "Server.hpp"
 
 #endif

@@ -10,10 +10,10 @@
 class Parser
 {
     private:
-        // Server*  _srv;
+        Server*  _srv;
         std::map<std::string, Command *> _cmd;
     public:
-        Parser();
+        Parser(Server * srv);
         ~Parser();
         void analyze(Client *client, std::string &text);
 };

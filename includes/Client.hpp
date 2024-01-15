@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Client.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:50:51 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/15 15:11:34 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/15 18:02:21 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ class Client
 		std::string		_fullname;
 		std::string		_username;
 
-		// bool			_regist;
+		bool			_regist;
 		// int				_socket; // Socket descriptor for the user's connection
 		
 		// vector/map/list	_currentChannel;
@@ -52,6 +52,9 @@ class Client
 		void setServername(std::string name);
 		void setFullname(std::string name);
 		void setUsername(std::string name);
+
+		bool isRegist();
+		void setRegist(bool state);
 };
 
 #endif
