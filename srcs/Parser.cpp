@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Parser.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 22:50:18 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/15 18:12:14 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/16 00:10:23 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,15 @@ Parser::Parser(Server * srv)
 	_srv = srv;
 	_cmd["NICK"] = new Nick(srv);
 	_cmd["PASS"] = new Pass(srv);
+	_cmd["USER"] = new User(srv);
 }
 
 Parser::~Parser()
 {
-	delete _cmd["NICK"];
-	delete _cmd["PASS"];
+	for (std::map<std::string, Command *>::iterator it = _cmd.begin(); it != _cmd.end(); it++)
+	{
+		delete it->second;
+	}
 }
 
 void Parser::analyze(Client *client, std::string &text)
