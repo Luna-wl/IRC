@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Nick.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:16:57 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/14 01:26:53 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:57:32 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ Nick::~Nick()
 
 void Nick::execute(Client * client, std::vector<std::string> &args)
 {
-	std::cout << "NICK executed" << std::endl;
+	std::cout << "[NICK] executed" << std::endl;
 
 	if (args[1].empty()) {
-		std::cerr << "TOO FEW ARGUMENTS" << std::endl;
-		client->receive_message("TOO FEW ARGUMENTS");
+		client->send_error("TOO FEW ARGUMENTS");
 	} else {
 		client->setNickname(args[1]);
+		client->send_debug("set nickname > " + client->getNickname());
 	}
 }

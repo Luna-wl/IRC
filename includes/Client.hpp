@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Client.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:50:51 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/14 01:24:15 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:11:34 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ class Client
 		~Client( void );
 
 		void receive_message(std::string str);
+		void send_error(std::string str);
+		void send_debug(std::string str);
 
 		// getter
 		std::string getNickname();

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/14 01:59:10 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:54:22 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int Server::start( void )
 		return(1);
 	}
 	listen(_server_fd, 5); // backlog = 5
-
+	std::cout << "Server starting . . .\n";
 	return (0);
 }
 
@@ -74,10 +74,9 @@ void Server::server_loop()
 
 	while (_run)
 	{
-		// if (poll(&_fds[0], _fds.size(), -1) < 0)
-		// 	break;
 		int events = poll(&_fds[0], _fds.size(), -1);
-
+		if (!_run)
+			break;
 		if (events < 0)
 		{
 			std::cerr << RED << "Error in poll" << DEFAULT << std::endl;
@@ -93,11 +92,13 @@ void Server::server_loop()
 		{
 			if (it->revents & POLLHUP)
 			{
-				// std::cout << YELLOW << "[POLLHUP!]" << DEFAULT << std::endl;
 				std::cout << "[server]: Disconnect from user [" << it->fd << "]\n";
-				delete _clients[it->fd];
-				close(it->fd);
-				_fds.erase(it);
+
+				close(it->fd); // close fd
+				delete _clients[it->fd]; // release memory
+				_clients.erase(it->fd); // remove from _client
+				_fds.erase(it); // remove from _fds
+
 				break;
 			}
 			else if (it->revents & POLLIN)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Client.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:53:39 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/14 01:10:33 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:56:50 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,31 @@ Client::~Client()
 
 void Client::receive_message(std::string str)
 {
-    std::cout << getNickname() << std::endl;
-    const char *buffer = str.c_str();
-    int nread = str.size();
-    std::string name = "[" + _nickname + "] : ";
-    int nsend = nread + name.size();
-    char send_buffer[nsend + 1];
+    // std::cout << getNickname() << std::endl;
+    // const char *buffer = str.c_str();
+    // int nread = str.size();
+    // std::string name = "[" + _nickname + "] : ";
+    // int nsend = nread + name.size();
+    // char send_buffer[nsend + 1];
 
-    memcpy(send_buffer, name.c_str(), name.size());
-    memcpy(send_buffer + name.size(), buffer, nread);\
-    send_buffer[nsend] = '\0';
-    send(_client_fd, send_buffer, nsend, 0);
+    // memcpy(send_buffer, name.c_str(), name.size());
+    // memcpy(send_buffer + name.size(), buffer, nread);
+    // send_buffer[nsend] = '\0';
+    // send(_client_fd, send_buffer, nsend, 0);
+    str = str + "\n";
+    send(_client_fd, str.c_str(), str.size(), 0);
+}
+
+void Client::send_error(std::string str)
+{
+    std::string err_str = "Error : " + str;
+    receive_message(err_str);
+}
+
+void Client::send_debug(std::string str)
+{
+    std::string err_str = "Debug : " + str;
+    receive_message(err_str);
 }
 
 int Client::getFd()
