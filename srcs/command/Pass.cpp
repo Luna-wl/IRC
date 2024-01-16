@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:06:48 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/15 18:16:40 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/16 19:16:59 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ void Pass::execute(Client * client, std::vector<std::string> & args)
 	else if ( client->isRegist() ) {
 		client->receive_message(ERR_ALREADYREGISTRED);
 	}
-	else if ( args[1] == _srv->getPass()) {
-		client->setRegist(true);
+	else if ( args[1] != _srv->getPass() ) {
+		client->receive_message(ERR_PASSWDMISMATCH);
+	}
+	else if ( args[1] == _srv->getPass() ) {
+		client->setAuth(true);
 	}
 }

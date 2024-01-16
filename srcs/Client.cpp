@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:53:39 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/15 18:02:57 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/16 19:36:16 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,16 @@ void Client::setFullname(std::string name)
 void Client::setUsername(std::string name)
 {
     _username = name;
+}
+
+bool Client::isAuth()
+{
+    return _auth;
+}
+
+void Client::setAuth(bool state)
+{
+    _auth = state;
 }
 
 bool Client::isRegist()

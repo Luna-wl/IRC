@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:50:51 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/15 18:02:21 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/16 19:16:48 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ class Client
 		std::string		_fullname;
 		std::string		_username;
 
+		bool			_auth;
 		bool			_regist;
 		// int				_socket; // Socket descriptor for the user's connection
 		
@@ -53,6 +54,8 @@ class Client
 		void setFullname(std::string name);
 		void setUsername(std::string name);
 
+		bool isAuth();
+		void setAuth(bool state);
 		bool isRegist();
 		void setRegist(bool state);
 };
