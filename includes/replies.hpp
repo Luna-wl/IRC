@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:53:45 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/16 19:32:34 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/16 22:13:19 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 #define ERR_USERSDISABLED					"Error(446) :USERS has been disabled"
 #define ERR_NOTREGISTERED					"Error(451) :You have not registered"
 #define ERR_NOTAUTHENTICATED				"Error(452) :You have not authenticated"
+#define ERR_ALREADYAUTHENTICATED			"Error(460) :You may not reauthenticate"
 #define ERR_NEEDMOREPARAMS(command)			"Error(461) " + command + " :Not enough parameters"
 #define ERR_ALREADYREGISTRED				"Error(462) :You may not reregister"
 #define ERR_NOPERMFORHOST(host)				"Error(463) " + host + " :Your host isn't among the privileged"

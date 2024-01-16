@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:16:57 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/16 21:36:34 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/16 22:13:03 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void Nick::execute(Client * client, std::vector<std::string> &args)
 	} else {
 		client->setNickname(args[1]);
 		client->send_debug("set nickname > " + client->getNickname());
+		if (!client->getUsername().empty())
+			client->setRegist(true);
 	}
 }
 
