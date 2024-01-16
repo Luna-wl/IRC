@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:50:51 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/16 19:16:48 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/16 21:41:43 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ class Client
 		
 		// vector/map/list	_currentChannel;
 	public:
-		Client( const int &client_fd);
+		Client( const int &client_fd, std::string hostname );
 		~Client( void );
 
 		void receive_message(std::string str);

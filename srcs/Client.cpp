@@ -6,15 +6,16 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:53:39 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/16 19:36:16 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/16 21:41:29 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Client.hpp"
 
-Client::Client( const int &client_fd )
+Client::Client( const int &client_fd, std::string hostname )
 {
     _client_fd = client_fd;
+    _hostname = hostname;
 }
 
 Client::~Client()

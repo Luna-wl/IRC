@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:43:27 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/14 01:27:36 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/16 21:41:51 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,30 @@ void Server::create_connection()
 		std::cerr << RED << "Error accepting connection" << DEFAULT << std::endl;
 		return;
 	}
+    char client_ip[INET_ADDRSTRLEN];
+    inet_ntop(AF_INET, &(client_addr.sin_addr), client_ip, INET_ADDRSTRLEN); // convert ip to string (human readable)
+
+    struct sockaddr_in client_info;
+    client_info.sin_family = AF_INET;
+    client_info.sin_addr.s_addr = inet_addr(client_ip);
+    struct hostent *host_info = gethostbyaddr((const void *)&client_info.sin_addr, sizeof(client_info.sin_addr), AF_INET);
+
+    std::string hostname;
+    if (host_info)
+        hostname = host_info->h_name;
+    else
+        hostname = client_ip;
+
+    std::cout << "addr Port : " << client_addr.sin_port << std::endl;
+    std::cout << "hostname  : " << hostname << std::endl;
+    std::cout << "client ip : " << client_ip << std::endl;
 	add_pollfd(client_fd);
-	add_client(client_fd);
+	add_client(client_fd, hostname);
 }
 
-void Server::add_client(int client_fd)
+void Server::add_client(int client_fd, std::string hostname)
 {
-	_clients[client_fd] = new Client(client_fd);
+	_clients[client_fd] = new Client(client_fd, hostname);
 	// Client client(client_fd);
 	// _clients.insert(std::pair<const int, Client>(client_fd, client));
 	std::cout << "Connected from : " << client_fd << std::endl;	

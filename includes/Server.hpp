@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:22:30 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/15 23:12:58 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/16 21:40:17 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #include <unistd.h>
 #include <poll.h>
 #include <map>
+#include <netdb.h>
+#include <arpa/inet.h>
 
 #include "Color.hpp"
 #include "Client.hpp"
@@ -46,7 +48,7 @@ class Server
 		void create_connection( void );
 		void receive_message(int fd);
 		// void receive_message(std::vector<pollfd>::iterator it);
-		void add_client(int client_fd);
+		void add_client(int client_fd, std::string hostname);
 		void add_pollfd(int fd);
 
 		static void set_state(bool state);
