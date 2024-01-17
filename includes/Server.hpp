@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:22:30 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/16 21:40:17 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/18 01:43:31 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,21 @@
 #include "Color.hpp"
 #include "Client.hpp"
 #include "Parser.hpp"
+#include "Channel.hpp"
 
 class Parser;
 
 class Server
 {
 	private:
-		std::string 					_port;
-		std::string 					_pass;
-		int								_server_fd;
-		std::vector<pollfd> 			_fds;
-		std::map<const int, Client *> 	_clients;
-		Parser*							_parser;
-		static bool						_run;
+		std::string 						_port;
+		std::string 						_pass;
+		int									_server_fd;
+		std::vector<pollfd> 				_fds;
+		std::map<std::string, Channel *>	_channels;
+		std::map<const int, Client *> 		_clients;
+		Parser*								_parser;
+		static bool							_run;
 	public:
 		
 		Server( const std::string & port, const std::string & pass );
@@ -56,6 +58,10 @@ class Server
 		// getter
 		std::string getPass();
 		std::map<const int, Client *> 	&getClient();
+
+		void addChannel(Channel * channel);
+		Channel * getChannel(std::string channel_name);
+		bool isChanExist(std::string channel_name);
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:50:51 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/16 21:41:43 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/18 01:37:32 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 # include <iostream>
 # include <sys/socket.h>
+
+# include "Channel.hpp"
+
+# define CHANLIMIT 1
 
 class Client
 {
@@ -29,8 +33,9 @@ class Client
 		bool			_auth;
 		bool			_regist;
 		// int				_socket; // Socket descriptor for the user's connection
-		
-		// vector/map/list	_currentChannel;
+	
+		std::map<std::string, Channel *> _channels;
+
 	public:
 		Client( const int &client_fd, std::string hostname );
 		~Client( void );
@@ -58,6 +63,9 @@ class Client
 		void setAuth(bool state);
 		bool isRegist();
 		void setRegist(bool state);
+
+		void join(Channel * channel);
+		int getChannelSize();
 };
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/15 23:13:14 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/18 01:50:49 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,4 +132,20 @@ std::string Server::getPass()
 std::map<const int, Client *> 	&Server::getClient()
 {
 	return _clients;
+}
+
+void Server::addChannel(Channel * channel)
+{
+	_channels[channel->getName()] = channel;
+	// std::cout << "Debug : set channel to server" << std::endl;
+}
+
+Channel * Server::getChannel(std::string channel_name)
+{
+	return _channels[channel_name];
+}
+
+bool Server::isChanExist(std::string channel_name)
+{
+	return _channels.count(channel_name) ? true : false;
 }
