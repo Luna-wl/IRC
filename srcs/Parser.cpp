@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 22:50:18 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/18 01:09:59 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/18 03:14:43 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ Parser::Parser(Server * srv)
 	_cmd["PASS"] = new Pass(srv);
 	_cmd["USER"] = new User(srv);
 	_cmd["JOIN"] = new Join(srv);
+	_cmd["PRIVMSG"] = new PrivMsg(srv);
 }
 
 Parser::~Parser()

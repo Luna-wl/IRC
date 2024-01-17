@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:53:45 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/18 00:52:31 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/18 03:13:12 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,8 @@
 #define ERR_NOOPERHOST						"Error(491) :No O-lines for your host"
 #define ERR_UMODEUNKNOWNFLAG				"Error(501) :Unknown MODE flag"
 #define ERR_USERSDONTMATCH					"Error(502) :Cant change mode for other users"
+
+/* Replies */
+#define RPL_AWAY(nick, message)				nick + " :" + message
 
 #endif

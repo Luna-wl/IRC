@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:55 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/18 01:50:34 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/18 04:08:42 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,14 @@ Channel::~Channel() {}
 void Channel::addClient(Client * client)
 {
 	_clients.push_back(client);
+}
+
+void Channel::send_message(Client * client, std::string message) {
+	for (std::vector<Client *>::iterator it = _clients.begin(); it != _clients.end(); it++) {
+		if ((*it) == client)
+			continue;
+		(*it)->receive_message(RPL_AWAY(client->getNickname(), message));
+	}
 }
 
 std::string Channel::getName()

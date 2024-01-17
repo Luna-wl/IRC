@@ -10,7 +10,8 @@ SRC =	srcs/main.cpp \
 		srcs/command/Nick.cpp	\
 		srcs/command/Pass.cpp \
 		srcs/command/User.cpp \
-		srcs/command/Join.cpp
+		srcs/command/Join.cpp \
+		srcs/command/PrivMsg.cpp
 INCLUDES = -I ./includes
 
 CC = g++

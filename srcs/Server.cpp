@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/18 01:50:49 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/18 03:55:40 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,16 @@ std::map<const int, Client *> 	&Server::getClient()
 	return _clients;
 }
 
+Client * Server::get_client(std::string client_nickname)
+{
+	Client * client = NULL;
+	for (std::map<const int, Client *>::iterator it = _clients.begin(); it != _clients.end(); it++) {
+		if (client_nickname == it->second->getNickname())
+			client = it->second;
+	}
+	return client;
+}
+
 void Server::addChannel(Channel * channel)
 {
 	_channels[channel->getName()] = channel;
@@ -142,7 +152,7 @@ void Server::addChannel(Channel * channel)
 
 Channel * Server::getChannel(std::string channel_name)
 {
-	return _channels[channel_name];
+	return _channels.count(channel_name) ? _channels[channel_name] : NULL;
 }
 
 bool Server::isChanExist(std::string channel_name)
