@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:50:51 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/18 17:58:43 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/18 18:57:39 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ class Client
 		void receive_message(std::string str);
 		void send_error(std::string str);
 		void send_debug(std::string str);
+
+		std::string source();
 
 		// getter
 		std::string getNickname();

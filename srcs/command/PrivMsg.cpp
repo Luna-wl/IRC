@@ -18,11 +18,11 @@ PrivMsg::~PrivMsg() {}
 void PrivMsg::execute(Client * client, std::vector<std::string> &args)
 {
 	if ( !client->isRegist() ) {
-		client->receive_message(ERR_NOTREGISTERED);
+		client->receive_message(ERR_NOTREGISTERED(_srv->getName()));
 		return;
 	}
 	else if ( args.size() < 3 ) {
-		client->receive_message(ERR_NEEDMOREPARAMS(args[0]));
+		client->receive_message(ERR_NEEDMOREPARAMS(_srv->getName(), args[0]));
 		return;
 	}
 
@@ -38,13 +38,13 @@ void PrivMsg::execute(Client * client, std::vector<std::string> &args)
 		if (channel)
 			channel->send_message(client, message);
 		else
-			client->receive_message(ERR_NOSUCHCHANNEL(target));
+			client->receive_message(ERR_NOSUCHCHANNEL(_srv->getName(), target));
 	}
 	else { // send message to user
 		Client * target_client = _srv->get_client(target);
 		if (target_client)
-			target_client->receive_message(RPL_AWAY(client->getNickname(), message));
+			target_client->receive_message(RPL_AWAY(client->source(), client->getNickname(), message));
 		else
-			client->receive_message(ERR_NOSUCHNICK(target));
+			client->receive_message(ERR_NOSUCHNICK(_srv->getName(), target));
 	}
 }

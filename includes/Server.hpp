@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:22:30 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/18 03:06:19 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/18 18:44:51 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ class Parser;
 class Server
 {
 	private:
+		std::string							_name;
 		std::string 						_port;
 		std::string 						_pass;
 		int									_server_fd;
@@ -56,7 +57,9 @@ class Server
 		static void set_state(bool state);
 
 		// getter
+		std::string getName();
 		std::string getPass();
+
 		std::map<const int, Client *> 	&getClient();
 		Client * get_client(std::string client_nickname);
 
