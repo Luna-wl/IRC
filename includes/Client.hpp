@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:50:51 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/18 01:37:32 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/18 17:43:44 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ class Client
 		void setRegist(bool state);
 
 		void join(Channel * channel);
+		Channel * getChannel(std::string channel_name);
 		int getChannelSize();
 };
 

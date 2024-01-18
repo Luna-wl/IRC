@@ -34,7 +34,7 @@ void PrivMsg::execute(Client * client, std::vector<std::string> &args)
 
 	if ( target.at(0) == '#' || target.at(0) == '%' ) { // send message to channel
 		target = target.substr(1, target.size() - 1);
-		Channel * channel = _srv->getChannel(target);
+		Channel * channel = client->getChannel(target);
 		if (channel)
 			channel->send_message(client, message);
 		else
