@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:55 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 01:15:18 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 00:56:23 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void Channel::send_message(Client * client, std::string message) {
 	for (std::vector<Client *>::iterator it = _members.begin(); it != _members.end(); it++) {
 		if ((*it) == client)
 			continue;
-		(*it)->receive_message(RPL_CHANAWAY(client->source(), _name, message));
+		(*it)->receive_message(message);
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   User.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 23:31:37 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/18 18:47:09 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 00:46:57 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void User::execute(Client * client, std::vector<std::string> & args)
 		client->receive_message(ERR_NEEDMOREPARAMS(_srv->getName(), args[0]));
 	}
 	else if ( !client->isAuth() ) {
-		client->receive_message(ERR_NOTAUTHENTICATED(_srv->getName()));
+		client->receive_message(ERR_NOTAUTHENTICATED(_srv->getName(), args[0]));
 	}
 	else if ( client->isRegist() ) {
-		client->receive_message(ERR_ALREADYREGISTRED(_srv->getName()));
+		client->receive_message(ERR_ALREADYREGISTRED(_srv->getName(), args[0]));
 	}
 	else
 	{

@@ -12,7 +12,16 @@ SRC =	srcs/main.cpp \
 		srcs/command/User.cpp \
 		srcs/command/Join.cpp \
 		srcs/command/PrivMsg.cpp
-INCLUDES = -I ./includes
+
+INCLUDES = ./includes
+
+HEADER = includes/Channel.hpp \
+		includes/Client.hpp \
+		includes/Color.hpp \
+		includes/Command.hpp \
+		includes/Parser.hpp \
+		includes/Replies.hpp \
+		includes/Server.hpp
 
 CC = g++
 
@@ -25,11 +34,11 @@ OBJ = $(SRC:.cpp=.o)
 all: $(NAME)
 
 %o: %cpp
-	@$(CC) $(CFLAG) $(INCLUDES) -c $< -o $@
+	@$(CC) $(CFLAG) -I $(INCLUDES) -c $< -o $@
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(HEADER)
 	@printf "$(GREEN)"
-	@$(CC) $(CFLAGS) $(CPPFLAGS) $(INCLUDES) $(OBJ) -o $@
+	@$(CC) $(CFLAGS) $(CPPFLAGS) -I $(INCLUDES) $(OBJ) -o $@
 
 clean:
 	@rm -f $(OBJ)
