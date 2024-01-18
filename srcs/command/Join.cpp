@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Join.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:58:49 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/18 18:48:07 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 00:45:57 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ Join::~Join() {}
 void Join::execute(Client * client, std::vector<std::string> &args)
 {
 	if ( !client->isRegist() ) {
-		client->receive_message(ERR_NOTREGISTERED(_srv->getName()));
+		client->receive_message(ERR_NOTREGISTERED(_srv->getName(), args[0]));
 	}
 	else if ( args.size() == 1 ) {
 		client->receive_message(ERR_NEEDMOREPARAMS(_srv->getName(), args[0]));
 	}
 	else if ( client->getChannelSize() == CHANLIMIT ) {
-		client->receive_message(ERR_TOOMANYCHANNELS(_srv->getName(), args[1]));
+		client->receive_message(ERR_TOOMANYCHANNELS(_srv->getName(), args[0], args[1]));
 	}
 	else {
 		std::string channel_name = args[1];

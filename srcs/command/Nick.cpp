@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Nick.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:16:57 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/18 18:47:44 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 00:47:29 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ void Nick::execute(Client * client, std::vector<std::string> &args)
 	std::cout << "[NICK] executed" << std::endl;
 
 	if (!client->isAuth()) {
-		client->receive_message(ERR_NOTAUTHENTICATED(_srv->getName()));
+		client->receive_message(ERR_NOTAUTHENTICATED(_srv->getName(), args[0]));
 	}
 	else if (args[1].empty()) {
-		client->receive_message(ERR_NONICKNAMEGIVEN(_srv->getName()));
+		client->receive_message(ERR_NONICKNAMEGIVEN(_srv->getName(), args[0]));
 	} else if (args[1][0] == '#' || args[1][0] == ':' || args[1][0] == '$' || 
         args[1].find_first_of(" \t\n\r\f\v.,*?!@") != std::string::npos) {
-		client->receive_message(ERR_ERRONEUSNICKNAME(_srv->getName(), args[1]));
+		client->receive_message(ERR_ERRONEUSNICKNAME(_srv->getName(), args[0], args[1]));
 	} else if (nickIsUsed(args[1])){
-		client->receive_message(ERR_NICKNAMEINUSE(_srv->getName(), args[1]));
+		client->receive_message(ERR_NICKNAMEINUSE(_srv->getName(), args[0], args[1]));
 	} else {
 		client->setNickname(args[1]);
 		client->send_debug("set nickname > " + client->getNickname());
