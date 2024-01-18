@@ -24,9 +24,16 @@ class Channel
 {
 	private:
 		std::string				_name;
-		std::vector<Client *>	_clients;
+		std::vector<Client *>	_members;
 		std::string				_topic;
 		std::string				_key;
+		int						_userLimit;
+		/* MODES */
+		bool	_i; // Invite-only
+		bool	_t; // restrict TOPIC
+		bool	_k; // set key
+		bool	_o; // channel operator privilege
+		bool	_l; // user limit
 	public:
 		Channel(std::string name, std::string key);
 		~Channel();
@@ -36,6 +43,16 @@ class Channel
 
 		// getter
 		std::string getName();
+		std::string getKey();
+
+		bool isFull();
+		
+		/* get Modes */
+		bool isInviteMode();
+		bool isTopicMode();
+		bool isKeyMode();
+		bool isOperMode();
+		bool isLimitMode();
 };
 
 #include "Client.hpp"
