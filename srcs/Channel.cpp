@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:55 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 01:44:07 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 01:56:37 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ Channel::~Channel() {}
 
 void Channel::addClient(Client * client)
 {
-	_members.push_back(client);
+	_members[client->getNickname()] = client;
 }
 
 void Channel::send_message(Client * client, std::string message) {
-	for (std::vector<Client *>::iterator it = _members.begin(); it != _members.end(); it++) {
-		if ((*it) == client)
+	for (std::map<std::string, Client *>::iterator it = _members.begin(); it != _members.end(); it++) {
+		if (it->second == client)
 			continue;
-		(*it)->receive_message(message);
+		it->second->receive_message(message);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:08 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 01:44:02 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 01:56:46 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ class Client;
 class Channel
 {
 	private:
-		std::string				_name;
-		std::vector<Client *>	_members;
-		std::string				_topic;
-		std::string				_key;
-		int						_userLimit;
+		std::string						_name;
+		std::map<std::string, Client *>	_members;
+		std::string						_topic;
+		std::string						_key;
+		int								_userLimit;
 		/* MODES */
 		bool	_i; // Invite-only
 		bool	_t; // restrict TOPIC

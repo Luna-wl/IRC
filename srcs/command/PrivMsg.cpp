@@ -43,7 +43,7 @@ void PrivMsg::execute(Client * client, std::vector<std::string> &args)
 	else { // send message to user
 		Client * target_client = _srv->get_client(target);
 		if (target_client)
-			target_client->receive_message(RPL_AWAY(client->source(), client->getNickname(), args[0], message));
+			target_client->receive_message(RPL_AWAY(client->source(), args[0], client->getNickname(), message));
 		else
 			client->receive_message(ERR_NOSUCHNICK(_srv->getName(), args[0], target));
 	}

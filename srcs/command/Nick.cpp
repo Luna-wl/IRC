@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Nick.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:16:57 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 00:47:29 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/19 01:57:39 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void Nick::execute(Client * client, std::vector<std::string> &args)
 		client->receive_message(ERR_NICKNAMEINUSE(_srv->getName(), args[0], args[1]));
 	} else {
 		client->setNickname(args[1]);
-		client->send_debug("set nickname > " + client->getNickname());
 		if (!client->getUsername().empty())
 			client->setRegist(true);
 	}

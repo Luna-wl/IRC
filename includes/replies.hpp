@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replies.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:53:45 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 00:49:34 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/19 02:00:32 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@
 #define ERR_USERSDONTMATCH(source, cmd)				    	":" + source + " " + cmd + " 502 :Cant change mode for other users"
 
 /* Replies */
-#define RPL_AWAY(source, cmd, nick, message)				":"	+ source + " " + cmd + nick + " :" + message
+#define RPL_AWAY(source, cmd, nick, message)				":"	+ source + " " + cmd + " " + nick + " :" + message
 #define RPL_CHANAWAY(source, cmd, channel, message)		":" + source + " " + cmd + " " + channel + " :" + message
 #define RPL_INFO(source, cmd, message)                   ":" + source + " " + cmd + ": 371 : " + message
 #define RPL_ENDOFINFO(source, cmd)                            ":" + source + " " + cmd + ": 374 : End of /INFO list."

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server_util.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:43:27 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/18 15:49:41 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/19 01:57:27 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,7 @@ void Server::create_connection()
 void Server::add_client(int client_fd, std::string hostname)
 {
 	_clients[client_fd] = new Client(client_fd, hostname);
-	// Client client(client_fd);
-	// _clients.insert(std::pair<const int, Client>(client_fd, client));
-	std::cout << "Connected from : " << client_fd << std::endl;	
+	std::cout << "Connected from : " << client_fd << std::endl;
 }
 
 void Server::add_pollfd(int fd)
