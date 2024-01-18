@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:08 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 01:15:21 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/19 01:39:56 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,16 @@ class Channel
 {
 	private:
 		std::string				_name;
-		std::vector<Client *>	_clients;
+		std::vector<Client *>	_members;
 		std::string				_topic;
 		std::string				_key;
+		int						_userLimit;
+		/* MODES */
+		bool	_i; // Invite-only
+		bool	_t; // restrict TOPIC
+		bool	_k; // set key
+		bool	_o; // channel operator privilege
+		bool	_l; // user limit
 	public:
 		Channel(std::string name, std::string key);
 		~Channel();
@@ -36,6 +43,16 @@ class Channel
 
 		// getter
 		std::string getName();
+		std::string getKey();
+
+		bool isFull();
+		
+		/* get Modes */
+		bool isInviteMode();
+		bool isTopicMode();
+		bool isKeyMode();
+		bool isOperMode();
+		bool isLimitMode();
 };
 
 #include "Client.hpp"
