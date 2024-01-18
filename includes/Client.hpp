@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:50:51 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/18 17:43:44 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/18 17:58:43 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 # include "Channel.hpp"
 
-# define CHANLIMIT 1
+# define CHANLIMIT 3
 
 class Client
 {
