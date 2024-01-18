@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:12:18 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/15 23:31:13 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/18 13:28:20 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,15 @@ class User : public Command
 	public:
 		User(Server * srv);
 		~User();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
+class Test : public Command
+{
+	public:
+		Test(Server * srv);
+		~Test();
 
 		void execute(Client * client, std::vector<std::string> &args);
 };

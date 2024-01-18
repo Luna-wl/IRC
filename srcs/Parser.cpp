@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 22:50:18 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/16 00:10:23 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/18 13:28:46 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ Parser::Parser(Server * srv)
 	_cmd["NICK"] = new Nick(srv);
 	_cmd["PASS"] = new Pass(srv);
 	_cmd["USER"] = new User(srv);
+	_cmd["TEST"] = new Test(srv);
 }
 
 Parser::~Parser()
