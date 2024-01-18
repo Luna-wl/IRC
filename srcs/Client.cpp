@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:53:39 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/18 18:58:48 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 01:05:04 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@ void Client::setRegist(bool state)
 
 void Client::join(Channel * channel)
 {
+    if (_channels.count(channel->getName()))
+        return ;
     _channels[channel->getName()] = channel;
     channel->addClient(this);
     // std::cout << "Debug : set channel in client" << std::endl;
