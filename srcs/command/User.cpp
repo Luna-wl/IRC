@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 23:31:37 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/16 19:35:11 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/18 18:47:09 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void User::execute(Client * client, std::vector<std::string> & args)
 {
 	
 	if ( args.size() < 5) {
-		client->receive_message(ERR_NEEDMOREPARAMS(args[0]));
+		client->receive_message(ERR_NEEDMOREPARAMS(_srv->getName(), args[0]));
 	}
 	else if ( !client->isAuth() ) {
-		client->receive_message(ERR_NOTAUTHENTICATED);
+		client->receive_message(ERR_NOTAUTHENTICATED(_srv->getName()));
 	}
 	else if ( client->isRegist() ) {
-		client->receive_message(ERR_ALREADYREGISTRED);
+		client->receive_message(ERR_ALREADYREGISTRED(_srv->getName()));
 	}
 	else
 	{
@@ -33,6 +33,7 @@ void User::execute(Client * client, std::vector<std::string> & args)
 		client->setFullname(args[4]);
 		client->send_debug("Username : " + client->getUsername());
 		client->send_debug("Fullname : " + client->getFullname());
-		client->setRegist(true);
+		if (!client->getNickname().empty())
+			client->setRegist(true);
 	}
 }

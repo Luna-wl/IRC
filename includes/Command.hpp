@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Command.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:12:18 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/18 13:28:20 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/18 03:15:04 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,20 @@ class User : public Command
 		void execute(Client * client, std::vector<std::string> &args);
 };
 
-class Test : public Command
+class Join : public Command
 {
 	public:
-		Test(Server * srv);
-		~Test();
+		Join(Server * srv);
+		~Join();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
+class PrivMsg : public Command
+{
+	public:
+		PrivMsg(Server * srv);
+		~PrivMsg();
 
 		void execute(Client * client, std::vector<std::string> &args);
 };

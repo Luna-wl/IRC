@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:22:30 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/18 15:36:20 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/18 18:44:51 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,22 @@
 #include "Color.hpp"
 #include "Client.hpp"
 #include "Parser.hpp"
+#include "Channel.hpp"
 
 class Parser;
 
 class Server
 {
 	private:
-		std::string 					_port;
-		std::string 					_pass;
-		int								_server_fd;
-		std::vector<pollfd> 			_fds;
-		std::map<const int, Client *> 	_clients;
-		Parser*							_parser;
-		static bool						_run;
+		std::string							_name;
+		std::string 						_port;
+		std::string 						_pass;
+		int									_server_fd;
+		std::vector<pollfd> 				_fds;
+		std::map<std::string, Channel *>	_channels;
+		std::map<const int, Client *> 		_clients;
+		Parser*								_parser;
+		static bool							_run;
 	public:
 		
 		Server( const std::string & port, const std::string & pass );
@@ -56,8 +59,15 @@ class Server
 		static void set_state(bool state);
 
 		// getter
+		std::string getName();
 		std::string getPass();
+
 		std::map<const int, Client *> 	&getClient();
+		Client * get_client(std::string client_nickname);
+
+		void addChannel(Channel * channel);
+		Channel * getChannel(std::string channel_name);
+		bool isChanExist(std::string channel_name);
 };
 
 #endif

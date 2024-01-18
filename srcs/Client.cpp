@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:53:39 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/16 21:41:29 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/18 18:58:48 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ Client::Client( const int &client_fd, std::string hostname )
 Client::~Client()
 {
     
+}
+
+std::string Client::source()
+{
+    return _nickname + "!" + _username + "@" + _hostname;
 }
 
 void Client::receive_message(std::string str)
@@ -117,4 +122,21 @@ bool Client::isRegist()
 void Client::setRegist(bool state)
 {
     _regist = state;
+}
+
+void Client::join(Channel * channel)
+{
+    _channels[channel->getName()] = channel;
+    channel->addClient(this);
+    // std::cout << "Debug : set channel in client" << std::endl;
+}
+
+Channel * Client::getChannel(std::string channel_name)
+{
+    return _channels.count(channel_name) ? _channels[channel_name] : NULL;
+}
+
+int Client::getChannelSize()
+{
+    return _channels.size();
 }

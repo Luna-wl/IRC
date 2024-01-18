@@ -5,10 +5,13 @@ SRC =	srcs/main.cpp \
 		srcs/Server_util.cpp \
 		srcs/Client.cpp \
 		srcs/Parser.cpp \
+		srcs/Channel.cpp \
 		srcs/command/Command.cpp \
 		srcs/command/Nick.cpp	\
 		srcs/command/Pass.cpp \
-		srcs/command/User.cpp
+		srcs/command/User.cpp \
+		srcs/command/Join.cpp \
+		srcs/command/PrivMsg.cpp
 INCLUDES = -I ./includes
 
 CC = g++
