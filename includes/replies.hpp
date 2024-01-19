@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:53:45 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 23:12:19 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/19 23:29:28 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 #define ERR_NOTEXTTOSEND(source, cmd)					    ":" + source + " " + cmd + " 412 :No text to send"
 #define ERR_NOTOPLEVEL(source, cmd, mask)				    ":" + source + " " + cmd + " 413 " + mask + " :No toplevel domain specified"
 #define ERR_WILDTOPLEVEL(source, cmd, mask)				    ":" + source + " " + cmd + " 414 " + mask + " :Wildcard in toplevel domain"
-#define ERR_UNKNOWNCOMMAND(source, cmd, command)		    ":" + source + " " + cmd + " 421 " + command + " :Unknown command"
+#define ERR_UNKNOWNCOMMAND(source, cmd)		    			":" + source + " " + cmd + " 421 " + cmd + " :Unknown command"
 #define ERR_NOMOTD(source, cmd)							    ":" + source + " " + cmd + " 422 :MOTD File is missing"
 #define ERR_NOADMININFO(source, cmd, server)			    ":" + source + " " + cmd + " 423 " + server + " :No administrative info available"
 #define ERR_FILEERROR(source, cmd, fileop, file)		    ":" + source + " " + cmd + " 424 :File error doing " + fileop + " on " + file
@@ -51,7 +51,7 @@
 #define ERR_YOUREBANNEDCREEP(source, cmd)		    		":" + source + " " + cmd + " 465 :You are banned from this server"
 #define ERR_KEYSET(source, cmd, channel)					":" + source + " " + cmd + " 467 " + channel + " :Channel key already set"
 #define ERR_CHANNELISFULL(source, cmd, channel)		    	":" + source + " " + cmd + " 471 " + channel + " :Cannot join channel (+l)"
-#define ERR_UNKNOWNMODE(source, cmd, char)				    ":" + source + " " + cmd + " 472 " + char + " :is unknown mode char to me"
+#define ERR_UNKNOWNMODE(source, cmd, char)					":" + source + " " + cmd + " 472 " + char + " :is unknown mode char to me"
 #define ERR_INVITEONLYCHAN(source, cmd, channel)			":" + source + " " + cmd + " 473 " + channel + " :Cannot join channel (+i)"
 #define ERR_BANNEDFROMCHAN(source, cmd, channel)			":" + source + " " + cmd + " 474 " + channel + " :Cannot join channel (+b)"
 #define ERR_BADCHANNELKEY(source, cmd, channel)		    	":" + source + " " + cmd + " 475 " + channel + " :Cannot join channel (+k)"
@@ -64,9 +64,14 @@
 
 /* Replies */
 #define RPL_AWAY(source, cmd, nick, message)				":"	+ source + " " + cmd + " " + nick + " :" + message
-#define RPL_CHANAWAY(source, cmd, channel, message)		    ":" + source + " " + cmd + " " + channel + " :" + message
-#define RPL_INFO(source, cmd, message)                      ":" + source + " " + cmd + " : 371 : " + message
-#define RPL_ENDOFINFO(source, cmd)                          ":" + source + " " + cmd + " : 374 : End of /INFO list."
 #define RPL_NAMREPLY(source, cmd, symbol, channel, nick)	":" + source + " " + cmd + " " + symbol + " " + channel + " : 353 : " + nick
 #define RPL_ENDOFNAMES(source, cmd, channel)                ":" + source + " " + cmd + " " + channel + "  : 366 : End of /NAMES list."
+#define RPL_CHANAWAY(source, cmd, channel, message)			":" + source + " " + cmd + " " + channel + " :" + message
+#define RPL_INFO(source, cmd, message)						":" + source + " " + cmd + ": 371 :" + message
+#define RPL_ENDOFINFO(source, cmd)							":" + source + " " + cmd + ": 374 :End of /INFO list."
+#define RPL_YOUREOPER(source, cmd)							":" + source + " " + cmd + ": 381 :You are now an IRC operator"
+
+#define RPL_JOINCHAN(source, channel)						":" + source + " join #" + channel 
+#define RPL_LEAVECHAN(source, channel)						":" + source + " leave #" + channel
+
 #endif

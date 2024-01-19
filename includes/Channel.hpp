@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:08 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 22:34:20 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/19 23:29:21 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ class Channel
 		Channel(std::string name, std::string key);
 		~Channel();
 
-		void addClient(Client * clienet);
-		void send_message(Client * client, std::string message);
+		void addClient(Client * member);
+		void removeClient(Client * member);
+		void send_message(Client * member, std::string message);
 
 		// getter
 		std::string getName();

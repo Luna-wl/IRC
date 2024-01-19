@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:12:18 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 17:47:56 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/19 23:37:58 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,15 @@ class Join : public Command
 		void execute(Client * client, std::vector<std::string> &args);
 };
 
+class Part : public Command
+{
+	public:
+		Part(Server * srv);
+		~Part();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
 class PrivMsg : public Command
 {
 	public:
@@ -97,6 +106,15 @@ class Quit : public Command
 		void execute(Client * client, std::vector<std::string> &args);
 };
 
+class Notice : public Command
+{
+	public:
+		Notice(Server * srv);
+		~Notice();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
 class Names : public Command
 {
 	public:
@@ -104,6 +122,25 @@ class Names : public Command
 		~Names();
 
 		void execute(Client * client, std::vector<std::string> &args);
+};
+
+class Oper : public Command
+{
+	public:
+		Oper(Server * srv);
+		~Oper();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
+class Mode : public Command
+{
+	public:
+		Mode(Server * srv);
+		~Mode();
+
+		void execute(Client * client, std::vector<std::string> &args);
+		void getMode();
 };
 
 # include "Server.hpp"
