@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server_util.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:43:27 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/19 01:57:27 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 17:36:25 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,20 @@ std::string Server::time(int format)
 	}
 
 	return std::string(buffer);
+}
+
+void Server::clientDisconnect(int fd)
+{
+	close(fd); // close fd
+	delete _clients[fd]; // release memory
+	_clients.erase(fd); // remove from _client
+	for (std::vector<pollfd>::iterator it = _fds.begin(); it != _fds.end(); it++)
+	{
+		if (it->fd == fd)
+		{
+			_fds.erase(it); // remove from _fds
+			break;
+		}
+	}
+	std::cout << "[server]: Disconnect from user [" << fd << "]\n";
 }

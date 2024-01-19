@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:22:30 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/18 18:44:51 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 17:34:43 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ class Server
 		void add_client(int client_fd, std::string hostname);
 		void add_pollfd(int fd);
 		std::string time(int format);
+		void clientDisconnect(int fd);
 
 		static void set_state(bool state);
 

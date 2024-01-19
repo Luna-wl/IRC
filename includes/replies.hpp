@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replies.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:53:45 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 02:00:32 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 23:12:19 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,9 @@
 
 /* Replies */
 #define RPL_AWAY(source, cmd, nick, message)				":"	+ source + " " + cmd + " " + nick + " :" + message
-#define RPL_CHANAWAY(source, cmd, channel, message)		":" + source + " " + cmd + " " + channel + " :" + message
-#define RPL_INFO(source, cmd, message)                   ":" + source + " " + cmd + ": 371 : " + message
-#define RPL_ENDOFINFO(source, cmd)                            ":" + source + " " + cmd + ": 374 : End of /INFO list."
-
+#define RPL_CHANAWAY(source, cmd, channel, message)		    ":" + source + " " + cmd + " " + channel + " :" + message
+#define RPL_INFO(source, cmd, message)                      ":" + source + " " + cmd + " : 371 : " + message
+#define RPL_ENDOFINFO(source, cmd)                          ":" + source + " " + cmd + " : 374 : End of /INFO list."
+#define RPL_NAMREPLY(source, cmd, symbol, channel, nick)	":" + source + " " + cmd + " " + symbol + " " + channel + " : 353 : " + nick
+#define RPL_ENDOFNAMES(source, cmd, channel)                ":" + source + " " + cmd + " " + channel + "  : 366 : End of /NAMES list."
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:08 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 01:56:46 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 22:34:20 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ class Channel
 		// getter
 		std::string getName();
 		std::string getKey();
+		std::map<std::string, Client *> getMember();
 
 		bool isFull();
 		

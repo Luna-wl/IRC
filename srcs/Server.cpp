@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/18 18:45:15 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 17:41:17 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ Server::~Server( void )
 	for (int i = 0; i < _fds.size(); i++)
 	{
 		close(_fds[i].fd);
+	}
+	for (std::map<std::string, Channel *>::iterator it = _channels.begin(); it != _channels.end(); it++)
+	{
+		delete it->second;
 	}
 }
 
@@ -93,13 +97,7 @@ void Server::server_loop()
 		{
 			if (it->revents & POLLHUP)
 			{
-				std::cout << "[server]: Disconnect from user [" << it->fd << "]\n";
-
-				close(it->fd); // close fd
-				delete _clients[it->fd]; // release memory
-				_clients.erase(it->fd); // remove from _client
-				_fds.erase(it); // remove from _fds
-
+				clientDisconnect(it->fd);
 				break;
 			}
 			else if (it->revents & POLLIN)

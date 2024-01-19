@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Parser.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 22:50:18 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/18 03:14:43 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 17:43:07 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ Parser::Parser(Server * srv)
 	_cmd["USER"] = new User(srv);
 	_cmd["JOIN"] = new Join(srv);
 	_cmd["PRIVMSG"] = new PrivMsg(srv);
+	_cmd["QUIT"] = new Quit(srv);
+	_cmd["NAMES"] = new Names(srv);
 }
 
 Parser::~Parser()

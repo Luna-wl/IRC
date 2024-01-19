@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:12:18 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 01:10:08 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/19 17:47:56 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ class Command
 
 		virtual void execute(Client * client, std::vector<std::string> &args) = 0;
 };
+
+std::vector<std::string> commaSeperator(std::string arg);
 
 /* Command */
 
@@ -82,6 +84,24 @@ class PrivMsg : public Command
 	public:
 		PrivMsg(Server * srv);
 		~PrivMsg();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
+class Quit : public Command
+{
+	public:
+		Quit(Server * srv);
+		~Quit();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
+class Names : public Command
+{
+	public:
+		Names(Server * srv);
+		~Names();
 
 		void execute(Client * client, std::vector<std::string> &args);
 };

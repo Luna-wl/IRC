@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   Join.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:58:49 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 01:44:29 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 17:47:26 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Command.hpp"
-
-std::vector<std::string> commaSeperator(std::string arg)
-{
-	std::vector<std::string> ret;
-	size_t pos = 0;
-	while ((pos = arg.find(",")) != std::string::npos)
-	{
-		ret.push_back(arg.substr(0, pos));
-		arg.erase(0, pos + 1);
-	}
-	ret.push_back(arg.substr(0, pos));
-	return (ret);
-}
 
 Join::Join(Server * srv) : Command(srv) {}
 Join::~Join() {}
