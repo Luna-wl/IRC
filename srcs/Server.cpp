@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 23:27:24 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/19 23:47:48 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,6 @@ Server::~Server( void )
 	for (int i = 0; i < _fds.size(); i++)
 	{
 		close(_fds[i].fd);
-	}
-	for (std::map<std::string, Channel *>::iterator it = _channels.begin(); it != _channels.end(); it++)
-	{
-		delete it->second;
 	}
 }
 
@@ -155,7 +151,6 @@ Client * Server::get_client(std::string client_nickname)
 void Server::addChannel(Channel * channel)
 {
 	_channels[channel->getName()] = channel;
-	// std::cout << "Debug : set channel to server" << std::endl;
 }
 
 Channel * Server::getChannel(std::string channel_name)

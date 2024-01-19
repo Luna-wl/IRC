@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Client.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:50:51 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/19 16:19:30 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 23:44:20 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ class Client
 		void join(Channel * channel);
 		void leave(Channel * channel);
 		Channel * getChannel(std::string channel_name);
+		std::map<std::string, Channel *> getAllChannel();
 		int getChannelSize();
 };
 

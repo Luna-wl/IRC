@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Nick.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:16:57 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 01:57:39 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/20 00:05:20 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ Nick::~Nick() {}
 
 void Nick::execute(Client * client, std::vector<std::string> &args)
 {
-	std::cout << "[NICK] executed" << std::endl;
-
 	if (!client->isAuth()) {
 		client->receive_message(ERR_NOTAUTHENTICATED(_srv->getName(), args[0]));
 	}

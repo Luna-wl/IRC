@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 17:42:31 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/19 23:18:08 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/20 00:02:22 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@ std::string getSymbol(Channel * channel)
 	return symbol;
 }
 
+std::string getUserPrefix(Client * client)
+{
+	std::string nick = client->getNickname();
+	if (client->isOper())
+		nick = "@" + nick;
+	return nick;
+}
+
 void Names::execute(Client * client, std::vector<std::string> & args)
 {
  	if ( !client->isRegist() ) {
@@ -36,7 +44,7 @@ void Names::execute(Client * client, std::vector<std::string> & args)
 		std::string nick;
 		std::map<const int, Client *> member = _srv->getClient();
 		for (std::map<const int, Client *>::iterator it = member.begin(); it != member.end(); it++)
-			nick += it->second->getNickname() + " ";
+			nick += getUserPrefix(it->second) + " ";
 		client->receive_message(RPL_NAMREPLY(client->source(), args[0], "", "", nick));
 		client->receive_message(RPL_ENDOFNAMES(client->source(), args[0], ""));
 	}
@@ -56,7 +64,7 @@ void Names::execute(Client * client, std::vector<std::string> & args)
 			std::map<std::string, Client *> member = channel->getMember();
 			std::string nick;
 			for (std::map<std::string, Client *>::iterator it = member.begin(); it != member.end(); it++)
-				nick += it->first + " "; // not yet (add prefix @op_user)
+				nick += getUserPrefix(it->second) + " "; // not yet (add prefix @op_user)
 			client->receive_message(RPL_NAMREPLY(client->source(), args[0], symbol, channel_name, nick));
 			client->receive_message(RPL_ENDOFNAMES(client->source(), args[0], channel_name));
 		}

@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:55 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 23:27:58 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/19 23:52:31 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@ Channel::~Channel() {}
 
 void Channel::addClient(Client * member)
 {
-	for (std::map<std::string, Client *>::iterator it=_members.begin(); it!=_members.end(); it++) {
-		send_message(member, RPL_JOINCHAN(member->source(), getName()));
-	}
+	send_message(member, RPL_JOINCHAN(member->source(), getName()));
 	_members[member->getNickname()] = member;
 }
 
@@ -37,9 +35,7 @@ void Channel::removeClient(Client * member)
 	if (!_members.count(member->getNickname()))
 		return;
 	_members.erase(member->getNickname());
-	for (std::map<std::string, Client *>::iterator it=_members.begin(); it!=_members.end(); it++) {
-		send_message(member, RPL_LEAVECHAN(member->source(), getName()));
-	}
+	send_message(member, RPL_LEAVECHAN(member->source(), getName()));
 }
 
 void Channel::send_message(Client * member, std::string message) {
@@ -48,6 +44,11 @@ void Channel::send_message(Client * member, std::string message) {
 			continue;
 		it->second->receive_message(message);
 	}
+}
+
+std::map<std::string, Channel *> Client::getAllChannel()
+{
+	return _channels;
 }
 
 std::map<std::string, Client *> Channel::getMember()
