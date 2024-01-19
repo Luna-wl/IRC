@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:12:18 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 14:37:33 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:47:02 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,17 @@ class Join : public Command
 		~Join();
 
 		void execute(Client * client, std::vector<std::string> &args);
+		std::vector<std::string> commaSeperator(std::string arg);
+};
+
+class Part : public Command
+{
+	public:
+		Part(Server * srv);
+		~Part();
+
+		void execute(Client * client, std::vector<std::string> &args);
+		std::vector<std::string> commaSeperator(std::string arg);
 };
 
 class PrivMsg : public Command

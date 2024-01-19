@@ -11,6 +11,7 @@ SRC =	srcs/main.cpp \
 		srcs/command/Pass.cpp \
 		srcs/command/User.cpp \
 		srcs/command/Join.cpp \
+		srcs/command/Part.cpp \
 		srcs/command/PrivMsg.cpp \
 		srcs/command/Notice.cpp
 

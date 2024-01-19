@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:53:39 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/19 01:05:04 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:34:00 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,14 @@ bool Client::isRegist()
 void Client::setRegist(bool state)
 {
     _regist = state;
+}
+
+void Client::leave(Channel * channel)
+{
+    if (!_channels.count(channel->getName()))
+        return ;
+    _channels.erase(channel->getName());
+    channel->removeClient(this);
 }
 
 void Client::join(Channel * channel)

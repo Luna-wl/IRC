@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/18 18:45:15 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:39:19 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ Server::~Server( void )
 	// std::cout << "Server deconstructure called." << std::endl;
 	delete _parser;
 	for (std::map<const int, Client *>::iterator it=_clients.begin(); it!=_clients.end(); it++)
+	{
+		delete it->second;
+	}
+	for (std::map<std::string, Channel *>::iterator it=_channels.begin(); it!=_channels.end(); it++)
 	{
 		delete it->second;
 	}

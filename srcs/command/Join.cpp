@@ -6,13 +6,13 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:58:49 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 01:44:29 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:47:10 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Command.hpp"
 
-std::vector<std::string> commaSeperator(std::string arg)
+std::vector<std::string> Join::commaSeperator(std::string arg)
 {
 	std::vector<std::string> ret;
 	size_t pos = 0;

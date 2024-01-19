@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:55 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 01:56:37 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:36:14 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,20 @@ Channel::Channel(std::string name, std::string key) : _i(false), _t(false), _k(f
 
 Channel::~Channel() {}
 
-void Channel::addClient(Client * client)
+void Channel::addClient(Client * member)
 {
-	_members[client->getNickname()] = client;
+	_members[member->getNickname()] = member;
 }
 
-void Channel::send_message(Client * client, std::string message) {
+void Channel::removeClient(Client * member)
+{
+	if (_members.count(member->getNickname()))
+		_members.erase(member->getNickname());
+}
+
+void Channel::send_message(Client * member, std::string message) {
 	for (std::map<std::string, Client *>::iterator it = _members.begin(); it != _members.end(); it++) {
-		if (it->second == client)
+		if (it->second == member)
 			continue;
 		it->second->receive_message(message);
 	}
