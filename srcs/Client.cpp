@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:53:39 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/19 16:26:51 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 17:08:23 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ void Client::join(Channel * channel)
         return ;
     _channels[channel->getName()] = channel;
     channel->addClient(this);
-    // std::cout << "Debug : set channel in client" << std::endl;
+    std::cout << "Debug : set channel in client" << std::endl;
 }
 
 Channel * Client::getChannel(std::string channel_name)
