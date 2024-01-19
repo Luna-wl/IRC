@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:53:45 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 02:00:32 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:46:08 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 #define ERR_NOTEXTTOSEND(source, cmd)					    ":" + source + " " + cmd + " 412 :No text to send"
 #define ERR_NOTOPLEVEL(source, cmd, mask)				    ":" + source + " " + cmd + " 413 " + mask + " :No toplevel domain specified"
 #define ERR_WILDTOPLEVEL(source, cmd, mask)				    ":" + source + " " + cmd + " 414 " + mask + " :Wildcard in toplevel domain"
-#define ERR_UNKNOWNCOMMAND(source, cmd, command)		    ":" + source + " " + cmd + " 421 " + command + " :Unknown command"
+#define ERR_UNKNOWNCOMMAND(source, cmd)		    			":" + source + " " + cmd + " 421 " + cmd + " :Unknown command"
 #define ERR_NOMOTD(source, cmd)							    ":" + source + " " + cmd + " 422 :MOTD File is missing"
 #define ERR_NOADMININFO(source, cmd, server)			    ":" + source + " " + cmd + " 423 " + server + " :No administrative info available"
 #define ERR_FILEERROR(source, cmd, fileop, file)		    ":" + source + " " + cmd + " 424 :File error doing " + fileop + " on " + file

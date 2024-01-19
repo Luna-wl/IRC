@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 22:50:18 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/18 03:14:43 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:46:14 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ Parser::Parser(Server * srv)
 	_cmd["USER"] = new User(srv);
 	_cmd["JOIN"] = new Join(srv);
 	_cmd["PRIVMSG"] = new PrivMsg(srv);
+	_cmd["NOTICE"] = new Notice(srv);
 }
 
 Parser::~Parser()
@@ -46,4 +47,6 @@ void Parser::analyze(Client *client, std::string &text)
 	// std::cout << "vector size: " << args.size() << std::endl;
 	if (_cmd.count(args[0]))
 		_cmd[args[0]]->execute(client, args);
+	else
+		client->receive_message(ERR_UNKNOWNCOMMAND(_srv->getName(), args[0]));
 }

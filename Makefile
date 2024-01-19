@@ -11,7 +11,8 @@ SRC =	srcs/main.cpp \
 		srcs/command/Pass.cpp \
 		srcs/command/User.cpp \
 		srcs/command/Join.cpp \
-		srcs/command/PrivMsg.cpp
+		srcs/command/PrivMsg.cpp \
+		srcs/command/Notice.cpp
 
 INCLUDES = ./includes
 

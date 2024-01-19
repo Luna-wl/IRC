@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Command.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:12:18 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 01:10:08 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/19 14:37:33 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,15 @@ class PrivMsg : public Command
 	public:
 		PrivMsg(Server * srv);
 		~PrivMsg();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
+class Notice : public Command
+{
+	public:
+		Notice(Server * srv);
+		~Notice();
 
 		void execute(Client * client, std::vector<std::string> &args);
 };
