@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:08 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 23:29:21 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/20 01:30:46 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,17 @@
 # include <iostream>
 # include <map>
 
-# include "replies.hpp"
+# include "Server.hpp"
 
 class Client;
 
 class Channel
 {
 	private:
+		Server *						_srv;
 		std::string						_name;
 		std::map<std::string, Client *>	_members;
+		std::map<std::string, bool>		_opMembers;
 		std::string						_topic;
 		std::string						_key;
 		int								_userLimit;
@@ -32,14 +34,16 @@ class Channel
 		bool	_i; // Invite-only
 		bool	_t; // restrict TOPIC
 		bool	_k; // set key
-		bool	_o; // channel operator privilege
 		bool	_l; // user limit
 	public:
-		Channel(std::string name, std::string key);
+		Channel(Server * srv, std::string name, std::string key);
 		~Channel();
 
-		void addClient(Client * member);
+		void addMember(Client * member);
 		void removeClient(Client * member);
+		void addChanOp(std::string nick);
+		bool isChanOp(std::string nick);
+
 		void send_message(Client * member, std::string message);
 
 		// getter
@@ -47,13 +51,14 @@ class Channel
 		std::string getKey();
 		std::map<std::string, Client *> getMember();
 
+		
+
 		bool isFull();
 		
 		/* get Modes */
 		bool isInviteMode();
 		bool isTopicMode();
 		bool isKeyMode();
-		bool isOperMode();
 		bool isLimitMode();
 };
 

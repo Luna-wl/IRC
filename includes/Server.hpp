@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:22:30 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 17:34:43 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/20 01:26:25 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@
 #include <iomanip>
 
 #include "Color.hpp"
-#include "Client.hpp"
-#include "Parser.hpp"
-#include "Channel.hpp"
+#include "replies.hpp"
 
+class Channel;
+class Client;
 class Parser;
 
 class Server
@@ -67,8 +67,13 @@ class Server
 		Client * get_client(std::string client_nickname);
 
 		void addChannel(Channel * channel);
+		void removeChannel(std::string channel_name);
 		Channel * getChannel(std::string channel_name);
 		bool isChanExist(std::string channel_name);
 };
+
+#include "Channel.hpp"
+#include "Client.hpp"
+#include "Parser.hpp"
 
 #endif

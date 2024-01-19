@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:55 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 23:52:31 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/20 01:15:52 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Channel.hpp"
 
-Channel::Channel(std::string name, std::string key) : _i(false), _t(false), _k(false), _o(false), _l(false)
+Channel::Channel(Server * srv, std::string name, std::string key) : _i(false), _t(false), _k(false), _l(false)
 {
+	_srv = srv;
 	_name = name;
 	if (!key.empty()) {
 		_key = key;
@@ -24,7 +25,7 @@ Channel::Channel(std::string name, std::string key) : _i(false), _t(false), _k(f
 
 Channel::~Channel() {}
 
-void Channel::addClient(Client * member)
+void Channel::addMember(Client * member)
 {
 	send_message(member, RPL_JOINCHAN(member->source(), getName()));
 	_members[member->getNickname()] = member;
@@ -35,7 +36,21 @@ void Channel::removeClient(Client * member)
 	if (!_members.count(member->getNickname()))
 		return;
 	_members.erase(member->getNickname());
+	if (_members.size() == 0) {
+		_srv->removeChannel(_name);
+		return ;
+	}
 	send_message(member, RPL_LEAVECHAN(member->source(), getName()));
+}
+
+void Channel::addChanOp(std::string nick)
+{
+	_opMembers[nick] = true;
+}
+
+bool Channel::isChanOp(std::string nick)
+{
+	return _opMembers.count(nick) ? true : false;
 }
 
 void Channel::send_message(Client * member, std::string message) {
@@ -84,11 +99,6 @@ bool Channel::isKeyMode()
 bool Channel::isLimitMode()
 {
 	return _l;
-}
-
-bool Channel::isOperMode()
-{
-	return _o;
 }
 
 bool Channel::isTopicMode()

@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 22:08:57 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 23:18:09 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/20 00:43:48 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void Mode::execute(Client * client, std::vector<std::string> &args)
 
 	std::string target = args[1];
 	std::string mode = args[2];
-
 	
 	if ( target.at(0) == '#') { // change channel mode
 		

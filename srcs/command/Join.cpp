@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Join.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:58:49 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 23:37:20 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/20 01:07:35 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@ void Join::execute(Client * client, std::vector<std::string> &args)
 			
 			Channel * channel;
 			if (!_srv->isChanExist(channel_name)) {
-				channel = new Channel(channel_name, channel_key);
+				channel = new Channel(_srv, channel_name, channel_key);
 				_srv->addChannel(channel);
+				channel->addChanOp(client->getNickname());
 			} else {
 				channel = _srv->getChannel(channel_name);
 			}
@@ -53,8 +54,6 @@ void Join::execute(Client * client, std::vector<std::string> &args)
 				client->receive_message(ERR_CHANNELISFULL(_srv->getName(), args[0], channel->getName()));
 			} else if (channel->isInviteMode()) {
 				client->receive_message(ERR_INVITEONLYCHAN(_srv->getName(), args[0], channel->getName()));
-			} else if (channel->isOperMode() && !client->isOper()) {
-				client->receive_message(ERR_NOPRIVILEGES(_srv->getName(), args[0]));
 			} else {
 				client->join(channel);
 			}

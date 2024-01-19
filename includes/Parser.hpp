@@ -3,9 +3,10 @@
 
 # include <sstream>
 
-# include "Client.hpp"
 # include "Server.hpp"
+# include "Client.hpp"
 # include "Command.hpp"
+class Command;
 
 class Parser
 {

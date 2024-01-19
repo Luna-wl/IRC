@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Command.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:12:18 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 23:37:58 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/20 01:29:14 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,9 @@
 # include <vector>
 # include <sys/socket.h>
 
+# include "Server.hpp"
+# include "Channel.hpp"
 # include "Client.hpp"
-# include "replies.hpp"
-
-class Server;
 
 class Command
 {
@@ -142,7 +141,5 @@ class Mode : public Command
 		void execute(Client * client, std::vector<std::string> &args);
 		void getMode();
 };
-
-# include "Server.hpp"
 
 #endif
