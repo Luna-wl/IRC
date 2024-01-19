@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 22:50:18 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/19 16:07:54 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 22:21:25 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ Parser::Parser(Server * srv)
 	_cmd["PRIVMSG"] = new PrivMsg(srv);
 	_cmd["NOTICE"] = new Notice(srv);
 	_cmd["OPER"] = new Oper(srv);
+	_cmd["MODE"] = new Mode(srv);
 }
 
 Parser::~Parser()

@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:53:45 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 17:03:03 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 22:38:57 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@
 #define ERR_YOUREBANNEDCREEP(source, cmd)		    		":" + source + " " + cmd + " 465 :You are banned from this server"
 #define ERR_KEYSET(source, cmd, channel)					":" + source + " " + cmd + " 467 " + channel + " :Channel key already set"
 #define ERR_CHANNELISFULL(source, cmd, channel)		    	":" + source + " " + cmd + " 471 " + channel + " :Cannot join channel (+l)"
-#define ERR_UNKNOWNMODE(source, cmd, char)				    ":" + source + " " + cmd + " 472 " + char + " :is unknown mode char to me"
+#define ERR_UNKNOWNMODE(source, cmd, char)					":" + source + " " + cmd + " 472 " + char + " :is unknown mode char to me"
 #define ERR_INVITEONLYCHAN(source, cmd, channel)			":" + source + " " + cmd + " 473 " + channel + " :Cannot join channel (+i)"
 #define ERR_BANNEDFROMCHAN(source, cmd, channel)			":" + source + " " + cmd + " 474 " + channel + " :Cannot join channel (+b)"
 #define ERR_BADCHANNELKEY(source, cmd, channel)		    	":" + source + " " + cmd + " 475 " + channel + " :Cannot join channel (+k)"

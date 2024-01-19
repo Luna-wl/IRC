@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:12:18 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 16:25:35 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 23:04:17 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,16 @@ class Oper : public Command
 		~Oper();
 
 		void execute(Client * client, std::vector<std::string> &args);
+};
+
+class Mode : public Command
+{
+	public:
+		Mode(Server * srv);
+		~Mode();
+
+		void execute(Client * client, std::vector<std::string> &args);
+		void getMode();
 };
 
 # include "Server.hpp"

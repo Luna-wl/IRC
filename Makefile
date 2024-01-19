@@ -14,7 +14,8 @@ SRC =	srcs/main.cpp \
 		srcs/command/Part.cpp \
 		srcs/command/PrivMsg.cpp \
 		srcs/command/Notice.cpp \
-		srcs/command/Oper.cpp
+		srcs/command/Oper.cpp \
+		srcs/command/Mode.cpp
 
 INCLUDES = ./includes
 
