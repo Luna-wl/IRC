@@ -1,18 +1,25 @@
 NAME = ircserv
 
-SRC =	srcs/main.cpp \
-		srcs/Server.cpp \
-		srcs/Server_util.cpp \
-		srcs/Client.cpp \
-		srcs/Parser.cpp \
-		srcs/Channel.cpp \
-		srcs/command/Command.cpp \
-		srcs/command/Nick.cpp	\
-		srcs/command/Pass.cpp \
-		srcs/command/User.cpp \
-		srcs/command/Join.cpp \
-		srcs/command/PrivMsg.cpp
-INCLUDES = -I ./includes
+SRCS_DIR := ./srcs/
+SRCS := Client.cpp \
+		main.cpp \
+		Parser.cpp \
+		Server.cpp \
+		Server_util.cpp \
+		Channel.cpp 
+
+
+CMD_DIR := ./srcs/command/
+CMD := 	Nick.cpp \
+		Kick.cpp \
+		List.cpp \
+		Invite.cpp \
+		Pass.cpp \
+		Topic.cpp \
+		User.cpp \
+		Join.cpp \
+		PrivMsg.cpp \
+		Command.cpp 
 
 CC = g++
 
@@ -20,23 +27,58 @@ CFLAGS = -Wall -Wextra -Werror # -g -fsanitize=address
 
 CPPFLAGS = -std=c++98
 
-OBJ = $(SRC:.cpp=.o)
+OBJ_DIR = ./obj/
 
-all: $(NAME)
+OBJS = ${addprefix $(OBJ_DIR), $(SRCS:.cpp=.o)} \
+		${addprefix $(OBJ_DIR), $(CMD:.cpp=.o)}
 
-%o: %cpp
-	@$(CC) $(CFLAG) $(INCLUDES) -c $< -o $@
+RM = rm -rf
 
-$(NAME): $(OBJ)
-	@printf "$(GREEN)"
-	@$(CC) $(CFLAGS) $(CPPFLAGS) $(INCLUDES) $(OBJ) -o $@
+BRED =\033[1;31m
+BGRN =\033[1;32m
+BYEL =\033[1;33m
+BBLU =\033[1;34m
+BMAG =\033[1;35m
+BCYN =\033[1;36m
+RES = \033[0m
+
+CLEAN = echo "$(BRED)Clean.....$(RES)"
+
+${OBJ_DIR}%.o: ${SRCS_DIR}%.cpp
+	@printf "$(BGRN)\rCompiling $(BYEL)$< "
+	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+
+${OBJ_DIR}%.o: ${CMD_DIR}%.cpp
+	@printf "$(BGRN)\rCompiling commands $(BYEL)$< "
+	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+
+all: ${OBJ_DIR} ${NAME}
+
+${OBJ_DIR}:
+	@mkdir -p $(OBJ_DIR)
+
+${NAME}: ${OBJS}
+	@$(CC) $(CFLAGS) $(CPPFLAG) $(OBJS) -o $(NAME)
+	@echo "\n$(BMAG) .----------------.  .----------------.  .------------------.  .----------------."
+	@echo "$(BMAG)| .--------------. || .--------------. || .---------------. || .--------------. |"
+	@echo "$(BMAG)| |  $(BCYN)________$(BMAG)    | || |    $(BCYN) ____ $(BMAG)    | || |  $(BCYN)____  _____ $(BMAG) | || | $(BCYN) _________ $(BMAG)  | |"
+	@echo "$(BMAG)| | $(BCYN)|_   ___ \`.$(BMAG)  | || |  $(BCYN) .'    \`.$(BMAG)   | || | $(BCYN)|_   \\|_   _|$(BMAG) | || | $(BCYN)|_   ___  |$(BMAG)  | |"
+	@echo "$(BMAG)| |   $(BCYN)| |   \`. \\ $(BMAG)| || |  $(BCYN)/  .--.  \\  $(BMAG)| || |   $(BCYN)|   \\ | | $(BMAG)  | || | $(BCYN)  | |_  \\_| $(BMAG) | |"
+	@echo "$(BMAG)| |   $(BCYN)| |    | |$(BMAG) | || |  $(BCYN)| |    | |$(BMAG)  | || |   $(BCYN)| |\\ \\| | $(BMAG)  | || | $(BCYN)  |  _|  _  $(BMAG) | |"
+	@echo "$(BMAG)| | $(BCYN) _| |___.' /$(BMAG) | || |  $(BCYN)\\  \`--'  / $(BMAG) | || |  $(BCYN)_| |_\\   |_$(BMAG)  | || | $(BCYN) _| |___/ | $(BMAG) | |"
+	@echo "$(BMAG)| | $(BCYN)|________.'$(BMAG)  | || |   $(BCYN)\`.____.'$(BMAG)   | || | $(BCYN)|_____|\____|$(BMAG) | || | $(BCYN)|_________| $(BMAG) | |"
+	@echo "$(BMAG)| |              | || |              | || |               | || |              | |"
+	@echo "$(BMAG)| '--------------' || '--------------' || '---------------' || '--------------' |"
+	@echo "$(BMAG)  '----------------'  '----------------'  '-----------------'  '---------------'"
 
 clean:
-	@rm -f $(OBJ)
+	@$(RM) $(OBJ_DIR)
+	@$(RM) *.dSYM
 
 fclean: clean
 	@clear
-	@rm -f $(NAME)
+	@$(RM) $(NAME) $(OBJ_DIR)
+	@$(CLEAN)
 
 re: fclean all
 
