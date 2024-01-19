@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:12:18 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 15:47:02 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:25:35 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,15 @@ class Notice : public Command
 	public:
 		Notice(Server * srv);
 		~Notice();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
+class Oper : public Command
+{
+	public:
+		Oper(Server * srv);
+		~Oper();
 
 		void execute(Client * client, std::vector<std::string> &args);
 };

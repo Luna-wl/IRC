@@ -13,7 +13,8 @@ SRC =	srcs/main.cpp \
 		srcs/command/Join.cpp \
 		srcs/command/Part.cpp \
 		srcs/command/PrivMsg.cpp \
-		srcs/command/Notice.cpp
+		srcs/command/Notice.cpp \
+		srcs/command/Oper.cpp
 
 INCLUDES = ./includes
 

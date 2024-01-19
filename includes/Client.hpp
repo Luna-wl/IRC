@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:50:51 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/19 15:31:28 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:19:30 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ class Client
 
 		bool			_auth;
 		bool			_regist;
+		bool			_op; // operator or regular user
 		// int				_socket; // Socket descriptor for the user's connection
+
 	
 		std::map<std::string, Channel *> _channels;
 
@@ -65,6 +67,8 @@ class Client
 		void setAuth(bool state);
 		bool isRegist();
 		void setRegist(bool state);
+		bool isOper();
+		void setOper(bool state);
 
 		void join(Channel * channel);
 		void leave(Channel * channel);

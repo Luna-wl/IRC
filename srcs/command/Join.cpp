@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:58:49 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 15:47:10 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:37:13 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,9 @@ void Join::execute(Client * client, std::vector<std::string> &args)
 				client->receive_message(ERR_CHANNELISFULL(_srv->getName(), args[0], channel->getName()));
 			} else if (channel->isInviteMode()) {
 				client->receive_message(ERR_INVITEONLYCHAN(_srv->getName(), args[0], channel->getName()));
-			} 
-			/* use after setting Client OPER finish */
-			// else if (channel->isOperMode() && <client must be oper>) {
-				
-			// } 
-			else {
+			} else if (channel->isOperMode() && !client->isOper()) {
+				client->receive_message(ERR_NOPRIVILEGES(_srv->getName(), args[0]));
+			} else {
 				client->join(channel);
 			}
 			if (key_it != keys.end())
