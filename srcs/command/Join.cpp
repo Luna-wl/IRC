@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:58:49 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 01:07:35 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/20 02:26:15 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,13 @@ void Join::execute(Client * client, std::vector<std::string> &args)
 		{
 			std::string channel_name = *ch_it;
 			std::string channel_key = key_it != keys.end() ? *key_it : "";
+
+			if (channel_name[0] != '#' || channel_name.size() == 1) {
+				client->receive_message(ERR_BADCHANMASK(_srv->getName(), args[0], channel_name));
+				ch_it++;
+				continue;
+			}
+			channel_name.erase(0, 1);
 			
 			Channel * channel;
 			if (!_srv->isChanExist(channel_name)) {

@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:55 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 01:15:52 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/20 03:20:50 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ Channel::Channel(Server * srv, std::string name, std::string key) : _i(false), _
 {
 	_srv = srv;
 	_name = name;
+	_userLimit = 3;
 	if (!key.empty()) {
 		_key = key;
 		_k = true;

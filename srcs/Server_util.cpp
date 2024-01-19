@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server_util.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:43:27 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/19 17:36:25 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/20 02:55:37 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void Server::receive_message(int fd)
 	
 	recv(fd, buffer, sizeof(buffer), 0);
 	std::string text(buffer);
-	int found = text.find("\n");
+	int found = text.find_first_of("\r\n");
 	if (found != std::string::npos)
 		text = text.substr(0, found);
 
@@ -93,6 +93,12 @@ std::string Server::time(int format)
 
 void Server::clientDisconnect(int fd)
 {
+	Client * client = _clients[fd];
+	std::map<std::string, Channel *> channels = client->getAllChannel();
+    for (std::map<std::string, Channel *>::iterator ch_it = channels.begin(); ch_it != channels.end(); ch_it++)
+    {
+        client->leave(ch_it->second);
+    }
 	close(fd); // close fd
 	delete _clients[fd]; // release memory
 	_clients.erase(fd); // remove from _client

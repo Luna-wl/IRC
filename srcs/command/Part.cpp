@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Part.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 15:22:50 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 23:37:50 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/20 02:06:57 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@ void Part::execute(Client * client, std::vector<std::string> &args)
 		while (ch_it != channels.end())
 		{
 			std::string channel_name = *ch_it;
+			
+			if (channel_name[0] != '#') {
+				client->receive_message(ERR_BADCHANMASK(_srv->getName(), args[0], channel_name));
+				ch_it++;
+				continue;
+			}
+			channel_name.erase(0, 1);
+			
 			Channel * channel = client->getChannel(channel_name);
 			if (!channel) {
 				client->receive_message(ERR_NOTONCHANNEL(_srv->getName(), args[0], "#" + channel_name));
