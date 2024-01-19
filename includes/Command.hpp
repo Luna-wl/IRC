@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Command.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:12:18 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/18 03:15:04 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 12:44:00 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,43 @@ class PrivMsg : public Command
 
 		void execute(Client * client, std::vector<std::string> &args);
 };
+
+class Topic : public Command
+{
+	public:
+		Topic(Server * srv);
+		~Topic();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
+class Kick : public Command
+{
+	public:
+		Kick(Server * srv);
+		~Kick();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
+class List : public Command
+{
+	public:
+		List(Server * srv);
+		~List();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
+class Invite : public Command
+{
+	public:
+		Invite(Server * srv);
+		~Invite();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
 
 # include "Server.hpp"
 

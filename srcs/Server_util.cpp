@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   Server_util.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:43:27 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/16 21:41:51 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/19 22:39:21 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Server.hpp"
+#include "../includes/Server.hpp"
 
 void Server::create_connection()
 {
@@ -66,7 +66,7 @@ void Server::receive_message(int fd)
 	
 	recv(fd, buffer, sizeof(buffer), 0);
 	std::string text(buffer);
-	int found = text.find("\n");
+	const unsigned long found = text.find("\n");
 	if (found != std::string::npos)
 		text = text.substr(0, found);
 

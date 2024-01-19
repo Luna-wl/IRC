@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replies.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:53:45 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/18 19:04:17 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/20 01:01:45 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,15 @@
 #define ERR_NOOPERHOST(source)						":" + source + " :Error(491) :No O-lines for your host"
 #define ERR_UMODEUNKNOWNFLAG(source)				":" + source + " :Error(501) :Unknown MODE flag"
 #define ERR_USERSDONTMATCH(source)					":" + source + " :Error(502) :Cant change mode for other users"
+#define ERR_TOOMANYARGUMENTS(source, command)		":" + source + " :Error(512) " + command + " :Too many arguments"
 
 /* Replies */
 #define RPL_AWAY(source, nick, message)				":"	+ source + " " + nick + " :" + message
 #define RPL_CHANAWAY(source, channel, message)		":" + source + " " + channel + " :" + message
+
+// List replies
+#define RPL_LISTSTART(source)						":" + source + " :Channel :Users  Name"
+#define RPL_LIST(source, channel, user_count, topic)	":" + source + " " + channel + " " + user_count + " :" + topic
+#define RPL_LISTEND(source)							":" + source + " :End of /LIST"
 
 #endif

@@ -1,4 +1,4 @@
-#include "Command.hpp"
+#include "../../includes/Command.hpp"
 
 Command::Command(Server * srv)
 {

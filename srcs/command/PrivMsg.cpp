@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Command.hpp"
+#include "../../includes/Command.hpp"
 
 PrivMsg::PrivMsg(Server * srv) : Command(srv) {}
 PrivMsg::~PrivMsg() {}

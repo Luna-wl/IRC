@@ -16,6 +16,7 @@ class Parser
         Parser(Server * srv);
         ~Parser();
         void analyze(Client *client, std::string &text);
+		void welcomeMessage(Client *client);
 };
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:22:30 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/18 18:44:51 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/20 01:28:11 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ class Server
 		void addChannel(Channel * channel);
 		Channel * getChannel(std::string channel_name);
 		bool isChanExist(std::string channel_name);
+
+		std::map<std::string, Channel*>& getChannels();
 };
 
 #endif

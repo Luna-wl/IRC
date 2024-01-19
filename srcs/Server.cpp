@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/18 18:45:15 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/20 01:28:01 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Server.hpp"
+#include "../includes/Server.hpp"
 
 bool Server::_run = true;
 
@@ -32,7 +32,7 @@ Server::~Server( void )
 	{
 		delete it->second;
 	}
-	for (int i = 0; i < _fds.size(); i++)
+	for (unsigned long i = 0; i < _fds.size(); i++)
 	{
 		close(_fds[i].fd);
 	}
@@ -164,4 +164,8 @@ Channel * Server::getChannel(std::string channel_name)
 bool Server::isChanExist(std::string channel_name)
 {
 	return _channels.count(channel_name) ? true : false;
+}
+
+std::map<std::string, Channel*>& Server::getChannels() {
+	return _channels;
 }
