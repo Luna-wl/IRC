@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:12:18 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 01:29:14 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/20 12:14:31 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,12 +134,18 @@ class Oper : public Command
 
 class Mode : public Command
 {
+	private:
+		bool _validMode(std::string mode);
+		void _setInviteMode(Channel* channel, bool flag, std::vector<std::string> params);
+		void _setTopicMode(Channel* channel, bool flag, std::vector<std::string> params);
+		void _setKeyMode(Channel* channel, bool flag, std::vector<std::string> params);
+		void _setChanOperMode(Channel* channel, bool flag, std::vector<std::string> params);
+		void _setLimitMode(Channel* channel, bool flag, std::vector<std::string> params);
 	public:
 		Mode(Server * srv);
 		~Mode();
 
 		void execute(Client * client, std::vector<std::string> &args);
-		void getMode();
 };
 
 #endif
