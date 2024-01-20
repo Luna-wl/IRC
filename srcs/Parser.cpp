@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 22:50:18 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/19 23:27:40 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/20 15:57:37 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ Parser::Parser(Server * srv)
 	_cmd["NOTICE"] = new Notice(srv);
 	_cmd["OPER"] = new Oper(srv);
 	_cmd["MODE"] = new Mode(srv);
+	_cmd["TIME"] = new Time(srv);
+	_cmd["PING"] = new Ping(srv);
+	_cmd["PONG"] = new Pong(srv);
 }
 
 Parser::~Parser()
@@ -46,10 +49,19 @@ void Parser::analyze(Client *client, std::string &text)
     std::stringstream ssin(text);
     while (ssin.good()){
         ssin >> temp_text;
+		size_t colon = temp_text.find(':');
+        if (colon != std::string::npos) {
+			temp_text.erase(std::remove(temp_text.begin(), temp_text.end(), ':'), temp_text.end());
+            std::string next_text;
+			while (ssin.good())
+			{
+				ssin >> next_text;
+                temp_text += " " + next_text;
+            }
+        }
 		args.push_back(temp_text);
     }
 
-	// std::cout << "vector size: " << args.size() << std::endl;
 	if (_cmd.count(args[0]))
 		_cmd[args[0]]->execute(client, args);
 	else

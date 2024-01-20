@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Command.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:12:18 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 01:29:14 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/20 15:57:08 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,33 @@ class Mode : public Command
 
 		void execute(Client * client, std::vector<std::string> &args);
 		void getMode();
+};
+
+class Time : public Command
+{
+	public:
+		Time(Server * srv);
+		~Time();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
+class Ping : public Command
+{
+	public:
+		Ping(Server * srv);
+		~Ping();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
+class Pong : public Command
+{
+	public:
+		Pong(Server * srv);
+		~Pong();
+
+		void execute(Client * client, std::vector<std::string> &args);
 };
 
 #endif

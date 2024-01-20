@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replies.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:53:45 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 02:59:38 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/20 16:05:47 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@
 
 /* Replies */
 #define RPL_AWAY(source, cmd, nick, message)				":"	+ source + " " + cmd + " " + nick + " :" + message
-#define RPL_NAMREPLY(source, cmd, symbol, channel, nick)	":" + source + " " + cmd + " " + symbol + " " + channel + " : 353 : " + nick
-#define RPL_ENDOFNAMES(source, cmd, channel)                ":" + source + " " + cmd + " " + channel + "  : 366 : End of /NAMES list."
+#define RPL_NAMREPLY(source, cmd, symbol, channel, nick)    ":" + source + " " + cmd + " " + symbol + " " + channel + " 353 :" + nick
+#define RPL_ENDOFNAMES(source, cmd, channel)                ":" + source + " " + cmd + " " + channel + "  366 : End of /NAMES list."
 #define RPL_CHANAWAY(source, cmd, channel, message)			":" + source + " " + cmd + " " + channel + " :" + message
 #define RPL_INFO(source, cmd, message)						":" + source + " " + cmd + " 371 " + message
 #define RPL_ENDOFINFO(source, cmd)							":" + source + " " + cmd + " 374 End of /INFO list."
@@ -75,4 +75,7 @@
 #define RPL_JOINCHAN(source, channel)						":" + source + " join #" + channel 
 #define RPL_LEAVECHAN(source, channel)						":" + source + " leave #" + channel
 
+#define RPL_TIME(source, cmd, server, timestamp, time)      ":" + source + " " + cmd + " 391 " + server + " " + timestamp + " :" + time
+
+#define RPL_PONG(source, token)                             ":" + source + " PONG :" + token
 #endif
