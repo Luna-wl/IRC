@@ -6,7 +6,7 @@
 /*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 00:33:28 by wluedara          #+#    #+#             */
-/*   Updated: 2024/01/20 01:50:49 by wluedara         ###   ########.fr       */
+/*   Updated: 2024/01/20 14:04:51 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,45 @@ void List::execute(Client * client, std::vector<std::string> &args) {
 	int num = args.size();
 	std::cout << "num = " << num << std::endl;
 	if (num == 1) {
+		// LIST ALL CHANNELS
 		if (_srv->getChannels().empty())
 			client->receive_message(RPL_LISTEND(client->getUsername()));
 		else {
+			client->receive_message("+-----LIST CHANNEL-----+");
 			std::map<std::string, Channel *>::iterator it = _srv->getChannels().begin();
 			while (it != _srv->getChannels().end()) {
-				client->receive_message("list channel");
+				client->receive_message(RPL_LIST(it->second->getName(), std::to_string(it->second->getClietNum()), it->second->getTopic()));
 				it++;
 			}
 		}
 	}
 	else if (num == 2) {
-		std::cout << "list specific channel" << std::endl;
+		// LIST <channel> SPECIFIC CHANNEL
+		if (args[1][0] == '#') {
+			std::map<std::string, Channel *>::iterator it = _srv->getChannels().find(args[1]);
+			if (it != _srv->getChannels().end()) {
+				client->receive_message("+-----LIST CHANNEL-----+");
+				client->receive_message(RPL_LIST(it->second->getName(), std::to_string(it->second->getClietNum()), it->second->getTopic()));
+			}
+			else {
+				client->receive_message(ERR_NOSUCHCHANNEL(client->getUsername(), args[1]));
+			}
+		}
+		else if (args[1][0] == '>') {
+			// LIST >num SPECIFIC CHANNEL CLIENTS NUM
+			std::map<std::string, Channel *>::iterator it = _srv->getChannels().begin();
+			int num = std::stoi(args[1].substr(1));
+			while (it != _srv->getChannels().end()) {
+				if (it->second->getClietNum() == num) {
+					client->receive_message("+-----LIST CHANNEL-----+");
+					client->receive_message(RPL_LIST(it->second->getName(), std::to_string(it->second->getClietNum()), it->second->getTopic()));
+				}
+				it++;
+			}
+		}
+		else {
+			client->receive_message(ERR_NOSUCHCHANNEL(client->getUsername(), args[1]));
+		}
 	}
 	else {
 		client->receive_message(ERR_TOOMANYARGUMENTS(client->getUsername(), "LIST"));

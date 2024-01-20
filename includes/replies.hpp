@@ -6,7 +6,7 @@
 /*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:53:45 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 01:01:45 by wluedara         ###   ########.fr       */
+/*   Updated: 2024/01/20 13:51:37 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@
 
 // List replies
 #define RPL_LISTSTART(source)						":" + source + " :Channel :Users  Name"
-#define RPL_LIST(source, channel, user_count, topic)	":" + source + " " + channel + " " + user_count + " :" + topic
+#define RPL_LIST(channel, user_count, topic)		" CHANNEL NAME: " + channel + "\n USER NUMBER: " + user_count + "\n TOPIC:" + topic + "\n=========="
 #define RPL_LISTEND(source)							":" + source + " :End of /LIST"
 
 #endif

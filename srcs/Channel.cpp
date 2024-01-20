@@ -6,7 +6,7 @@
 /*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:55 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 22:42:56 by wluedara         ###   ########.fr       */
+/*   Updated: 2024/01/20 13:19:56 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ Channel::Channel(std::string name, std::string key)
 
 Channel::~Channel() {}
 
-void Channel::addClient(Client * client)
-{
+void Channel::addClient(Client * client) {
 	_clients.push_back(client);
 }
 
@@ -35,7 +34,14 @@ void Channel::send_message(Client * client, std::string message) {
 	}
 }
 
-std::string Channel::getName()
-{
+std::string Channel::getName() {
 	return _name;
+}
+
+int Channel::getClietNum() {
+	return _clients.size();
+}
+
+std::string Channel::getTopic() {
+	return _topic;
 }
