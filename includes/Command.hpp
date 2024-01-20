@@ -6,7 +6,7 @@
 /*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:12:18 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 12:44:00 by wluedara         ###   ########.fr       */
+/*   Updated: 2024/01/21 01:34:44 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,15 +95,6 @@ class Topic : public Command
 		void execute(Client * client, std::vector<std::string> &args);
 };
 
-class Kick : public Command
-{
-	public:
-		Kick(Server * srv);
-		~Kick();
-
-		void execute(Client * client, std::vector<std::string> &args);
-};
-
 class List : public Command
 {
 	public:
@@ -113,15 +104,23 @@ class List : public Command
 		void execute(Client * client, std::vector<std::string> &args);
 };
 
-class Invite : public Command
+class Info : public Command
 {
 	public:
-		Invite(Server * srv);
-		~Invite();
+		Info(Server * srv);
+		~Info();
 
 		void execute(Client * client, std::vector<std::string> &args);
 };
 
+class Help : public Command
+{
+	public:
+		Help(Server * srv);
+		~Help();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
 
 # include "Server.hpp"
 

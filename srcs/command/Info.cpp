@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Invite.cpp                                         :+:      :+:    :+:   */
+/*   Info.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/19 00:33:24 by wluedara          #+#    #+#             */
-/*   Updated: 2024/01/19 22:40:20 by wluedara         ###   ########.fr       */
+/*   Created: 2024/01/21 01:35:04 by wluedara          #+#    #+#             */
+/*   Updated: 2024/01/21 01:42:47 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/Command.hpp"
 
-Invite::Invite(Server * srv) : Command(srv) {}
+Info::Info(Server * srv) : Command(srv) {}
 
-Invite::~Invite() {}
+Info::~Info() {}
 
-void Invite::execute(Client * client, std::vector<std::string> &args) {
-	(void)client;
+void Info::execute(Client * client, std::vector<std::string> &args) {
 	(void)args;
+	client->reply(RPL_INFO(client->getName(), "This is the info message"));
+	client->reply(RPL_ENDOFINFO(client->getName()));
 }
