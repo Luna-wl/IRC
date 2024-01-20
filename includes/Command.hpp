@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:12:18 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 15:57:08 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/20 17:58:20 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,29 @@ class Join : public Command
 		void execute(Client * client, std::vector<std::string> &args);
 };
 
+class Invite : public Command
+{
+	public:
+		Invite(Server * srv);
+		~Invite();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
 class Part : public Command
 {
 	public:
 		Part(Server * srv);
 		~Part();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
+class Kick : public Command
+{
+	public:
+		Kick(Server * srv);
+		~Kick();
 
 		void execute(Client * client, std::vector<std::string> &args);
 };
@@ -134,12 +152,18 @@ class Oper : public Command
 
 class Mode : public Command
 {
+	private:
+		bool _validMode(std::string mode);
+		void _setInviteMode(Channel* channel, bool flag, std::vector<std::string> params);
+		void _setTopicMode(Channel* channel, bool flag, std::vector<std::string> params);
+		void _setKeyMode(Channel* channel, bool flag, std::vector<std::string> params);
+		void _setChanOperMode(Channel* channel, bool flag, std::vector<std::string> params);
+		void _setLimitMode(Channel* channel, bool flag, std::vector<std::string> params);
 	public:
 		Mode(Server * srv);
 		~Mode();
 
 		void execute(Client * client, std::vector<std::string> &args);
-		void getMode();
 };
 
 class Time : public Command

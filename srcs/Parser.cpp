@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 22:50:18 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/20 15:57:37 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/20 17:56:56 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ Parser::Parser(Server * srv)
 	_cmd["PASS"] = new Pass(srv);
 	_cmd["USER"] = new User(srv);
 	_cmd["JOIN"] = new Join(srv);
+	_cmd["INVITE"] = new Invite(srv);
 	_cmd["PART"] = new Part(srv);
+	_cmd["KICK"] = new Kick(srv);
 	_cmd["PRIVMSG"] = new PrivMsg(srv);
 	_cmd["QUIT"] = new Quit(srv);
 	_cmd["NAMES"] = new Names(srv);
@@ -65,5 +67,5 @@ void Parser::analyze(Client *client, std::string &text)
 	if (_cmd.count(args[0]))
 		_cmd[args[0]]->execute(client, args);
 	else
-		client->receive_message(ERR_UNKNOWNCOMMAND(_srv->getName(), args[0]));
+		client->receive_message(ERR_UNKNOWNCOMMAND(_srv->getName(), client->getNickname(), args[0]));
 }

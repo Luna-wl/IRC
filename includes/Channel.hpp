@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:08 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 01:30:46 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/20 12:35:51 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ class Channel
 		void addMember(Client * member);
 		void removeClient(Client * member);
 		void addChanOp(std::string nick);
+		void removeChanOp(std::string nick);
 		bool isChanOp(std::string nick);
 
 		void send_message(Client * member, std::string message);
@@ -50,6 +51,7 @@ class Channel
 		std::string getName();
 		std::string getKey();
 		std::map<std::string, Client *> getMember();
+		int	getLimit();
 
 		
 
@@ -60,6 +62,12 @@ class Channel
 		bool isTopicMode();
 		bool isKeyMode();
 		bool isLimitMode();
+
+		void setInviteMode(bool state);
+		void setTopicMode(bool state);
+		void setKeyMode(bool state, std::string key);
+		void setLimitMode(bool state, int limit);
+
 };
 
 #include "Client.hpp"

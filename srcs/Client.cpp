@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:53:39 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/20 00:58:48 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/20 17:31:52 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ Client::Client( const int &client_fd, std::string hostname ) : _op(false)
 {
     _client_fd = client_fd;
     _hostname = hostname;
+    _nickname = "*";
 }
 
 Client::~Client()

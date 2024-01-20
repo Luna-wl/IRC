@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:55 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 03:20:50 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/20 14:38:25 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void Channel::removeClient(Client * member)
 	if (!_members.count(member->getNickname()))
 		return;
 	_members.erase(member->getNickname());
+	removeChanOp(member->getNickname());
 	if (_members.size() == 0) {
 		_srv->removeChannel(_name);
 		return ;
@@ -47,6 +48,12 @@ void Channel::removeClient(Client * member)
 void Channel::addChanOp(std::string nick)
 {
 	_opMembers[nick] = true;
+}
+
+void Channel::removeChanOp(std::string nick)
+{
+	if (_opMembers.count(nick))
+		_opMembers.erase(nick);
 }
 
 bool Channel::isChanOp(std::string nick)
@@ -82,9 +89,14 @@ std::string Channel::getKey()
 	return _key;
 }
 
+int	Channel::getLimit()
+{
+	return _userLimit;
+}
+
 bool Channel::isFull()
 {
-	return _members.size() == _userLimit ? true : false;
+	return _members.size() >= _userLimit ? true : false;
 }
 
 bool Channel::isInviteMode()
@@ -105,4 +117,27 @@ bool Channel::isLimitMode()
 bool Channel::isTopicMode()
 {
 	return _t;
+}
+
+void Channel::setInviteMode(bool state)
+{
+	_i = state;
+}
+
+void Channel::setTopicMode(bool state)
+{
+	_t = state;
+}
+
+void Channel::setKeyMode(bool state, std::string key)
+{
+	_k = state;
+	if (!key.empty())
+		_key = key;
+}
+
+void Channel::setLimitMode(bool state, int limit)
+{
+	_l = state;
+	_userLimit = limit;
 }
