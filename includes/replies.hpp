@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:53:45 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 02:59:38 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/20 16:26:12 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@
 
 /* Replies */
 #define RPL_AWAY(source, cmd, nick, message)				":"	+ source + " " + cmd + " " + nick + " :" + message
+#define RPL_INVITING(source, cmd, nick, channel)			":" + source + " " + cmd + " " + nick + " " + channel
 #define RPL_NAMREPLY(source, cmd, symbol, channel, nick)	":" + source + " " + cmd + " " + symbol + " " + channel + " : 353 : " + nick
 #define RPL_ENDOFNAMES(source, cmd, channel)                ":" + source + " " + cmd + " " + channel + "  : 366 : End of /NAMES list."
 #define RPL_CHANAWAY(source, cmd, channel, message)			":" + source + " " + cmd + " " + channel + " :" + message
