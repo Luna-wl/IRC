@@ -6,7 +6,7 @@
 /*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 22:50:18 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/20 01:47:42 by wluedara         ###   ########.fr       */
+/*   Updated: 2024/01/20 14:46:22 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ Parser::Parser(Server * srv)
 	_cmd["JOIN"] = new Join(srv);
 	_cmd["PRIVMSG"] = new PrivMsg(srv);
 	_cmd["LIST"] = new List(srv);
+	_cmd["TOPIC"] = new Topic(srv);
 }
 
 Parser::~Parser()

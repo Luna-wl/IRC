@@ -6,7 +6,7 @@
 /*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:53:45 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 13:51:37 by wluedara         ###   ########.fr       */
+/*   Updated: 2024/01/20 14:30:54 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,10 @@
 #define RPL_LISTSTART(source)						":" + source + " :Channel :Users  Name"
 #define RPL_LIST(channel, user_count, topic)		" CHANNEL NAME: " + channel + "\n USER NUMBER: " + user_count + "\n TOPIC:" + topic + "\n=========="
 #define RPL_LISTEND(source)							":" + source + " :End of /LIST"
+
+// Topic replies
+#define RPL_NOTOPIC(source, channel)				":" + source + " " + channel + " :No topic is set"
+#define RPL_TOPIC(source, channel, topic)			":" + source + " " + channel + " :" + topic
+#define RPL_TOPICWHOTIME(source, channel, nickname, time)	":" + source + " " + channel + " " + nickname + " " + time
 
 #endif
