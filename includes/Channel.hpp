@@ -6,7 +6,7 @@
 /*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:08 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 13:19:59 by wluedara         ###   ########.fr       */
+/*   Updated: 2024/01/20 23:37:13 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ class Channel
 
 		int getClietNum();
 		std::string getTopic();
+		void _setTopic(std::string topic);
 };
 
 #include "Client.hpp"

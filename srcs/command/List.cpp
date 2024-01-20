@@ -6,7 +6,7 @@
 /*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 00:33:28 by wluedara          #+#    #+#             */
-/*   Updated: 2024/01/20 14:38:19 by wluedara         ###   ########.fr       */
+/*   Updated: 2024/01/20 22:14:51 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ List::List(Server * srv) : Command(srv) {}
 List::~List() {}
 
 void List::execute(Client * client, std::vector<std::string> &args) {
-	std::cout << "[LIST] command" << std::endl;
 	// if ( !client->isRegist() ) {
 	// 	client->receive_message(ERR_NOTREGISTERED(_srv->getName()));
 	// 	return;
