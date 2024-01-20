@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 22:08:57 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 12:36:48 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/20 17:30:01 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ Mode::~Mode() {}
 void Mode::execute(Client * client, std::vector<std::string> &args)
 {
 	if ( !client->isRegist() ) {
-		client->receive_message(ERR_NOTREGISTERED(_srv->getName(), args[0]));
+		client->receive_message(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
 		return;
 	} else if ( args.size() < 3 ) {
-		client->receive_message(ERR_NEEDMOREPARAMS(_srv->getName(), args[0]));
+		client->receive_message(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
 		return;
 	}
 
 	std::string target = args[1];
 	std::string mode = args[2];
 	if (!_validMode(mode)) {
-		client->receive_message(ERR_UMODEUNKNOWNFLAG(_srv->getName(), args[0]));
+		client->receive_message(ERR_UMODEUNKNOWNFLAG(_srv->getName(), client->getNickname()));
 		return;
 	}
 		
@@ -40,13 +40,13 @@ void Mode::execute(Client * client, std::vector<std::string> &args)
 		std::string channel_name = target.erase(0, 1);
 		Channel * channel = _srv->getChannel(channel_name);
 		if (!channel) {
-			client->receive_message(ERR_NOSUCHCHANNEL(_srv->getName(), args[0], channel_name));
+			client->receive_message(ERR_NOSUCHCHANNEL(_srv->getName(), client->getNickname(), channel_name));
 			return ;
 		} else if (!client->getChannel(channel_name)) {
-			client->receive_message(ERR_NOTONCHANNEL(_srv->getName(), args[0], channel_name));
+			client->receive_message(ERR_NOTONCHANNEL(_srv->getName(), client->getNickname(), channel_name));
 			return ;
 		} else if (!client->isOper() && !channel->isChanOp(client->getNickname())) {
-			client->receive_message(ERR_CHANOPRIVSNEEDED(_srv->getName(), args[0], channel_name));
+			client->receive_message(ERR_CHANOPRIVSNEEDED(_srv->getName(), client->getNickname(), channel_name));
 			return ;
 		}
 
@@ -62,14 +62,14 @@ void Mode::execute(Client * client, std::vector<std::string> &args)
 		} else if (mode_char == 'l') {
 			_setLimitMode(channel, mode_flag, params);
 		} else {
-			client->receive_message(ERR_UNKNOWNMODE(_srv->getName(), args[0], mode_char));
+			client->receive_message(ERR_UNKNOWNMODE(_srv->getName(), client->getNickname(), mode_char));
 		}
 	}
 	else { // change user mode
 		if (!_srv->get_client(target))
-			client->receive_message(ERR_NOSUCHNICK(_srv->getName(), args[0], target));
+			client->receive_message(ERR_NOSUCHNICK(_srv->getName(), client->getNickname(), target));
 		else
-			client->receive_message(ERR_UNKNOWNMODE(_srv->getName(), args[0], mode_char));
+			client->receive_message(ERR_UNKNOWNMODE(_srv->getName(), client->getNickname(), mode_char));
 	}
 }
 

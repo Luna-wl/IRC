@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 17:42:31 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/20 00:54:16 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/20 17:28:58 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ std::string getUserPrefix(Client * client)
 void Names::execute(Client * client, std::vector<std::string> & args)
 {
  	if ( !client->isRegist() ) {
-		client->receive_message(ERR_NOTREGISTERED(_srv->getName(), args[0]));
+		client->receive_message(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
 	}
 	else if ( args.size() != 1 ) {
 		std::vector<std::string> channels = commaSeperator(args[1]);

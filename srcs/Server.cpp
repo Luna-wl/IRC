@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 14:49:49 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/20 16:54:09 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool Server::_run = true;
 Server::Server( const std::string & port, const std::string & pass )
 {
 	// std::cout << "Server constructor called." << std::endl;
-	_name = "<server_name>";
+	_name = "Rudolph";
 	_port = port;
 	_pass = pass;
 	_run = true;

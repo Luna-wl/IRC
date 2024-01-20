@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 14:03:35 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 16:28:56 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/20 17:29:22 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ Kick::~Kick() {}
 void Kick::execute(Client * client, std::vector<std::string> &args)
 {
 	if ( !client->isRegist() ) {
-		client->receive_message(ERR_NOTREGISTERED(_srv->getName(), args[0]));
+		client->receive_message(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
 	} else if ( args.size() < 3 ) {
-		client->receive_message(ERR_NEEDMOREPARAMS(_srv->getName(), args[0]));
+		client->receive_message(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
 	} else if ( args[1][0] != '#' || args[1].size() == 1 ) {
-		client->receive_message(ERR_BADCHANMASK(_srv->getName(), args[0], args[1]));
+		client->receive_message(ERR_BADCHANMASK(_srv->getName(), client->getNickname(), args[1]));
 	} else {
 		std::string channel_name = args[1];
 		channel_name.erase(0, 1);
@@ -36,13 +36,13 @@ void Kick::execute(Client * client, std::vector<std::string> &args)
 			Client * user = _srv->get_client(user_name);
 			
 			if ( !channel ) {
-				client->receive_message(ERR_NOSUCHCHANNEL(_srv->getName(), args[0], "#" + channel_name));
+				client->receive_message(ERR_NOSUCHCHANNEL(_srv->getName(), client->getNickname(), "#" + channel_name));
 			} else if ( !client->getChannel(channel_name) ) {
-				client->receive_message(ERR_NOTONCHANNEL(_srv->getName(), args[0], "#" + channel_name));
+				client->receive_message(ERR_NOTONCHANNEL(_srv->getName(), client->getNickname(), "#" + channel_name));
 			} else if ( !user || !user->getChannel(channel_name) ) {
-				client->receive_message(ERR_USERNOTINCHANNEL(_srv->getName(), args[0], user_name, "#" + channel_name));
+				client->receive_message(ERR_USERNOTINCHANNEL(_srv->getName(), client->getNickname(), user_name, "#" + channel_name));
 			} else if ( !client->isOper() && !channel->isChanOp(client->getNickname()) ) {
-				client->receive_message(ERR_CHANOPRIVSNEEDED(_srv->getName(), args[0], "#" + channel_name));
+				client->receive_message(ERR_CHANOPRIVSNEEDED(_srv->getName(), client->getNickname(), "#" + channel_name));
 			} else {
 				user->leave(channel);
 			}

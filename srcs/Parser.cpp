@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 22:50:18 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/20 16:26:29 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/20 17:26:49 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,5 @@ void Parser::analyze(Client *client, std::string &text)
 	if (_cmd.count(args[0]))
 		_cmd[args[0]]->execute(client, args);
 	else
-		client->receive_message(ERR_UNKNOWNCOMMAND(_srv->getName(), args[0]));
+		client->receive_message(ERR_UNKNOWNCOMMAND(_srv->getName(), client->getNickname(), args[0]));
 }

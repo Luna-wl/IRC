@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:20:56 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 14:22:30 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/20 17:30:38 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ Notice::~Notice() {}
 void Notice::execute(Client * client, std::vector<std::string> &args)
 {
 	if ( !client->isRegist() ) {
-		client->receive_message(ERR_NOTREGISTERED(_srv->getName(), args[0]));
+		client->receive_message(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
 		return;
 	}
 	else if ( args.size() < 3 ) {
-		client->receive_message(ERR_NEEDMOREPARAMS(_srv->getName(), args[0]));
+		client->receive_message(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
 		return;
 	}
 
