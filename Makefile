@@ -11,7 +11,6 @@ SRCS := Client.cpp \
 
 CMD_DIR := ./srcs/command/
 CMD := 	Nick.cpp \
-		Kick.cpp \
 		List.cpp \
 		Invite.cpp \
 		Pass.cpp \
