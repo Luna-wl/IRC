@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:12:18 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 12:14:31 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/20 14:03:31 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,15 @@ class Part : public Command
 	public:
 		Part(Server * srv);
 		~Part();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
+class Kick : public Command
+{
+	public:
+		Kick(Server * srv);
+		~Kick();
 
 		void execute(Client * client, std::vector<std::string> &args);
 };

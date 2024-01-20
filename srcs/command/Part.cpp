@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 15:22:50 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 02:06:57 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/20 14:10:59 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void Part::execute(Client * client, std::vector<std::string> &args)
 		{
 			std::string channel_name = *ch_it;
 			
-			if (channel_name[0] != '#') {
+			if (channel_name[0] != '#' || channel_name.size() == 1) {
 				client->receive_message(ERR_BADCHANMASK(_srv->getName(), args[0], channel_name));
 				ch_it++;
 				continue;

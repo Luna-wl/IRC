@@ -15,6 +15,7 @@ SRC =	srcs/main.cpp \
 		srcs/command/Quit.cpp \
 		srcs/command/Names.cpp \
 		srcs/command/Part.cpp \
+		srcs/command/Kick.cpp \
 		srcs/command/Notice.cpp \
 		srcs/command/Oper.cpp \
 		srcs/command/Mode.cpp

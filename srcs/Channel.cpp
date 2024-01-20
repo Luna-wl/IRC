@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:55 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 12:40:25 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/20 14:38:25 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void Channel::removeClient(Client * member)
 	if (!_members.count(member->getNickname()))
 		return;
 	_members.erase(member->getNickname());
+	removeChanOp(member->getNickname());
 	if (_members.size() == 0) {
 		_srv->removeChannel(_name);
 		return ;
