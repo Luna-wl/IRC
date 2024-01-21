@@ -6,7 +6,7 @@
 /*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 01:35:25 by wluedara          #+#    #+#             */
-/*   Updated: 2024/01/22 00:19:45 by wluedara         ###   ########.fr       */
+/*   Updated: 2024/01/22 00:32:22 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void Help::execute(Client * client, std::vector<std::string> &args)
 {
 	if (args.size() == 1) {
 		std::string message = "\nIf you not register, you can use these commands:\n";
+		message += "> PASS <server's password>: enter password to regist in the server\n";
 		message += "> NICK <nickname>: set your nickname\n";
 		message += "> USER <username> 0 * <realname>: set your username\n\n";
 		
