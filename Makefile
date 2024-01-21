@@ -19,7 +19,7 @@ CMD := 	Nick.cpp \
 		Join.cpp \
 		PrivMsg.cpp \
 		Command.cpp \
-    Quit.cpp \
+    	Quit.cpp \
 		Names.cpp \
 		Part.cpp \
 		Kick.cpp \
@@ -28,7 +28,9 @@ CMD := 	Nick.cpp \
 		Mode.cpp \
 		Time.cpp \
 		Ping.cpp \
-		Pong.cpp
+		Pong.cpp \
+		Help.cpp \
+		Info.cpp
 
 CC = g++
 

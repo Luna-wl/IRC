@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Command.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:12:18 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 17:58:20 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/21 19:31:30 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ class Topic : public Command
 	public:
 		Topic(Server * srv);
 		~Topic();
+
+	void execute(Client * client, std::vector<std::string> &args);
 };
 
 class Quit : public Command
@@ -137,6 +139,8 @@ class List : public Command
 	public:
 		List(Server * srv);
 		~List();
+
+	void execute(Client * client, std::vector<std::string> &args);
 };
 
 class Notice : public Command
@@ -153,6 +157,8 @@ class Info : public Command
 	public:
 		Info(Server * srv);
 		~Info();
+
+	void execute(Client * client, std::vector<std::string> &args);
 };
 
 class Names : public Command
@@ -169,6 +175,8 @@ class Help : public Command
 	public:
 		Help(Server * srv);
 		~Help();
+
+	void execute(Client * client, std::vector<std::string> &args);
 };
 
 class Oper : public Command

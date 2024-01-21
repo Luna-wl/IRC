@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   Names.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 17:42:31 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/20 17:57:38 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/21 19:39:59 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Command.hpp"
+#include "../../includes/Command.hpp"
 
 Names::Names(Server * srv) : Command(srv) {}
 Names::~Names() {}

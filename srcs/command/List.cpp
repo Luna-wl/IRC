@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   List.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 00:33:28 by wluedara          #+#    #+#             */
-/*   Updated: 2024/01/20 22:14:51 by wluedara         ###   ########.fr       */
+/*   Updated: 2024/01/21 19:35:37 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void List::execute(Client * client, std::vector<std::string> &args) {
 				client->receive_message(RPL_LIST(it->second->getName(), std::to_string(it->second->getClietNum()), it->second->getTopic()));
 			}
 			else {
-				client->receive_message(ERR_NOSUCHCHANNEL(client->getUsername(), args[1]));
+				client->receive_message(ERR_NOSUCHCHANNEL(_srv->getName(), client->getNickname(), args[1]));
 			}
 		}
 		else if (args[1][0] == '>') {
@@ -61,11 +61,11 @@ void List::execute(Client * client, std::vector<std::string> &args) {
 			}
 		}
 		else {
-			client->receive_message(ERR_NOSUCHCHANNEL(client->getUsername(), args[1]));
+			client->receive_message(ERR_NOSUCHCHANNEL(_srv->getName(), client->getNickname(), args[1]));
 		}
 	}
 	else {
-		client->receive_message(ERR_TOOMANYARGUMENTS(client->getUsername(), "LIST"));
+		client->receive_message(ERR_TOOMANYARGUMENTS(_srv->getName(), "LIST"));
 	}
 }
 

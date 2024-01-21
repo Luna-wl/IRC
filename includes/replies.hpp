@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replies.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:53:45 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 17:59:00 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/21 19:28:56 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,6 @@
 #define RPL_NOTOPIC(source, channel)				":" + source + " " + channel + " :No topic is set"
 #define RPL_TOPIC(source, channel, topic)			":" + source + " " + channel + " :" + topic
 #define RPL_TOPICWHOTIME(source, channel, nickname, time)	":" + source + " " + channel + " " + nickname + " " + time
-
-// Info replies
-#define RPL_INFO(source)							":" + source
-#define RPL_ENDOFINFO(source)						":" + source + " :End of INFO"
 
 // Help replies
 #define RPL_HELPSTART(source)						":" + source + " :Help message"

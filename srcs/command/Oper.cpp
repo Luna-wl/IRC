@@ -6,11 +6,11 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 16:08:38 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 17:30:25 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/21 19:40:21 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Command.hpp"
+#include "../../includes/Command.hpp"
 
 Oper::Oper(Server * srv) : Command(srv) {}
 Oper::~Oper() {}

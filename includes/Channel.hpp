@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:08 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 12:35:51 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/21 19:33:38 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ class Channel
 		std::map<std::string, bool>		_opMembers;
 		std::string						_topic;
 		std::string						_key;
-		int								_userLimit;
+		unsigned long					_userLimit;
 		/* MODES */
 		bool	_i; // Invite-only
 		bool	_t; // restrict TOPIC

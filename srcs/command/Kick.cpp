@@ -6,11 +6,11 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 14:03:35 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 17:29:22 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/21 19:40:08 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Command.hpp"
+#include "../../includes/Command.hpp"
 
 Kick::Kick(Server * srv) : Command(srv) {}
 Kick::~Kick() {}
