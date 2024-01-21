@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   Pong.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 15:53:29 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/20 18:09:51 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/21 19:40:56 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Command.hpp"
+#include "../../includes/Command.hpp"
 
 Pong::Pong(Server * srv) : Command(srv) {}
 Pong::~Pong() {}

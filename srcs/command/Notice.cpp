@@ -6,11 +6,11 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:20:56 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 17:30:38 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/21 19:40:15 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Command.hpp"
+#include "../../includes/Command.hpp"
 
 Notice::Notice(Server * srv) : Command(srv) {}
 Notice::~Notice() {}

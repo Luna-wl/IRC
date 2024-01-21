@@ -6,11 +6,11 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 15:39:17 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 17:28:33 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/21 19:36:04 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Command.hpp"
+#include "../../includes/Command.hpp"
 
 Invite::Invite(Server * srv) : Command(srv) {}
 Invite::~Invite() {}

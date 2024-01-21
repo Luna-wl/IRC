@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Topic.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 00:32:51 by wluedara          #+#    #+#             */
-/*   Updated: 2024/01/21 00:01:34 by wluedara         ###   ########.fr       */
+/*   Updated: 2024/01/21 19:38:41 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,21 @@ void Topic::execute(Client * client, std::vector<std::string> &args) {
 	// }
 	int num = args.size();
 	if (num < 2)
-		client->receive_message(ERR_NEEDMOREPARAMS(client->getUsername(), "TOPIC"));
+		client->receive_message(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), "TOPIC"));
 	else if (num == 2) {
 		if (args[1][0] == '#') {
 			// TOPIC #test	Checking the topic for "#test"
 			try {
 				if (_srv->getChannel(args[1])->getTopic() != "")
-					client->receive_message(RPL_TOPIC(client->getUsername(), args[1], _srv->getChannel(args[1])->getTopic()));
+					client->receive_message(RPL_TOPIC(_srv->getName(), args[1], _srv->getChannel(args[1])->getTopic()));
 				else
-					client->receive_message(RPL_NOTOPIC(client->getUsername(), args[1]));
+					client->receive_message(RPL_NOTOPIC(_srv->getName(), args[1]));
 			} catch (std::exception &e) {
-				client->receive_message(ERR_NOSUCHCHANNEL(client->getUsername(), args[1]));
+				client->receive_message(ERR_NOSUCHCHANNEL(_srv->getName(), client->getNickname(), args[1]));
 			}
 		}
 		else
-			client->receive_message(ERR_UNKNOWNCOMMAND(client->getUsername(), "TOPIC"));
+			client->receive_message(ERR_UNKNOWNCOMMAND(_srv->getName(), client->getNickname(), "TOPIC"));
 	}
 	else if (num == 3) {
 			// TOPIC #test : 	Clearing the topic on "#test"
@@ -56,10 +56,10 @@ void Topic::execute(Client * client, std::vector<std::string> &args) {
 				}
 			}
 			else
-				client->receive_message(ERR_UNKNOWNCOMMAND(client->getUsername(), "TOPIC"));
+				client->receive_message(ERR_UNKNOWNCOMMAND(_srv->getName(), client->getNickname(), "TOPIC"));
 	}
 	else
-		client->receive_message(ERR_TOOMANYARGUMENTS(client->getUsername(), "TOPIC"));
+		client->receive_message(ERR_TOOMANYARGUMENTS(_srv->getName(), "TOPIC"));
 }
 
 // ERR_NEEDMOREPARAMS (461)

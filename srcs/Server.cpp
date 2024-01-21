@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 16:54:09 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/21 19:31:52 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ Server::~Server( void ) {
 	{
 		delete it->second;
 	}
-	for (int i = 0; i < _fds.size(); i++)
+	for (unsigned long i = 0; i < _fds.size(); i++)
 	{
 		close(_fds[i].fd);
 	}

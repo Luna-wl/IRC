@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:55 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 14:38:25 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/21 19:33:48 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void Channel::send_message(Client * member, std::string message) {
 }
 
 int Channel::getClietNum() {
-	return _clients.size();
+	return _members.size();
 }
 
 std::string Channel::getTopic() {

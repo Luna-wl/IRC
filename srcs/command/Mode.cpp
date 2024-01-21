@@ -6,11 +6,11 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 22:08:57 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 17:30:01 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/21 19:40:41 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Command.hpp"
+#include "../../includes/Command.hpp"
 
 Mode::Mode(Server * srv) : Command(srv) {}
 Mode::~Mode() {}
@@ -88,11 +88,13 @@ bool Mode::_validMode(std::string mode)
 
 void Mode::_setInviteMode(Channel* channel, bool flag, std::vector<std::string> params)
 {
+	(void) params;
 	channel->setInviteMode(flag);
 }
 
 void Mode::_setTopicMode(Channel* channel, bool flag, std::vector<std::string> params)
 {
+	(void) params;
 	channel->setTopicMode(flag);
 }
 

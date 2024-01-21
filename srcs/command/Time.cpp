@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   Time.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 11:40:45 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/20 18:11:16 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/21 19:40:46 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Command.hpp"
+#include "../../includes/Command.hpp"
 
 Time::Time(Server * srv) : Command(srv) {}
 Time::~Time() {}
