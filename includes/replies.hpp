@@ -6,7 +6,7 @@
 /*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:53:45 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/21 01:40:53 by wluedara         ###   ########.fr       */
+/*   Updated: 2024/01/21 14:01:01 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,13 @@
 #define RPL_TOPICWHOTIME(source, channel, nickname, time)	":" + source + " " + channel + " " + nickname + " " + time
 
 // Info replies
-#define RPL_INFO(source, message)					":" + source + " :" + message
+#define RPL_INFO(source)							":" + source
 #define RPL_ENDOFINFO(source)						":" + source + " :End of INFO"
 
 // Help replies
-#define RPL_HELPSTART(source, nickname)				":" + source + " " + nickname + " :Help message"
-#define RPL_ENDOFHELP(source, message)				":" + source + " :End of HELP info"
-#define RPL_HELPTXT(source, message)				":" + source + " :Help message"
-#define ERR_HELPNOTFOUND(source)					":" + source + " :No help found"
+#define RPL_HELPSTART(source)						":" + source + " :Help message"
+#define RPL_ENDOFHELP(source, message)				":" + source + " " + message
+#define RPL_HELPTXT(source, message)				":" + source + " " +  message
+#define ERR_HELPNOTFOUND(source)					":" + source + " " +  ":No help found"
 
 #endif

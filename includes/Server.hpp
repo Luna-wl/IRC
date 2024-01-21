@@ -6,7 +6,7 @@
 /*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:22:30 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 01:28:11 by wluedara         ###   ########.fr       */
+/*   Updated: 2024/01/21 14:21:53 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ class Server
 		// getter
 		std::string getName();
 		std::string getPass();
+		std::string getPort();
+		int getChannelNum();
+		int getClientNum();
 
 		std::map<const int, Client *> 	&getClient();
 		Client * get_client(std::string client_nickname);
