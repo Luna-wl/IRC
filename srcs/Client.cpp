@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   Client.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:53:39 by csantivimol       #+#    #+#             */
 /*   Updated: 2024/01/20 17:31:52 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Client.hpp"
+#include "../includes/Client.hpp"
 
 Client::Client( const int &client_fd, std::string hostname ) : _op(false)
 {

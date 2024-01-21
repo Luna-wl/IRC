@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Parser.hpp"
+#include "../includes/Parser.hpp"
 
 Parser::Parser(Server * srv)
 {
@@ -23,6 +23,10 @@ Parser::Parser(Server * srv)
 	_cmd["PART"] = new Part(srv);
 	_cmd["KICK"] = new Kick(srv);
 	_cmd["PRIVMSG"] = new PrivMsg(srv);
+	_cmd["LIST"] = new List(srv);
+	_cmd["TOPIC"] = new Topic(srv);
+	_cmd["HELP"] = new Help(srv);
+	_cmd["INFO"] = new Info(srv);
 	_cmd["QUIT"] = new Quit(srv);
 	_cmd["NAMES"] = new Names(srv);
 	_cmd["NOTICE"] = new Notice(srv);
@@ -41,9 +45,34 @@ Parser::~Parser()
 	}
 }
 
-void Parser::analyze(Client *client, std::string &text)
-{
-    // client._nickname = "New Client 001";
+// void Parser::welcomeMessage(Client *client) {
+	
+// }
+
+void Parser::analyze(Client *client, std::string &text) {
+    // // client._nickname = "New Client 001";
+	// std::cout << "receive [" << client->getFd() << "]: " << text << std::endl;
+	// std::cout << "hi" << std::endl;
+	// std::string temp_text;
+	// std::vector<std::string> args;
+	// std::stringstream ssin(text);
+	// while (getline(ssin, temp_text, ' ')){
+	// 	args.push_back(temp_text);
+	// }
+	// if (args.empty())
+	// 	return ;
+	// // create function check if cliet is registered
+	// // if (client->isRegist() == false) {
+	// // 	client->receive_message(ERR_NOTREGISTERED(_srv->getName()));
+	// // 	return ;
+	// // }
+	// try {
+	// 	_cmd[args[0]]->execute(client, args);
+	// }
+	// catch (std::exception &e) {
+	// 	std::cerr << "Invalid command!" << std::endl;
+	// }
+	    // client._nickname = "New Client 001";
 	std::cout << "receive [" << client->getFd() << "]: " << text << std::endl;
 
 	std::string temp_text;

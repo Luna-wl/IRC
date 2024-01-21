@@ -15,6 +15,7 @@
 
 # include <iostream>
 # include <vector>
+# include <string>
 # include <sys/socket.h>
 
 # include "Server.hpp"
@@ -114,13 +115,28 @@ class PrivMsg : public Command
 		void execute(Client * client, std::vector<std::string> &args);
 };
 
+class Topic : public Command
+{
+	public:
+		Topic(Server * srv);
+		~Topic();
+};
+
 class Quit : public Command
 {
 	public:
 		Quit(Server * srv);
 		~Quit();
 
+
 		void execute(Client * client, std::vector<std::string> &args);
+};
+
+class List : public Command
+{
+	public:
+		List(Server * srv);
+		~List();
 };
 
 class Notice : public Command
@@ -132,6 +148,13 @@ class Notice : public Command
 		void execute(Client * client, std::vector<std::string> &args);
 };
 
+class Info : public Command
+{
+	public:
+		Info(Server * srv);
+		~Info();
+};
+
 class Names : public Command
 {
 	public:
@@ -139,6 +162,13 @@ class Names : public Command
 		~Names();
 
 		void execute(Client * client, std::vector<std::string> &args);
+};
+
+class Help : public Command
+{
+	public:
+		Help(Server * srv);
+		~Help();
 };
 
 class Oper : public Command

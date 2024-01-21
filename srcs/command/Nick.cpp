@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   Nick.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:16:57 by tkraikua          #+#    #+#             */
 /*   Updated: 2024/01/20 17:27:12 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Command.hpp"
+#include "../../includes/Command.hpp"
 
 Nick::Nick(Server * srv) : Command(srv) {}
 

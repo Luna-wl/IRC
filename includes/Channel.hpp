@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:08 by tkraikua          #+#    #+#             */
 /*   Updated: 2024/01/20 12:35:51 by tkraikua         ###   ########.fr       */
@@ -49,6 +49,10 @@ class Channel
 
 		// getter
 		std::string getName();
+
+		int getClietNum();
+		std::string getTopic();
+		void _setTopic(std::string topic);
 		std::string getKey();
 		std::map<std::string, Client *> getMember();
 		int	getLimit();
@@ -67,7 +71,6 @@ class Channel
 		void setTopicMode(bool state);
 		void setKeyMode(bool state, std::string key);
 		void setLimitMode(bool state, int limit);
-
 };
 
 #include "Client.hpp"

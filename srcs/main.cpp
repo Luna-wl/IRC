@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "Server.hpp"
-#include "Color.hpp"
+#include "../includes/Server.hpp"
+#include "../includes/Color.hpp"
 
 void signalHandler( int signum ) {
    std::cout << "Interrupt signal (" << signum << ") received.\n";
