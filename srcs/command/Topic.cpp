@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Topic.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 00:32:51 by wluedara          #+#    #+#             */
-/*   Updated: 2024/01/21 19:38:41 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/22 00:27:45 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@ Topic::Topic(Server * srv) : Command(srv) {}
 Topic::~Topic() {}
 
 void Topic::execute(Client * client, std::vector<std::string> &args) {
-	std::cout << "[TOPIC] command" << std::endl;
-	// if ( !client->isRegist() ) {
-	// 	client->receive_message(ERR_NOTREGISTERED(_srv->getName()));
-	// 	return;
-	// }
+	if ( !client->isRegist() ) {
+		client->receive_message(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
+		return ;
+	}
 	int num = args.size();
 	if (num < 2)
 		client->receive_message(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), "TOPIC"));
@@ -61,11 +60,3 @@ void Topic::execute(Client * client, std::vector<std::string> &args) {
 	else
 		client->receive_message(ERR_TOOMANYARGUMENTS(_srv->getName(), "TOPIC"));
 }
-
-// ERR_NEEDMOREPARAMS (461)
-// ERR_NOSUCHCHANNEL (403)
-// ERR_NOTONCHANNEL (442)
-// ERR_CHANOPRIVSNEEDED (482)
-// RPL_NOTOPIC (331)
-// RPL_TOPIC (332)
-// RPL_TOPICWHOTIME (333)
