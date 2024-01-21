@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
 /*   Updated: 2024/01/20 16:54:09 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Server.hpp"
+#include "../includes/Server.hpp"
 
 bool Server::_run = true;
 
-Server::Server( const std::string & port, const std::string & pass )
-{
+Server::Server( const std::string & port, const std::string & pass ) {
 	// std::cout << "Server constructor called." << std::endl;
 	_name = "Rudolph";
 	_port = port;
@@ -24,8 +23,7 @@ Server::Server( const std::string & port, const std::string & pass )
 	_parser = new Parser(this);
 }
 
-Server::~Server( void )
-{
+Server::~Server( void ) {
 	// std::cout << "Server deconstructure called." << std::endl;
 	delete _parser;
 	for (std::map<const int, Client *>::iterator it=_clients.begin(); it!=_clients.end(); it++)
@@ -42,8 +40,7 @@ Server::~Server( void )
 	}
 }
 
-int Server::start( void )
-{
+int Server::start( void ) {
 	_server_fd = socket(AF_INET, SOCK_STREAM, 0); // create a TCP socket
 	if (_server_fd < 0)
 	{
@@ -73,8 +70,7 @@ int Server::start( void )
 	return (0);
 }
 
-void Server::server_loop()
-{
+void Server::server_loop() {
 	add_pollfd(_server_fd);
 
 	while (_run)
@@ -118,28 +114,23 @@ void Server::server_loop()
 	}
 }
 
-void Server::set_state(bool state)
-{
+void Server::set_state(bool state) {
 	Server::_run = state;
 }
 
-std::string Server::getName()
-{
+std::string Server::getName() {
 	return _name;
 }
 
-std::string Server::getPass()
-{
+std::string Server::getPass() {
 	return _pass;
 }
 
-std::map<const int, Client *> 	&Server::getClient()
-{
+std::map<const int, Client *> 	&Server::getClient() {
 	return _clients;
 }
 
-Client * Server::get_client(std::string client_nickname)
-{
+Client * Server::get_client(std::string client_nickname) {
 	Client * client = NULL;
 	for (std::map<const int, Client *>::iterator it = _clients.begin(); it != _clients.end(); it++) {
 		if (client_nickname == it->second->getNickname())
@@ -148,8 +139,7 @@ Client * Server::get_client(std::string client_nickname)
 	return client;
 }
 
-void Server::addChannel(Channel * channel)
-{
+void Server::addChannel(Channel * channel) {
 	_channels[channel->getName()] = channel;
 }
 
@@ -159,12 +149,26 @@ void Server::removeChannel(std::string channel_name)
 	_channels.erase(channel_name);
 }
 
-Channel * Server::getChannel(std::string channel_name)
-{
+Channel * Server::getChannel(std::string channel_name) {
 	return _channels.count(channel_name) ? _channels[channel_name] : NULL;
 }
 
-bool Server::isChanExist(std::string channel_name)
-{
+bool Server::isChanExist(std::string channel_name) {
 	return _channels.count(channel_name) ? true : false;
+}
+
+std::map<std::string, Channel*>& Server::getChannels() {
+	return _channels;
+}
+
+std::string Server::getPort() {
+	return _port;
+}
+
+int Server::getChannelNum() {
+	return _channels.size();
+}
+
+int Server::getClientNum() {
+	return _clients.size();
 }

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:55 by tkraikua          #+#    #+#             */
 /*   Updated: 2024/01/20 14:38:25 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Channel.hpp"
+#include "../includes/Channel.hpp"
 
 Channel::Channel(Server * srv, std::string name, std::string key) : _i(false), _t(false), _k(false), _l(false)
 {
@@ -67,6 +67,18 @@ void Channel::send_message(Client * member, std::string message) {
 			continue;
 		it->second->receive_message(message);
 	}
+}
+
+int Channel::getClietNum() {
+	return _clients.size();
+}
+
+std::string Channel::getTopic() {
+	return _topic;
+}
+
+void Channel::_setTopic(std::string topic) {
+	_topic = topic;
 }
 
 std::map<std::string, Channel *> Client::getAllChannel()

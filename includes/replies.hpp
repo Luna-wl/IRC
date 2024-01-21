@@ -14,7 +14,6 @@
 # define REPLIES_HPP
 
 /* Error Replies */
-
 #define ERR_NOSUCHNICK(source, client, nickname)				":" + source + " 401 " + client + " :" + nickname + " :No such nick/channel"
 #define ERR_NOSUCHSERVER(source, client, server_name)			":" + source + " 402 " + client + " :" + server_name + " :No such server"
 #define ERR_NOSUCHCHANNEL(source, client, channel_name)			":" + source + " 403 " + client + " :" + channel_name + " :No such channel"
@@ -62,6 +61,7 @@
 #define ERR_NOOPERHOST(source, client)							":" + source + " 491 " + client + " :No O-lines for your host"
 #define ERR_UMODEUNKNOWNFLAG(source, client)					":" + source + " 501 " + client + " :Unknown MODE flag"
 #define ERR_USERSDONTMATCH(source, client)						":" + source + " 502 " + client + " :Cant change mode for other users"
+#define ERR_TOOMANYARGUMENTS(source, command)		":" + source + " 512 " + command + " :Too many arguments"
 
 /* Replies */
 #define RPL_AWAY(source, cmd, nick, message)				":"	+ source + " " + cmd + " " + nick + " :" + message
@@ -73,10 +73,31 @@
 #define RPL_ENDOFINFO(source, cmd)							":" + source + " " + cmd + " 374 End of /INFO list."
 #define RPL_YOUREOPER(source, cmd)							":" + source + " " + cmd + " 381 You are now an IRC operator"
 
+// List replies
+#define RPL_LISTSTART(source)						":" + source + " :Channel :Users  Name"
+#define RPL_LIST(channel, user_count, topic)		" CHANNEL NAME: " + channel + "\n USER NUMBER: " + user_count + "\n TOPIC:" + topic + "\n=========="
+#define RPL_LISTEND(source)							":" + source + " :End of /LIST"
+
+// Topic replies
+#define RPL_NOTOPIC(source, channel)				":" + source + " " + channel + " :No topic is set"
+#define RPL_TOPIC(source, channel, topic)			":" + source + " " + channel + " :" + topic
+#define RPL_TOPICWHOTIME(source, channel, nickname, time)	":" + source + " " + channel + " " + nickname + " " + time
+
+// Info replies
+#define RPL_INFO(source)							":" + source
+#define RPL_ENDOFINFO(source)						":" + source + " :End of INFO"
+
+// Help replies
+#define RPL_HELPSTART(source)						":" + source + " :Help message"
+#define RPL_ENDOFHELP(source, message)				":" + source + " " + message
+#define RPL_HELPTXT(source, message)				":" + source + " " +  message
+#define ERR_HELPNOTFOUND(source)					":" + source + " " +  ":No help found"
+
 #define RPL_JOINCHAN(source, channel)						":" + source + " join #" + channel 
 #define RPL_LEAVECHAN(source, channel)						":" + source + " leave #" + channel
 
 #define RPL_TIME(source, cmd, server, timestamp, time)      ":" + source + " " + cmd + " 391 " + server + " " + timestamp + " :" + time
 
 #define RPL_PONG(source, token)                             ":" + source + " PONG :" + token
+
 #endif

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:22:30 by tkraikua          #+#    #+#             */
 /*   Updated: 2024/01/20 01:26:25 by tkraikua         ###   ########.fr       */
@@ -62,6 +62,9 @@ class Server
 		// getter
 		std::string getName();
 		std::string getPass();
+		std::string getPort();
+		int getChannelNum();
+		int getClientNum();
 
 		std::map<const int, Client *> 	&getClient();
 		Client * get_client(std::string client_nickname);
@@ -70,6 +73,8 @@ class Server
 		void removeChannel(std::string channel_name);
 		Channel * getChannel(std::string channel_name);
 		bool isChanExist(std::string channel_name);
+
+		std::map<std::string, Channel*>& getChannels();
 };
 
 #include "Channel.hpp"
