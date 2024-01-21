@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:53:45 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 17:59:00 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/21 16:04:03 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,19 @@
 #define ERR_USERSDONTMATCH(source, client)						":" + source + " 502 " + client + " :Cant change mode for other users"
 
 /* Replies */
-#define RPL_AWAY(source, cmd, nick, message)				":"	+ source + " " + cmd + " " + nick + " :" + message
-#define RPL_INVITING(source, cmd, nick, channel)			":" + source + " " + cmd + " " + nick + " " + channel
-#define RPL_NAMREPLY(source, cmd, symbol, channel, nick)	":" + source + " " + cmd + " " + symbol + " " + channel + " : 353 : " + nick
-#define RPL_ENDOFNAMES(source, cmd, channel)                ":" + source + " " + cmd + " " + channel + "  : 366 : End of /NAMES list."
-#define RPL_CHANAWAY(source, cmd, channel, message)			":" + source + " " + cmd + " " + channel + " :" + message
-#define RPL_INFO(source, cmd, message)						":" + source + " " + cmd + " 371 " + message
-#define RPL_ENDOFINFO(source, cmd)							":" + source + " " + cmd + " 374 End of /INFO list."
-#define RPL_YOUREOPER(source, cmd)							":" + source + " " + cmd + " 381 You are now an IRC operator"
+#define RPL_AWAY(source, cmd, nick, message)				":"	+ source + " " + cmd + " " + nick + " :" + message // good
+#define RPL_INVITING(source, cmd, nick, channel)			":" + source + " " + cmd + " " + nick + " :" + channel
+#define RPL_NAMREPLY(source, cmd, symbol, channel, nick)	":" + source + " 353 " + cmd + " " + symbol + " " + channel + " : " + nick // enough
+#define RPL_ENDOFNAMES(source, cmd, channel)                ":" + source + " 366 " + cmd + " " + channel + " :  End of /NAMES list." // disapear?
+#define RPL_CHANAWAY(source, cmd, channel, message)			":" + source + " " + cmd + " " + channel + " :" + message // good
+#define RPL_INFO(source, cmd, message)						":" + source + " 371 " + cmd + ": " + message
+#define RPL_ENDOFINFO(source, cmd)							":" + source + " 374 " + cmd + ": End of /INFO list."
+#define RPL_YOUREOPER(source, cmd)							":" + source + " 381 " + cmd + ": You are now an IRC operator" // good
 
-#define RPL_JOINCHAN(source, channel)						":" + source + " join #" + channel 
-#define RPL_LEAVECHAN(source, channel)						":" + source + " leave #" + channel
+#define RPL_JOINCHAN(source, channel)						":" + source + " join #" + channel // good
+#define RPL_LEAVECHAN(source, channel)						":" + source + " leave #" + channel // good
 
-#define RPL_TIME(source, cmd, server, timestamp, time)      ":" + source + " " + cmd + " 391 " + server + " " + timestamp + " :" + time
+#define RPL_TIME(source, cmd, server, timestamp, time)      ":" + source + " 391 " + cmd + " : " + server + " " + timestamp + " :" + time // good
 
-#define RPL_PONG(source, token)                             ":" + source + " PONG :" + token
+#define RPL_PONG(source, token)                             ":" + source + " PONG :" + token // disapear?
 #endif

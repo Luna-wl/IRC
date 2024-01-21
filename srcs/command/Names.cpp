@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 17:42:31 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/20 17:57:38 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/21 16:04:26 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void Names::execute(Client * client, std::vector<std::string> & args)
 			std::string nick;
 			for (std::map<std::string, Client *>::iterator it = member.begin(); it != member.end(); it++)
 				nick += getUserPrefix(it->second) + " "; // not yet (add prefix @op_user)
-			client->receive_message(RPL_NAMREPLY(client->source(), args[0], symbol, channel_name, nick));
-			client->receive_message(RPL_ENDOFNAMES(client->source(), args[0], channel_name));
+			client->receive_message(RPL_NAMREPLY(client->source(), args[0], symbol, "#" + channel_name, nick));
+			client->receive_message(RPL_ENDOFNAMES(client->source(), args[0], "#" + channel_name));
 		}
 	}
 }
