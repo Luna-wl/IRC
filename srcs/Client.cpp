@@ -6,16 +6,17 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:53:39 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/19 01:05:04 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/20 17:31:52 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Client.hpp"
 
-Client::Client( const int &client_fd, std::string hostname )
+Client::Client( const int &client_fd, std::string hostname ) : _op(false)
 {
     _client_fd = client_fd;
     _hostname = hostname;
+    _nickname = "*";
 }
 
 Client::~Client()
@@ -124,13 +125,30 @@ void Client::setRegist(bool state)
     _regist = state;
 }
 
+bool Client::isOper()
+{
+    return _op;
+}
+
+void Client::setOper(bool state)
+{
+    _op = state;
+}
+
+void Client::leave(Channel * channel)
+{
+    if (!_channels.count(channel->getName()))
+        return ;
+    _channels.erase(channel->getName());
+    channel->removeClient(this);
+}
+
 void Client::join(Channel * channel)
 {
     if (_channels.count(channel->getName()))
         return ;
     _channels[channel->getName()] = channel;
-    channel->addClient(this);
-    // std::cout << "Debug : set channel in client" << std::endl;
+    channel->addMember(this);
 }
 
 Channel * Client::getChannel(std::string channel_name)

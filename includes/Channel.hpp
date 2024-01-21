@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:08 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 01:56:46 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/20 12:35:51 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,17 @@
 # include <iostream>
 # include <map>
 
-# include "replies.hpp"
+# include "Server.hpp"
 
 class Client;
 
 class Channel
 {
 	private:
+		Server *						_srv;
 		std::string						_name;
 		std::map<std::string, Client *>	_members;
+		std::map<std::string, bool>		_opMembers;
 		std::string						_topic;
 		std::string						_key;
 		int								_userLimit;
@@ -32,18 +34,26 @@ class Channel
 		bool	_i; // Invite-only
 		bool	_t; // restrict TOPIC
 		bool	_k; // set key
-		bool	_o; // channel operator privilege
 		bool	_l; // user limit
 	public:
-		Channel(std::string name, std::string key);
+		Channel(Server * srv, std::string name, std::string key);
 		~Channel();
 
-		void addClient(Client * clienet);
-		void send_message(Client * client, std::string message);
+		void addMember(Client * member);
+		void removeClient(Client * member);
+		void addChanOp(std::string nick);
+		void removeChanOp(std::string nick);
+		bool isChanOp(std::string nick);
+
+		void send_message(Client * member, std::string message);
 
 		// getter
 		std::string getName();
 		std::string getKey();
+		std::map<std::string, Client *> getMember();
+		int	getLimit();
+
+		
 
 		bool isFull();
 		
@@ -51,8 +61,13 @@ class Channel
 		bool isInviteMode();
 		bool isTopicMode();
 		bool isKeyMode();
-		bool isOperMode();
 		bool isLimitMode();
+
+		void setInviteMode(bool state);
+		void setTopicMode(bool state);
+		void setKeyMode(bool state, std::string key);
+		void setLimitMode(bool state, int limit);
+
 };
 
 #include "Client.hpp"

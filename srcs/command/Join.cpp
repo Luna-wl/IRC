@@ -6,24 +6,11 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:58:49 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 01:44:29 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/20 17:27:58 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Command.hpp"
-
-std::vector<std::string> commaSeperator(std::string arg)
-{
-	std::vector<std::string> ret;
-	size_t pos = 0;
-	while ((pos = arg.find(",")) != std::string::npos)
-	{
-		ret.push_back(arg.substr(0, pos));
-		arg.erase(0, pos + 1);
-	}
-	ret.push_back(arg.substr(0, pos));
-	return (ret);
-}
 
 Join::Join(Server * srv) : Command(srv) {}
 Join::~Join() {}
@@ -31,13 +18,13 @@ Join::~Join() {}
 void Join::execute(Client * client, std::vector<std::string> &args)
 {
 	if ( !client->isRegist() ) {
-		client->receive_message(ERR_NOTREGISTERED(_srv->getName(), args[0]));
+		client->receive_message(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
 	}
 	else if ( args.size() == 1 ) {
-		client->receive_message(ERR_NEEDMOREPARAMS(_srv->getName(), args[0]));
+		client->receive_message(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
 	}
 	else if ( client->getChannelSize() == CHANLIMIT ) {
-		client->receive_message(ERR_TOOMANYCHANNELS(_srv->getName(), args[0], args[1]));
+		client->receive_message(ERR_TOOMANYCHANNELS(_srv->getName(), client->getNickname(), args[1]));
 	}
 	else {
 		std::vector<std::string> channels = commaSeperator(args[1]);
@@ -51,27 +38,30 @@ void Join::execute(Client * client, std::vector<std::string> &args)
 		{
 			std::string channel_name = *ch_it;
 			std::string channel_key = key_it != keys.end() ? *key_it : "";
+
+			if (channel_name[0] != '#' || channel_name.size() == 1) {
+				client->receive_message(ERR_BADCHANMASK(_srv->getName(), client->getNickname(), channel_name));
+				ch_it++;
+				continue;
+			}
+			channel_name.erase(0, 1);
 			
 			Channel * channel;
 			if (!_srv->isChanExist(channel_name)) {
-				channel = new Channel(channel_name, channel_key);
+				channel = new Channel(_srv, channel_name, channel_key);
 				_srv->addChannel(channel);
+				channel->addChanOp(client->getNickname());
 			} else {
 				channel = _srv->getChannel(channel_name);
 			}
 
 			if (channel->isKeyMode() && channel_key != channel->getKey()) {
-				client->receive_message(ERR_BADCHANNELKEY(_srv->getName(), args[0], channel->getName()));
+				client->receive_message(ERR_BADCHANNELKEY(_srv->getName(), client->getNickname(), channel->getName()));
 			} else if (channel->isLimitMode() && channel->isFull()) {
-				client->receive_message(ERR_CHANNELISFULL(_srv->getName(), args[0], channel->getName()));
+				client->receive_message(ERR_CHANNELISFULL(_srv->getName(), client->getNickname(), channel->getName()));
 			} else if (channel->isInviteMode()) {
-				client->receive_message(ERR_INVITEONLYCHAN(_srv->getName(), args[0], channel->getName()));
-			} 
-			/* use after setting Client OPER finish */
-			// else if (channel->isOperMode() && <client must be oper>) {
-				
-			// } 
-			else {
+				client->receive_message(ERR_INVITEONLYCHAN(_srv->getName(), client->getNickname(), channel->getName()));
+			} else {
 				client->join(channel);
 			}
 			if (key_it != keys.end())

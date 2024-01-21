@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:12:18 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 01:10:08 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/20 17:58:20 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,9 @@
 # include <vector>
 # include <sys/socket.h>
 
+# include "Server.hpp"
+# include "Channel.hpp"
 # include "Client.hpp"
-# include "replies.hpp"
-
-class Server;
 
 class Command
 {
@@ -37,6 +36,8 @@ class Command
 
 		virtual void execute(Client * client, std::vector<std::string> &args) = 0;
 };
+
+std::vector<std::string> commaSeperator(std::string arg);
 
 /* Command */
 
@@ -77,6 +78,33 @@ class Join : public Command
 		void execute(Client * client, std::vector<std::string> &args);
 };
 
+class Invite : public Command
+{
+	public:
+		Invite(Server * srv);
+		~Invite();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
+class Part : public Command
+{
+	public:
+		Part(Server * srv);
+		~Part();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
+class Kick : public Command
+{
+	public:
+		Kick(Server * srv);
+		~Kick();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
 class PrivMsg : public Command
 {
 	public:
@@ -86,6 +114,83 @@ class PrivMsg : public Command
 		void execute(Client * client, std::vector<std::string> &args);
 };
 
-# include "Server.hpp"
+class Quit : public Command
+{
+	public:
+		Quit(Server * srv);
+		~Quit();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
+class Notice : public Command
+{
+	public:
+		Notice(Server * srv);
+		~Notice();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
+class Names : public Command
+{
+	public:
+		Names(Server * srv);
+		~Names();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
+class Oper : public Command
+{
+	public:
+		Oper(Server * srv);
+		~Oper();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
+class Mode : public Command
+{
+	private:
+		bool _validMode(std::string mode);
+		void _setInviteMode(Channel* channel, bool flag, std::vector<std::string> params);
+		void _setTopicMode(Channel* channel, bool flag, std::vector<std::string> params);
+		void _setKeyMode(Channel* channel, bool flag, std::vector<std::string> params);
+		void _setChanOperMode(Channel* channel, bool flag, std::vector<std::string> params);
+		void _setLimitMode(Channel* channel, bool flag, std::vector<std::string> params);
+	public:
+		Mode(Server * srv);
+		~Mode();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
+class Time : public Command
+{
+	public:
+		Time(Server * srv);
+		~Time();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
+class Ping : public Command
+{
+	public:
+		Ping(Server * srv);
+		~Ping();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
+
+class Pong : public Command
+{
+	public:
+		Pong(Server * srv);
+		~Pong();
+
+		void execute(Client * client, std::vector<std::string> &args);
+};
 
 #endif

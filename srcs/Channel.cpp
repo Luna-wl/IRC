@@ -6,15 +6,17 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:55 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/19 01:56:37 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/20 14:38:25 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Channel.hpp"
 
-Channel::Channel(std::string name, std::string key) : _i(false), _t(false), _k(false), _o(false), _l(false)
+Channel::Channel(Server * srv, std::string name, std::string key) : _i(false), _t(false), _k(false), _l(false)
 {
+	_srv = srv;
 	_name = name;
+	_userLimit = 3;
 	if (!key.empty()) {
 		_key = key;
 		_k = true;
@@ -24,17 +26,57 @@ Channel::Channel(std::string name, std::string key) : _i(false), _t(false), _k(f
 
 Channel::~Channel() {}
 
-void Channel::addClient(Client * client)
+void Channel::addMember(Client * member)
 {
-	_members[client->getNickname()] = client;
+	send_message(member, RPL_JOINCHAN(member->source(), getName()));
+	_members[member->getNickname()] = member;
 }
 
-void Channel::send_message(Client * client, std::string message) {
+void Channel::removeClient(Client * member)
+{
+	if (!_members.count(member->getNickname()))
+		return;
+	_members.erase(member->getNickname());
+	removeChanOp(member->getNickname());
+	if (_members.size() == 0) {
+		_srv->removeChannel(_name);
+		return ;
+	}
+	send_message(member, RPL_LEAVECHAN(member->source(), getName()));
+}
+
+void Channel::addChanOp(std::string nick)
+{
+	_opMembers[nick] = true;
+}
+
+void Channel::removeChanOp(std::string nick)
+{
+	if (_opMembers.count(nick))
+		_opMembers.erase(nick);
+}
+
+bool Channel::isChanOp(std::string nick)
+{
+	return _opMembers.count(nick) ? true : false;
+}
+
+void Channel::send_message(Client * member, std::string message) {
 	for (std::map<std::string, Client *>::iterator it = _members.begin(); it != _members.end(); it++) {
-		if (it->second == client)
+		if (it->second == member)
 			continue;
 		it->second->receive_message(message);
 	}
+}
+
+std::map<std::string, Channel *> Client::getAllChannel()
+{
+	return _channels;
+}
+
+std::map<std::string, Client *> Channel::getMember()
+{
+	return _members;
 }
 
 std::string Channel::getName()
@@ -47,9 +89,14 @@ std::string Channel::getKey()
 	return _key;
 }
 
+int	Channel::getLimit()
+{
+	return _userLimit;
+}
+
 bool Channel::isFull()
 {
-	return _members.size() == _userLimit ? true : false;
+	return _members.size() >= _userLimit ? true : false;
 }
 
 bool Channel::isInviteMode()
@@ -67,12 +114,30 @@ bool Channel::isLimitMode()
 	return _l;
 }
 
-bool Channel::isOperMode()
-{
-	return _o;
-}
-
 bool Channel::isTopicMode()
 {
 	return _t;
+}
+
+void Channel::setInviteMode(bool state)
+{
+	_i = state;
+}
+
+void Channel::setTopicMode(bool state)
+{
+	_t = state;
+}
+
+void Channel::setKeyMode(bool state, std::string key)
+{
+	_k = state;
+	if (!key.empty())
+		_key = key;
+}
+
+void Channel::setLimitMode(bool state, int limit)
+{
+	_l = state;
+	_userLimit = limit;
 }
