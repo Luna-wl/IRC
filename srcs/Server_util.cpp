@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server_util.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:43:27 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/21 19:32:26 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/21 21:45:36 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ void Server::receive_message(int fd)
 	
 	recv(fd, buffer, sizeof(buffer), 0);
 	std::string text(buffer);
-	unsigned long found = text.find_first_of("\r\n");
+	bzero(buffer, sizeof(buffer));
+	unsigned long found = text.find_last_not_of(" \n\r\t\f\v");
 	if (found != std::string::npos)
-		text = text.substr(0, found);
-
+		text = text.substr(0, found + 1);
 	_parser->analyze(client, text);
 }
 
