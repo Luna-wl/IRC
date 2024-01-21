@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 00:32:51 by wluedara          #+#    #+#             */
-/*   Updated: 2024/01/21 20:48:47 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/21 20:59:20 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ Topic::~Topic() {}
 
 void Topic::execute(Client * client, std::vector<std::string> &args) {
 	std::cout << "[TOPIC] command" << std::endl;
-	// if ( !client->isRegist() ) {
-	// 	client->receive_message(ERR_NOTREGISTERED(_srv->getName()));
-	// 	return;
-	// }
+	if ( !client->isRegist() ) {
+		client->receive_message(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
+		return;
+	}
 	int num = args.size();
 	if (num < 2)
 		client->receive_message(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), "TOPIC"));
@@ -58,15 +58,6 @@ void Topic::execute(Client * client, std::vector<std::string> &args) {
 					client->receive_message(ERR_CHANOPRIVSNEEDED(_srv->getName(), client->getNickname(), channel_name));
 				else
 					channel->_setTopic(&args[2][0]);
-				
-				// std::map<std::string, Channel *>::iterator it = _srv->getChannels().begin();
-				// while (it != _srv->getChannels().end()) {
-				// 	if (it->second->getName() == args[1]) {
-				// 		it->second->_setTopic(&args[2][1]);
-				// 		break;
-				// 	}
-				// 	it++;
-				// }
 			}
 			else
 				client->receive_message(ERR_UNKNOWNCOMMAND(_srv->getName(), client->getNickname(), "TOPIC"));

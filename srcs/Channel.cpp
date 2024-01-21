@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:55 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/21 20:29:33 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/21 20:59:48 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ Channel::Channel(Server * srv, std::string name, std::string key) : _i(false), _
 		_key = key;
 		_k = true;
 	}
-	// std::cout << "Debug : channel created" << std::endl;
 }
 
 Channel::~Channel() {}

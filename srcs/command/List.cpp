@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 00:33:28 by wluedara          #+#    #+#             */
-/*   Updated: 2024/01/21 19:35:37 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/21 21:00:50 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ List::List(Server * srv) : Command(srv) {}
 List::~List() {}
 
 void List::execute(Client * client, std::vector<std::string> &args) {
-	// if ( !client->isRegist() ) {
-	// 	client->receive_message(ERR_NOTREGISTERED(_srv->getName()));
-	// 	return;
-	// }
+	if ( !client->isRegist() ) {
+		client->receive_message(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
+		return;
+	}
 	int num = args.size();
 	std::cout << "num = " << num << std::endl;
 	if (num == 1) {

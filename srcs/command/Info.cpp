@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 01:35:04 by wluedara          #+#    #+#             */
-/*   Updated: 2024/01/21 20:11:45 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/21 21:08:44 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ Info::Info(Server * srv) : Command(srv) {}
 Info::~Info() {}
 
 void Info::execute(Client * client, std::vector<std::string> &args) {
-	std::cout << "Size : " << args.size() << std::endl;
-	if (args.size() != 1) {
+	if (!client->isRegist()) {
+		client->receive_message(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
+		return ;
+	} else if (args.size() != 1) {
 		client->receive_message(ERR_TOOMANYARGUMENTS(client->getUsername(), "INFO"));
 		return ;
 	}

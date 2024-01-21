@@ -1,14 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Command.cpp                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/21 21:00:27 by tkraikua          #+#    #+#             */
+/*   Updated: 2024/01/21 21:00:28 by tkraikua         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/Command.hpp"
 
-Command::Command(Server * srv)
-{
-	_srv = srv;
-}
+Command::Command(Server * srv) : _srv(srv) {}
 
-Command::~Command()
-{
-	
-}
+Command::~Command() {}
 
 std::vector<std::string> commaSeperator(std::string arg)
 {
