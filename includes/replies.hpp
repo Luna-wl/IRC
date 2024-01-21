@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:53:45 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/21 19:58:32 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/21 20:07:44 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@
 #define ERR_NOOPERHOST(source, client)							":" + source + " 491 " + client + " :No O-lines for your host"
 #define ERR_UMODEUNKNOWNFLAG(source, client)					":" + source + " 501 " + client + " :Unknown MODE flag"
 #define ERR_USERSDONTMATCH(source, client)						":" + source + " 502 " + client + " :Cant change mode for other users"
-#define ERR_TOOMANYARGUMENTS(source, command)		":" + source + " 512 " + command + " :Too many arguments"
+#define ERR_TOOMANYARGUMENTS(source, command)					":" + source + " 512 " + command + " :Too many arguments"
 
 /* Replies */
 #define RPL_AWAY(source, cmd, nick, message)				":"	+ source + " " + cmd + " " + nick + " :" + message // good

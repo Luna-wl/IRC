@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 00:32:51 by wluedara          #+#    #+#             */
-/*   Updated: 2024/01/21 19:38:41 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/21 20:48:47 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,16 @@ void Topic::execute(Client * client, std::vector<std::string> &args) {
 	else if (num == 2) {
 		if (args[1][0] == '#') {
 			// TOPIC #test	Checking the topic for "#test"
-			try {
-				if (_srv->getChannel(args[1])->getTopic() != "")
-					client->receive_message(RPL_TOPIC(_srv->getName(), args[1], _srv->getChannel(args[1])->getTopic()));
-				else
-					client->receive_message(RPL_NOTOPIC(_srv->getName(), args[1]));
-			} catch (std::exception &e) {
+			std::string channel_name = args[1];
+			Channel * channel = _srv->getChannel(channel_name.erase(0, 1));
+			if (!channel)
 				client->receive_message(ERR_NOSUCHCHANNEL(_srv->getName(), client->getNickname(), args[1]));
-			}
+			else if (client->getChannel(channel_name))
+				client->receive_message(ERR_NOTONCHANNEL(_srv->getName(), client->getNickname(), channel_name));
+			else if (channel->getTopic() != "")
+				client->receive_message(RPL_TOPIC(_srv->getName(), args[1], _srv->getChannel(args[1])->getTopic()));
+			else
+				client->receive_message(RPL_NOTOPIC(_srv->getName(), args[1]));
 		}
 		else
 			client->receive_message(ERR_UNKNOWNCOMMAND(_srv->getName(), client->getNickname(), "TOPIC"));
@@ -46,14 +48,25 @@ void Topic::execute(Client * client, std::vector<std::string> &args) {
 				_srv->getChannel(args[1])->_setTopic("");
 			else if (args[1][0] == '#') {
 			// TOPIC #test :New topic 	Setting the topic on "#test" to "New topic".
-				std::map<std::string, Channel *>::iterator it = _srv->getChannels().begin();
-				while (it != _srv->getChannels().end()) {
-					if (it->second->getName() == args[1]) {
-						it->second->_setTopic(&args[2][1]);
-						break;
-					}
-					it++;
-				}
+				std::string channel_name = args[1];
+				Channel * channel = _srv->getChannel(channel_name.erase(0, 1));
+				if (!channel)
+					client->receive_message(ERR_NOSUCHCHANNEL(_srv->getName(), client->getNickname(), channel_name));
+				else if (!client->getChannel(channel_name))
+					client->receive_message(ERR_NOTONCHANNEL(_srv->getName(), client->getNickname(), channel_name));
+				else if (channel->isTopicMode() && !channel->isChanOp(client->getNickname()))
+					client->receive_message(ERR_CHANOPRIVSNEEDED(_srv->getName(), client->getNickname(), channel_name));
+				else
+					channel->_setTopic(&args[2][0]);
+				
+				// std::map<std::string, Channel *>::iterator it = _srv->getChannels().begin();
+				// while (it != _srv->getChannels().end()) {
+				// 	if (it->second->getName() == args[1]) {
+				// 		it->second->_setTopic(&args[2][1]);
+				// 		break;
+				// 	}
+				// 	it++;
+				// }
 			}
 			else
 				client->receive_message(ERR_UNKNOWNCOMMAND(_srv->getName(), client->getNickname(), "TOPIC"));

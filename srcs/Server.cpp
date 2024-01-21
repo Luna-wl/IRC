@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/21 19:31:52 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/21 20:05:02 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ int Server::start( void ) {
 	{
 		std::cerr << RED << "Error creating socket" << DEFAULT << std::endl;
 		return(1);
+	}
+
+	if (fcntl(_server_fd, F_SETFL, O_NONBLOCK))
+	{
+		std::cerr << RED << "Error non blocking" << DEFAULT << std::endl;
+		return (1);
 	}
 
 	int optval = 1;
