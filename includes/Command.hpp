@@ -6,7 +6,7 @@
 /*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:12:18 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/21 01:34:44 by wluedara         ###   ########.fr       */
+/*   Updated: 2024/01/21 14:31:57 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <iostream>
 # include <vector>
+# include <string>
 # include <sys/socket.h>
 
 # include "Client.hpp"
