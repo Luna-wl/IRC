@@ -6,7 +6,7 @@
 /*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/21 14:21:59 by wluedara         ###   ########.fr       */
+/*   Updated: 2024/01/20 16:54:09 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ bool Server::_run = true;
 
 Server::Server( const std::string & port, const std::string & pass ) {
 	// std::cout << "Server constructor called." << std::endl;
-	_name = "<server_name>";
+	_name = "Rudolph";
 	_port = port;
 	_pass = pass;
 	_run = true;
@@ -30,7 +30,11 @@ Server::~Server( void ) {
 	{
 		delete it->second;
 	}
-	for (unsigned long i = 0; i < _fds.size(); i++)
+	for (std::map<std::string, Channel *>::iterator it=_channels.begin(); it!=_channels.end(); it++)
+	{
+		delete it->second;
+	}
+	for (int i = 0; i < _fds.size(); i++)
 	{
 		close(_fds[i].fd);
 	}
@@ -89,13 +93,7 @@ void Server::server_loop() {
 		{
 			if (it->revents & POLLHUP)
 			{
-				std::cout << "[server]: Disconnect from user [" << it->fd << "]\n";
-
-				close(it->fd); // close fd
-				delete _clients[it->fd]; // release memory
-				_clients.erase(it->fd); // remove from _client
-				_fds.erase(it); // remove from _fds
-
+				clientDisconnect(it->fd);
 				break;
 			}
 			else if (it->revents & POLLIN)
@@ -143,7 +141,12 @@ Client * Server::get_client(std::string client_nickname) {
 
 void Server::addChannel(Channel * channel) {
 	_channels[channel->getName()] = channel;
-	// std::cout << "Debug : set channel to server" << std::endl;
+}
+
+void Server::removeChannel(std::string channel_name)
+{
+	delete _channels[channel_name];
+	_channels.erase(channel_name);
 }
 
 Channel * Server::getChannel(std::string channel_name) {

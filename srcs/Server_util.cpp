@@ -6,7 +6,7 @@
 /*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:43:27 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/19 22:39:21 by wluedara         ###   ########.fr       */
+/*   Updated: 2024/01/20 02:55:37 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,7 @@ void Server::create_connection()
 void Server::add_client(int client_fd, std::string hostname)
 {
 	_clients[client_fd] = new Client(client_fd, hostname);
-	// Client client(client_fd);
-	// _clients.insert(std::pair<const int, Client>(client_fd, client));
-	std::cout << "Connected from : " << client_fd << std::endl;	
+	std::cout << "Connected from : " << client_fd << std::endl;
 }
 
 void Server::add_pollfd(int fd)
@@ -66,56 +64,51 @@ void Server::receive_message(int fd)
 	
 	recv(fd, buffer, sizeof(buffer), 0);
 	std::string text(buffer);
-	const unsigned long found = text.find("\n");
+	int found = text.find_first_of("\r\n");
 	if (found != std::string::npos)
 		text = text.substr(0, found);
 
 	_parser->analyze(client, text);
 }
 
-// void Server::receive_message(std::vector<pollfd>::iterator it)
-// {
-// 	char buffer[1024];
-// 	int nread = recv(it->fd, buffer, sizeof(buffer), 0);
+std::string Server::time(int format)
+{
+	std::time_t current_time = std::time(0);
+	std::tm* time_info = std::localtime(&current_time);
 
-// 	if (nread < 0)
-// 	{
-// 		std::cerr << RED << "[server]: Error receiving data." << std::endl;
-// 		close(it->fd);
-// 		_fds.erase(it);
-// 	}
+	char buffer[80];
+	if (format == 1)
+		std::strftime(buffer, sizeof(buffer), "%d-%m-%Y %H:%M:%S", time_info);
+	else if (format == 2)
+		std::strftime(buffer, sizeof(buffer), "%A %B %e %Y -- %H:%M %z", time_info);
+	else
+	{
+		std::stringstream ss;
+		ss << current_time;
+		return ss.str();
+	}
 
-// 	/* Parser (cut after \n character) */
-// 	std::string text(buffer);
-// 	int found = text.find("\n");
-// 	if (found != std::string::npos)
-// 		text = text.substr(0, found);
+	return std::string(buffer);
+}
 
-// 	/* check information */
-// 	if (text[0] == '>') // try send message to another 
-// 	{
-// 		std::string name = "[" + std::to_string(it->fd) + "] : ";
-// 		int nsend = nread + name.size();
-// 		char send_buffer[nsend + 1];
-
-// 		memcpy(send_buffer, name.c_str(), name.size());
-// 		memcpy(send_buffer + name.size(), buffer, nread);\
-// 		send_buffer[nsend] = '\0';
-// 		for (std::vector<pollfd>::iterator itt = _fds.begin(); itt != _fds.end(); itt++)
-// 		{
-// 			if (itt->fd == _server_fd || itt == it)
-// 				continue;
-// 			send(itt->fd, send_buffer, nsend, 0);
-// 		}
-// 	}
-// 	else if (text == "stop")
-// 	{
-// 		_run = false;
-// 		std::cout << "[server]: shutting down . . .\n";
-// 	}
-// 	else if (text == "status")
-// 		std::cout << "[server]: [" << _fds.size() - 1 << "] online users.\n"; 
-// 	else
-// 		std::cout << "receive [" << it->fd << "]: " << text << std::endl;
-// 	memset(buffer, 0, sizeof(buffer));
-// }
+void Server::clientDisconnect(int fd)
+{
+	Client * client = _clients[fd];
+	std::map<std::string, Channel *> channels = client->getAllChannel();
+    for (std::map<std::string, Channel *>::iterator ch_it = channels.begin(); ch_it != channels.end(); ch_it++)
+    {
+        client->leave(ch_it->second);
+    }
+	close(fd); // close fd
+	delete _clients[fd]; // release memory
+	_clients.erase(fd); // remove from _client
+	for (std::vector<pollfd>::iterator it = _fds.begin(); it != _fds.end(); it++)
+	{
+		if (it->fd == fd)
+		{
+			_fds.erase(it); // remove from _fds
+			break;
+		}
+	}
+	std::cout << "[server]: Disconnect from user [" << fd << "]\n";
+}
