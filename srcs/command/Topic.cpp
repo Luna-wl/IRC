@@ -6,7 +6,7 @@
 /*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 00:32:51 by wluedara          #+#    #+#             */
-/*   Updated: 2024/01/22 19:07:47 by wluedara         ###   ########.fr       */
+/*   Updated: 2024/01/22 19:17:42 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void Topic::execute(Client * client, std::vector<std::string> &args) {
 		return;
 	}
 	int num = args.size();
-	std::cout << "TOPIC args: " << num << std::endl;
 	if (num < 2)
 		client->receive_message(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), "TOPIC"));
 	else if (num == 2) {
