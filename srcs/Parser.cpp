@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 22:50:18 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/21 21:43:44 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/22 15:22:56 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ Parser::Parser(Server * srv)
 	_cmd["TIME"] = new Time(srv);
 	_cmd["PING"] = new Ping(srv);
 	_cmd["PONG"] = new Pong(srv);
+	_cmd["BOT"] = new Bot(srv);
 }
 
 Parser::~Parser()
