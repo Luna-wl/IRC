@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:43:27 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/21 21:45:36 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/22 14:11:31 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void Server::add_pollfd(int fd)
 void Server::receive_message(int fd)
 {
 	Client * client = _clients.at(fd);
-	char buffer[1024];
+	char buffer[512];
 	
 	recv(fd, buffer, sizeof(buffer), 0);
 	std::string text(buffer);
