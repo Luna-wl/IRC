@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Parser.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 22:50:18 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/20 17:56:56 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/22 19:05:34 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,34 +45,7 @@ Parser::~Parser()
 	}
 }
 
-// void Parser::welcomeMessage(Client *client) {
-	
-// }
-
 void Parser::analyze(Client *client, std::string &text) {
-    // // client._nickname = "New Client 001";
-	// std::cout << "receive [" << client->getFd() << "]: " << text << std::endl;
-	// std::cout << "hi" << std::endl;
-	// std::string temp_text;
-	// std::vector<std::string> args;
-	// std::stringstream ssin(text);
-	// while (getline(ssin, temp_text, ' ')){
-	// 	args.push_back(temp_text);
-	// }
-	// if (args.empty())
-	// 	return ;
-	// // create function check if cliet is registered
-	// // if (client->isRegist() == false) {
-	// // 	client->receive_message(ERR_NOTREGISTERED(_srv->getName()));
-	// // 	return ;
-	// // }
-	// try {
-	// 	_cmd[args[0]]->execute(client, args);
-	// }
-	// catch (std::exception &e) {
-	// 	std::cerr << "Invalid command!" << std::endl;
-	// }
-	    // client._nickname = "New Client 001";
 	std::cout << "receive [" << client->getFd() << "]: " << text << std::endl;
 
 	std::string temp_text;
