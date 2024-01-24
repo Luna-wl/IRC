@@ -6,7 +6,7 @@
 /*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 01:35:25 by wluedara          #+#    #+#             */
-/*   Updated: 2024/01/22 00:32:22 by wluedara         ###   ########.fr       */
+/*   Updated: 2024/01/24 23:53:44 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ void Help::execute(Client * client, std::vector<std::string> &args)
 		message += "> PASS <password>: set your password\n";
 		message += "> PRIVMSG <receiver> <message>: send a message to a receiver\n";
 		message += "> PING <server>: ping a server\n";
-		message += "> PONG <server>: pong a server\n\n";
+		message += "> PONG <server>: pong a server\n";
 		message += "> QUIT: disconnect from the server\n";
 		message += "> TIME <server>: show the time of a server\n";
-		message += "> TOPIC <channel> <topic>: set a topic for a channel\n";
+		message += "> TOPIC <channel> <topic>: set a topic for a channel\n\n";
 		client->receive_message(message);
 		return ;
 	}

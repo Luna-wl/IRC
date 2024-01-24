@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server_util.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:43:27 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/22 14:11:31 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/25 00:05:25 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,23 @@ void Server::create_connection()
 		std::cerr << RED << "Error accepting connection" << DEFAULT << std::endl;
 		return;
 	}
-    char client_ip[INET_ADDRSTRLEN];
-    inet_ntop(AF_INET, &(client_addr.sin_addr), client_ip, INET_ADDRSTRLEN); // convert ip to string (human readable)
+	char client_ip[INET_ADDRSTRLEN];
+	inet_ntop(AF_INET, &(client_addr.sin_addr), client_ip, INET_ADDRSTRLEN); // convert ip to string (human readable)
 
-    struct sockaddr_in client_info;
-    client_info.sin_family = AF_INET;
-    client_info.sin_addr.s_addr = inet_addr(client_ip);
-    struct hostent *host_info = gethostbyaddr((const void *)&client_info.sin_addr, sizeof(client_info.sin_addr), AF_INET);
+	struct sockaddr_in client_info;
+	client_info.sin_family = AF_INET;
+	client_info.sin_addr.s_addr = inet_addr(client_ip);
+	struct hostent *host_info = gethostbyaddr((const void *)&client_info.sin_addr, sizeof(client_info.sin_addr), AF_INET);
 
-    std::string hostname;
-    if (host_info)
-        hostname = host_info->h_name;
-    else
-        hostname = client_ip;
+	std::string hostname;
+	if (host_info)
+		hostname = host_info->h_name;
+	else
+		hostname = client_ip;
 
-    std::cout << "addr Port : " << client_addr.sin_port << std::endl;
-    std::cout << "hostname  : " << hostname << std::endl;
-    std::cout << "client ip : " << client_ip << std::endl;
+	std::cout << "addr Port : " << client_addr.sin_port << std::endl;
+	std::cout << "hostname  : " << hostname << std::endl;
+	std::cout << "client ip : " << client_ip << std::endl;
 	add_pollfd(client_fd);
 	add_client(client_fd, hostname);
 }
@@ -61,7 +61,7 @@ void Server::receive_message(int fd)
 {
 	Client * client = _clients.at(fd);
 	char buffer[512];
-	
+
 	recv(fd, buffer, sizeof(buffer), 0);
 	std::string text(buffer);
 	bzero(buffer, sizeof(buffer));
@@ -95,10 +95,10 @@ void Server::clientDisconnect(int fd)
 {
 	Client * client = _clients[fd];
 	std::map<std::string, Channel *> channels = client->getAllChannel();
-    for (std::map<std::string, Channel *>::iterator ch_it = channels.begin(); ch_it != channels.end(); ch_it++)
-    {
-        client->leave(ch_it->second);
-    }
+	for (std::map<std::string, Channel *>::iterator ch_it = channels.begin(); ch_it != channels.end(); ch_it++)
+	{
+		client->leave(ch_it->second);
+	}
 	close(fd); // close fd
 	delete _clients[fd]; // release memory
 	_clients.erase(fd); // remove from _client

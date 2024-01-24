@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bot.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:50:44 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/23 17:36:46 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/24 23:51:54 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,6 @@ void Bot::execute(Client * client, std::vector<std::string> & args)
 			}
 		}
 	}
+	else
+		client->receive_message(ERR_UNKNOWNCOMMAND(getName(), client->getNickname(), args[0] + " " + args[1]));
 }
