@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Help.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 01:35:25 by wluedara          #+#    #+#             */
-/*   Updated: 2024/01/24 20:59:11 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/24 21:48:51 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,35 +19,35 @@ Help::~Help() {}
 void Help::execute(Client * client, std::vector<std::string> &args)
 {
 	if (args.size() == 1) {
-		std::string message = "\nIf you not register, you can use these commands:\n";
-		message += "> PASS <server's password>: enter password to regist in the server\n";
-		message += "> NICK <nickname>: set your nickname\n";
-		message += "> USER <username> 0 * <realname>: set your username\n\n";
-		
-		message += "If you register, you can use these commands:\n";
-		message += "> INFO: show server information\n";
-		message += "> INVITE <nickname> <channel>: invite a user to a channel\n";
-		message += "> JOIN <channel>: join a channel\n";
-		message += "> KICK <channel> <nickname>: kick a user from a channel\n";
-		message += "> LIST <channel>: list all channels\n";
-		message += "> MODE <channel> <mode>: set a mode for a channel\n";
-		message += "  -i: Set/remove Invite-only channel\n";
-		message += "  -t: Set/remove the restrictions of the TOPIC command to channel operators\n";
-		message += "  -k: Set/remove the channel key (password\n";
-		message += "  -o: Give/take channel operator privilege\n";
-		message += "  -l: Set/remove the user limit to channel\n";
-		message += "> NAMES <channel>: list all users in a channel\n";
-		message += "> NOTICE <nickname> <message>: send a notice to a user\n";
-		message += "> OPER <name> <password>: to obtain IRC operator privileges\n";
-		message += "> PART <channel>: leave a channel\n";
-		message += "> PASS <password>: set your password\n";
-		message += "> PRIVMSG <receiver> <message>: send a message to a receiver\n";
-		message += "> PING <server>: ping a server\n";
-		message += "> PONG <server>: pong a server\n";
-		message += "> QUIT: disconnect from the server\n";
-		message += "> TIME <server>: show the time of a server\n";
-		message += "> TOPIC <channel> <topic>: set a topic for a channel\n\n";
-		client->recieveMessage(message);
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "If you not register, you can use these commands:"));
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "> PASS <server's password>: enter password to regist in the server"));
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "> NICK <nickname>: set your nickname"));
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "> USER <username> 0 * <realname>: set your username"));
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], ""));
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "If you register, you can use these commands:"));
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "> INFO: show server information"));
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "> INVITE <nickname> <channel>: invite a user to a channel"));
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "> JOIN <channel>: join a channel"));
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "> KICK <channel> <nickname>: kick a user from a channel"));
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "> LIST <channel>: list all channels"));
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "> MODE <channel> <mode>: set a mode for a channel"));
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "  -i: Set/remove Invite-only channel"));
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "  -t: Set/remove the restrictions of the TOPIC command to channel operators"));
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "  -k: Set/remove the channel key (password"));
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "  -o: Give/take channel operator privilege"));
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "  -l: Set/remove the user limit to channel"));
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "> NAMES <channel>: list all users in a channel"));
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "> NOTICE <nickname> <message>: send a notice to a user"));
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "> OPER <name> <password>: to obtain IRC operator privileges"));
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "> PART <channel>: leave a channel"));
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "> PASS <password>: set your password"));
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "> PRIVMSG <receiver> <message>: send a message to a receiver"));
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "> PING <server>: ping a server"));
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "> PONG <server>: pong a server"));
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "> QUIT: disconnect from the server"));
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "> TIME <server>: show the time of a server"));
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "> TOPIC <channel> <topic>: set a topic for a channel"));
+		client->recieveMessage(RPL_INFO(_srv->getName(), args[0], ""));
 		return ;
 	}
 	client->recieveMessage(ERR_TOOMANYARGUMENTS(_srv->getName(), "HELP"));

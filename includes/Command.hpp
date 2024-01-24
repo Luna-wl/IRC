@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Command.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:12:18 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/22 19:11:21 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/24 23:06:39 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ class Mode : public Command
 		void _setInviteMode(Channel* channel, bool flag, std::vector<std::string> params);
 		void _setTopicMode(Channel* channel, bool flag, std::vector<std::string> params);
 		void _setKeyMode(Channel* channel, bool flag, std::vector<std::string> params);
-		void _setChanOperMode(Channel* channel, bool flag, std::vector<std::string> params);
+		void _setChanOperMode(Client* client, Channel* channel, bool flag, std::vector<std::string> params);
 		void _setLimitMode(Channel* channel, bool flag, std::vector<std::string> params);
 	public:
 		Mode(Server * srv);

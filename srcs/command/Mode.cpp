@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Mode.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 22:08:57 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/24 20:59:11 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/24 23:17:08 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void Mode::execute(Client * client, std::vector<std::string> &args)
 		} else if (mode_char == 'k') {
 			_setKeyMode(channel, mode_flag, params);
 		} else if (mode_char == 'o') {
-			_setChanOperMode(channel, mode_flag, params);
+			_setChanOperMode(client, channel, mode_flag, params);
 		} else if (mode_char == 'l') {
 			_setLimitMode(channel, mode_flag, params);
 		} else {
@@ -106,11 +106,16 @@ void Mode::_setKeyMode(Channel* channel, bool flag, std::vector<std::string> par
 		channel->setKeyMode(flag, "");
 }
 
-void Mode::_setChanOperMode(Channel* channel, bool flag, std::vector<std::string> params)
+void Mode::_setChanOperMode(Client* client, Channel* channel, bool flag, std::vector<std::string> params)
 {
 	if (params.size() > 1)
 	{
 		std::string nick = params[1];
+		Client* user = _srv->getClient(nick);
+		if ( !user || !user->getChannel(channel->getName()) ) {
+			client->recieveMessage(ERR_USERNOTINCHANNEL(_srv->getName(), client->getNickname(), nick, "#" + channel->getName()));
+			return ;
+		}
 		if (flag)
 			channel->addChanOp(nick);
 		else
