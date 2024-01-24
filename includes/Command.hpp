@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Command.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:12:18 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/21 19:31:30 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/22 19:11:21 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,6 @@
 
 class Command
 {
-	private:
-		// std::vector<string>    _args;
-		// std::string            _cmd;
-		// std::string            _prefix;
-		// bool                   _valid;
 	protected:
 		Server * _srv;
 	public:
@@ -229,6 +224,16 @@ class Pong : public Command
 		~Pong();
 
 		void execute(Client * client, std::vector<std::string> &args);
+};
+
+class Bot : public Command
+{
+	public:
+		Bot(Server * srv);
+		~Bot();
+
+		void execute(Client * client, std::vector<std::string> &args);
+		std::string getName();
 };
 
 #endif

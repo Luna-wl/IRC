@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:55 by tkraikua          #+#    #+#             */
 /*   Updated: 2024/01/21 20:59:48 by tkraikua         ###   ########.fr       */
@@ -88,6 +88,11 @@ std::map<std::string, Channel *> Client::getAllChannel()
 std::map<std::string, Client *> Channel::getMember()
 {
 	return _members;
+}
+
+std::map<std::string, bool> Channel::getOpMember()
+{
+	return _opMembers;
 }
 
 std::string Channel::getName()

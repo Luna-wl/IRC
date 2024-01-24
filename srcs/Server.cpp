@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/21 20:05:02 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/22 16:56:51 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,11 +132,11 @@ std::string Server::getPass() {
 	return _pass;
 }
 
-std::map<const int, Client *> 	&Server::getClient() {
+std::map<const int, Client *> 	&Server::getAllClient() {
 	return _clients;
 }
 
-Client * Server::get_client(std::string client_nickname) {
+Client * Server::getClient(std::string client_nickname) {
 	Client * client = NULL;
 	for (std::map<const int, Client *>::iterator it = _clients.begin(); it != _clients.end(); it++) {
 		if (client_nickname == it->second->getNickname())

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Parser.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 22:50:18 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/20 17:56:56 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/22 15:22:56 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ Parser::Parser(Server * srv)
 	_cmd["TIME"] = new Time(srv);
 	_cmd["PING"] = new Ping(srv);
 	_cmd["PONG"] = new Pong(srv);
+	_cmd["BOT"] = new Bot(srv);
 }
 
 Parser::~Parser()
@@ -45,56 +46,30 @@ Parser::~Parser()
 	}
 }
 
-// void Parser::welcomeMessage(Client *client) {
-	
-// }
-
 void Parser::analyze(Client *client, std::string &text) {
-    // // client._nickname = "New Client 001";
-	// std::cout << "receive [" << client->getFd() << "]: " << text << std::endl;
-	// std::cout << "hi" << std::endl;
-	// std::string temp_text;
-	// std::vector<std::string> args;
-	// std::stringstream ssin(text);
-	// while (getline(ssin, temp_text, ' ')){
-	// 	args.push_back(temp_text);
-	// }
-	// if (args.empty())
-	// 	return ;
-	// // create function check if cliet is registered
-	// // if (client->isRegist() == false) {
-	// // 	client->receive_message(ERR_NOTREGISTERED(_srv->getName()));
-	// // 	return ;
-	// // }
-	// try {
-	// 	_cmd[args[0]]->execute(client, args);
-	// }
-	// catch (std::exception &e) {
-	// 	std::cerr << "Invalid command!" << std::endl;
-	// }
-	    // client._nickname = "New Client 001";
 	std::cout << "receive [" << client->getFd() << "]: " << text << std::endl;
 
 	std::string temp_text;
 	std::vector<std::string> args;
-    std::stringstream ssin(text);
-    while (ssin.good()){
-        ssin >> temp_text;
+	std::stringstream ssin(text);
+	while (ssin >> temp_text) {
 		size_t colon = temp_text.find(':');
-        if (colon != std::string::npos) {
+		if (colon != std::string::npos) {
 			temp_text.erase(std::remove(temp_text.begin(), temp_text.end(), ':'), temp_text.end());
-            std::string next_text;
+			std::string next_text;
 			while (ssin.good())
 			{
 				ssin >> next_text;
-                temp_text += " " + next_text;
-            }
-        }
+				temp_text += " " + next_text;
+			}
+		}
 		args.push_back(temp_text);
-    }
-
+	}
+	std::cout << "args.size(): " << args.size() << std::endl;
+	for (unsigned long i = 0; i < args.size(); i++)
+		std::cout << "args[" << i << "]: " << args[i] << std::endl;
 	if (_cmd.count(args[0]))
 		_cmd[args[0]]->execute(client, args);
 	else
 		client->receive_message(ERR_UNKNOWNCOMMAND(_srv->getName(), client->getNickname(), args[0]));
-}
+} 

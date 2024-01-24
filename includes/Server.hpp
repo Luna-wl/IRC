@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:22:30 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/21 20:04:25 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/22 16:56:51 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ class Server
 		int getChannelNum();
 		int getClientNum();
 
-		std::map<const int, Client *> 	&getClient();
-		Client * get_client(std::string client_nickname);
+		std::map<const int, Client *> 	&getAllClient();
+		Client * getClient(std::string client_nickname);
 
 		void addChannel(Channel * channel);
 		void removeChannel(std::string channel_name);

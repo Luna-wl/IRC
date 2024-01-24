@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:08 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/21 19:33:38 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/22 15:06:30 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ class Channel
 		void _setTopic(std::string topic);
 		std::string getKey();
 		std::map<std::string, Client *> getMember();
+		std::map<std::string, bool>		getOpMember();
 		int	getLimit();
-
 		
 
 		bool isFull();

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Invite.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 15:39:17 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/21 19:36:04 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/22 16:56:51 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void Invite::execute(Client * client, std::vector<std::string> &args)
 		client->receive_message(ERR_BADCHANMASK(_srv->getName(), client->getNickname(), args[1]));
 	} else {
 		std::string user_name = args[1];
-		Client * user = _srv->get_client(user_name);
+		Client * user = _srv->getClient(user_name);
 		
 		std::string channel_name = args[2];
 		channel_name.erase(0, 1);

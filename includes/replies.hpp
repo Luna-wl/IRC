@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replies.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:53:45 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/21 20:07:44 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/22 19:13:56 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 #define ERR_NOLOGIN(source, client, user)						":" + source + " 444 " + client + " :" + user + " :User not logged in"
 #define ERR_SUMMONDISABLED(source, client)						":" + source + " 445 " + client + " :SUMMON has been disabled"
 #define ERR_USERSDISABLED(source, client)						":" + source + " 446 " + client + " :USERS has been disabled"
-#define ERR_NOTREGISTERED(source, client)						":" + source + " 451 " + client + " :You have not registered"
+#define ERR_NOTREGISTERED(source, client)						":" + source + " 451 " + client + " :You have not registered\n" + "More info type 'HELP'"
 #define ERR_NOTAUTHENTICATED(source, client)					":" + source + " 452 " + client + " :You have not authenticated"
 #define ERR_ALREADYAUTHENTICATED(source, client)				":" + source + " 460 " + client + " :You may not reauthenticate"
 #define ERR_NEEDMOREPARAMS(source, client, cmd)					":" + source + " 461 " + client + " :" + cmd + " :Not enough parameters"
@@ -74,9 +74,12 @@
 #define RPL_YOUREOPER(source, cmd)							":" + source + " 381 " + cmd + ": You are now an IRC operator" // good
 
 // List replies
-#define RPL_LISTSTART(source)						":" + source + " :Channel :Users  Name"
-#define RPL_LIST(channel, user_count, topic)		" CHANNEL NAME: " + channel + "\n USER NUMBER: " + user_count + "\n TOPIC:" + topic + "\n=========="
-#define RPL_LISTEND(source)							":" + source + " :End of /LIST"
+#define RPL_LISTSTART(source)						        ":" + source + " 321 INFO Channel :Users Name"
+#define RPL_LIST(source, channel, user_count, topic)		":" + source + " 322 INFO " + channel + " " + user_count + " :" + topic
+#define RPL_LISTEND(source)							        ":" + source + " 323 INFO :End of /LIST"
+// #define RPL_LISTSTART(source)						":" + source + " :Channel :Users  Name"
+// #define RPL_LIST(channel, user_count, topic)		" CHANNEL NAME: " + channel + "\n USER NUMBER: " + user_count + "\n TOPIC:" + topic + "\n=========="
+// #define RPL_LISTEND(source)							":" + source + " :End of /LIST"
 
 // Topic replies
 #define RPL_NOTOPIC(source, channel)				":" + source + " " + channel + " :No topic is set"
