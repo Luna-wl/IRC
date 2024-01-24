@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Kick.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 14:03:35 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/21 19:40:08 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/22 16:56:51 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void Kick::execute(Client * client, std::vector<std::string> &args)
 		for (std::vector<std::string>::iterator user_it=users.begin(); user_it!=users.end(); user_it++)
 		{
 			std::string user_name = *user_it;
-			Client * user = _srv->get_client(user_name);
+			Client * user = _srv->getClient(user_name);
 			
 			if ( !channel ) {
 				client->receive_message(ERR_NOSUCHCHANNEL(_srv->getName(), client->getNickname(), "#" + channel_name));

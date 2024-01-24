@@ -43,7 +43,7 @@ void PrivMsg::execute(Client * client, std::vector<std::string> &args)
 			channel->send_message(client, RPL_CHANAWAY(client->source(), args[0], "#" + channel->getName(), message));
 	}
 	else { // send message to user
-		Client * target_client = _srv->get_client(target);
+		Client * target_client = _srv->getClient(target);
 		if (target_client)
 			target_client->receive_message(RPL_AWAY(client->source(), args[0], client->getNickname(), message));
 		else

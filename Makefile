@@ -30,7 +30,8 @@ CMD := 	Nick.cpp \
 		Ping.cpp \
 		Pong.cpp \
 		Help.cpp \
-		Info.cpp
+		Info.cpp \
+		Bot.cpp
 
 CC = g++
 

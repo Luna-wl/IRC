@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Nick.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:16:57 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/23 00:06:07 by wluedara         ###   ########.fr       */
+/*   Updated: 2024/01/22 16:56:25 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ void Nick::execute(Client * client, std::vector<std::string> &args)
 
 bool Nick::nickIsUsed(std::string name)
 {
-	std::map<const int, Client *> clients	= _srv->getClient();
-	for (std::map<const int, Client *>::iterator it = clients.begin(); it != clients.end(); it++) {
+	std::map<const int, Client *> clients	= _srv->getAllClient();
+	for (std::map<const int, Client *>::iterator it = clients.begin(); it != clients.end(); it++)
+	{
 		if (it->second->getNickname() == name)
 			return true;
 	}

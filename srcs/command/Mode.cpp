@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Mode.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 22:08:57 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/21 19:40:41 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/22 16:56:51 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void Mode::execute(Client * client, std::vector<std::string> &args)
 		}
 	}
 	else { // change user mode
-		if (!_srv->get_client(target))
+		if (!_srv->getClient(target))
 			client->receive_message(ERR_NOSUCHNICK(_srv->getName(), client->getNickname(), target));
 		else
 			client->receive_message(ERR_UNKNOWNMODE(_srv->getName(), client->getNickname(), mode_char));
