@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Oper.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 16:08:38 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/21 19:40:21 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/24 20:59:11 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,20 @@ Oper::~Oper() {}
 void Oper::execute(Client * client, std::vector<std::string> &args)
 {
 	if ( !client->isRegist() ) {
-		client->receive_message(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
+		client->recieveMessage(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
 	}
 	else if ( args.size() < 3 ) {
-		client->receive_message(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
+		client->recieveMessage(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
 	}
 	else
 	{
 		if ( args[1] != "Admin" ) {
-			client->receive_message(ERR_NOOPERHOST(_srv->getName(), client->getNickname()));
+			client->recieveMessage(ERR_NOOPERHOST(_srv->getName(), client->getNickname()));
 		} else if ( args[2] != "1234" ) {
-			client->receive_message(ERR_PASSWDMISMATCH(_srv->getName(), client->getNickname()));
+			client->recieveMessage(ERR_PASSWDMISMATCH(_srv->getName(), client->getNickname()));
 		} else {
 			client->setOper(true);
-			client->receive_message(RPL_YOUREOPER(_srv->getName(), args[0]));
+			client->recieveMessage(RPL_YOUREOPER(_srv->getName(), args[0]));
 		}
 	}
 }

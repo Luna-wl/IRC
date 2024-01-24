@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:22:30 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/25 00:00:07 by wluedara         ###   ########.fr       */
+/*   Updated: 2024/01/24 21:02:46 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ class Server
 		~Server( void );
 
 		int start( void );
-		void server_loop( void );
-		void create_connection( void );
-		void receive_message(int fd);
-		void add_client(int client_fd, std::string hostname);
-		void add_pollfd(int fd);
+		void serverLoop( void );
+		void createConnection( void );
+		void recieveMessage(int fd);
+		void addClient(int client_fd, std::string hostname);
+		void addPollfd(int fd);
 		std::string time(int format);
 		void clientDisconnect(int fd);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Part.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 15:22:50 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/21 19:40:04 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/24 20:59:11 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ Part::~Part() {}
 void Part::execute(Client * client, std::vector<std::string> &args)
 {
 	if ( !client->isRegist() ) {
-		client->receive_message(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
+		client->recieveMessage(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
 	}
 	else if ( args.size() == 1 ) {
-		client->receive_message(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
+		client->recieveMessage(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
 	} else {
 		std::vector<std::string> channels = commaSeperator(args[1]);
 
@@ -31,7 +31,7 @@ void Part::execute(Client * client, std::vector<std::string> &args)
 			std::string channel_name = *ch_it;
 			
 			if (channel_name[0] != '#' || channel_name.size() == 1) {
-				client->receive_message(ERR_BADCHANMASK(_srv->getName(), client->getNickname(), channel_name));
+				client->recieveMessage(ERR_BADCHANMASK(_srv->getName(), client->getNickname(), channel_name));
 				ch_it++;
 				continue;
 			}
@@ -39,7 +39,7 @@ void Part::execute(Client * client, std::vector<std::string> &args)
 			
 			Channel * channel = client->getChannel(channel_name);
 			if (!channel) {
-				client->receive_message(ERR_NOTONCHANNEL(_srv->getName(), client->getNickname(), "#" + channel_name));
+				client->recieveMessage(ERR_NOTONCHANNEL(_srv->getName(), client->getNickname(), "#" + channel_name));
 			} else {
 				client->leave(channel);
 			}

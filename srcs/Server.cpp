@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/22 16:56:51 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/24 21:02:43 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ int Server::start( void ) {
 	return (0);
 }
 
-void Server::server_loop() {
-	add_pollfd(_server_fd);
+void Server::serverLoop() {
+	addPollfd(_server_fd);
 
 	while (_run)
 	{
@@ -105,9 +105,9 @@ void Server::server_loop() {
 			else if (it->revents & POLLIN)
 			{
 				if (it->fd == _server_fd)
-					create_connection();
+					createConnection();
 				else
-					receive_message(it->fd);
+					recieveMessage(it->fd);
 				break;
 			}
 			else if (it->revents & POLLOUT)

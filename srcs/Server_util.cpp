@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   Server_util.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:43:27 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/25 00:05:25 by wluedara         ###   ########.fr       */
+/*   Updated: 2024/01/24 21:02:43 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Server.hpp"
 
-void Server::create_connection()
+void Server::createConnection()
 {
 	struct sockaddr_in client_addr;
 	socklen_t client_addr_len = sizeof(client_addr);
@@ -39,17 +39,17 @@ void Server::create_connection()
 	std::cout << "addr Port : " << client_addr.sin_port << std::endl;
 	std::cout << "hostname  : " << hostname << std::endl;
 	std::cout << "client ip : " << client_ip << std::endl;
-	add_pollfd(client_fd);
-	add_client(client_fd, hostname);
+	addPollfd(client_fd);
+	addClient(client_fd, hostname);
 }
 
-void Server::add_client(int client_fd, std::string hostname)
+void Server::addClient(int client_fd, std::string hostname)
 {
 	_clients[client_fd] = new Client(client_fd, hostname);
 	std::cout << "Connected from : " << client_fd << std::endl;
 }
 
-void Server::add_pollfd(int fd)
+void Server::addPollfd(int fd)
 {
 	pollfd poll_fd;
 	poll_fd.fd = fd;
@@ -57,7 +57,7 @@ void Server::add_pollfd(int fd)
 	_fds.push_back(poll_fd);
 }
 
-void Server::receive_message(int fd)
+void Server::recieveMessage(int fd)
 {
 	Client * client = _clients.at(fd);
 	char buffer[512];

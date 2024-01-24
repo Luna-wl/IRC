@@ -27,5 +27,5 @@ void Server::welcomeMessage(Client * client) {
 	text += "(_ ___)                                            ░                     (__  _)";
 	text += "(_ ___)-._.-=-._.-=-._.-=-._.-=-._.-=-._.-=-._.-=-._.-=-._.-=-._.-=-._.--(_ ___)";
 	text += "`-._.-'                                                                  `-._.-'";
-	client->receive_message(text);
+	client->recieveMessage(text);
 }

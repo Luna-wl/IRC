@@ -24,6 +24,6 @@ int main(int argc, char **argv)
 	Server server(argv[1], argv[2]);
 	if (server.start() != 0)
 		return (1);
-	server.server_loop();
+	server.serverLoop();
 	return (0);
 }

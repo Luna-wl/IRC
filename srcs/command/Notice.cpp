@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:20:56 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/22 16:56:51 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/24 21:01:11 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ Notice::~Notice() {}
 void Notice::execute(Client * client, std::vector<std::string> &args)
 {
 	if ( !client->isRegist() ) {
-		client->receive_message(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
+		client->recieveMessage(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
 		return;
 	}
 	else if ( args.size() < 3 ) {
-		client->receive_message(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
+		client->recieveMessage(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
 		return;
 	}
 
@@ -36,11 +36,11 @@ void Notice::execute(Client * client, std::vector<std::string> &args)
 		target = target.substr(1, target.size() - 1);
 		Channel * channel = client->getChannel(target);
 		if (channel)
-			channel->send_message(client, RPL_CHANAWAY(client->source(), args[0], "#" + channel->getName(), message));
+			channel->sendMessage(client, RPL_CHANAWAY(client->source(), args[0], "#" + channel->getName(), message));
 	}
 	else { // send message to user
 		Client * target_client = _srv->getClient(target);
 		if (target_client)
-			target_client->receive_message(RPL_AWAY(client->source(), args[0], client->getNickname(), message));
+			target_client->recieveMessage(RPL_AWAY(client->source(), args[0], client->getNickname(), message));
 	}	
 }

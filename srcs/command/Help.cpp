@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Help.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 01:35:25 by wluedara          #+#    #+#             */
-/*   Updated: 2024/01/24 23:53:44 by wluedara         ###   ########.fr       */
+/*   Updated: 2024/01/24 20:59:11 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void Help::execute(Client * client, std::vector<std::string> &args)
 		message += "> QUIT: disconnect from the server\n";
 		message += "> TIME <server>: show the time of a server\n";
 		message += "> TOPIC <channel> <topic>: set a topic for a channel\n\n";
-		client->receive_message(message);
+		client->recieveMessage(message);
 		return ;
 	}
-	client->receive_message(ERR_TOOMANYARGUMENTS(_srv->getName(), "HELP"));
+	client->recieveMessage(ERR_TOOMANYARGUMENTS(_srv->getName(), "HELP"));
 }
