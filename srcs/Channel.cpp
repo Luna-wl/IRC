@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:55 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/22 15:07:50 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/21 20:59:48 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ Channel::Channel(Server * srv, std::string name, std::string key) : _i(false), _
 		_key = key;
 		_k = true;
 	}
-	// std::cout << "Debug : channel created" << std::endl;
 }
 
 Channel::~Channel() {}
