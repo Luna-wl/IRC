@@ -22,7 +22,6 @@ void List::execute(Client * client, std::vector<std::string> &args) {
 		return ;
 	}
 	int num = args.size();
-	std::cout << "num = " << num << std::endl;
 	if (num == 1) {
 		// LIST ALL CHANNELS
 		if (_srv->getChannels().empty())
@@ -68,3 +67,4 @@ void List::execute(Client * client, std::vector<std::string> &args) {
 		client->receive_message(ERR_TOOMANYARGUMENTS(_srv->getName(), "LIST"));
 	}
 }
+

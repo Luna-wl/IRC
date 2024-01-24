@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Client.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:53:39 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/20 17:31:52 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/22 14:11:42 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,7 @@ std::string Client::source()
 
 void Client::receive_message(std::string str)
 {
-    // std::cout << getNickname() << std::endl;
-    // const char *buffer = str.c_str();
-    // int nread = str.size();
-    // std::string name = "[" + _nickname + "] : ";
-    // int nsend = nread + name.size();
-    // char send_buffer[nsend + 1];
-
-    // memcpy(send_buffer, name.c_str(), name.size());
-    // memcpy(send_buffer + name.size(), buffer, nread);
-    // send_buffer[nsend] = '\0';
-    // send(_client_fd, send_buffer, nsend, 0);
-    str = str + "\n";
+    str = str + "\r\n";
     send(_client_fd, str.c_str(), str.size(), 0);
 }
 

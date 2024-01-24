@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   Info.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 01:35:04 by wluedara          #+#    #+#             */
 /*   Updated: 2024/01/21 20:11:45 by tkraikua         ###   ########.fr       */
@@ -22,16 +22,13 @@ void Info::execute(Client * client, std::vector<std::string> &args) {
 		client->receive_message(ERR_TOOMANYARGUMENTS(client->getUsername(), "INFO"));
 		return ;
 	}
-	// client->receive_message(RPL_INFO(client->getUsername()));
-	// client->receive_message("===== SERVER INFO =====");
-	// client->receive_message("Server name	: " + _srv->getName());
-	// client->receive_message("Port		: " + _srv->getPort());
-	// client->receive_message("Client number	: " + std::to_string(_srv->getClientNum()));
-	// client->receive_message("Channel number	: " + std::to_string(_srv->getChannelNum()));
-	std::string message = "\n===== SERVER INFO =====\n";
-	message += "Server name	: " + _srv->getName() + "\n";
-	message += "Port		: " + _srv->getPort() + "\n";
-	message += "Client number	: " + std::to_string(_srv->getClientNum()) + "\n";
-	message += "Channel number	: " + std::to_string(_srv->getChannelNum());
-	client->receive_message(RPL_INFO(_srv->getName(), args[0], message));
+	client->receive_message(RPL_INFO(_srv->getName(), args[0], "^-^            "));
+	client->receive_message(RPL_INFO(_srv->getName(), args[0], "(O,O)           "));
+	client->receive_message(RPL_INFO(_srv->getName(), args[0], "(_._)   SERVER INFO   "));
+	client->receive_message(RPL_INFO(_srv->getName(), args[0], "-\"-\"-------------------"));
+	client->receive_message(RPL_INFO(_srv->getName(), args[0], "Server name	: " + _srv->getName()));
+	client->receive_message(RPL_INFO(_srv->getName(), args[0], "Port		: " + _srv->getPort()));
+	client->receive_message(RPL_INFO(_srv->getName(), args[0], "Client number	: " + std::to_string(_srv->getClientNum())));
+	client->receive_message(RPL_INFO(_srv->getName(), args[0], "Channel number	: " + std::to_string(_srv->getChannelNum())));
+	client->receive_message(RPL_INFO(_srv->getName(), args[0], "-----------------------"));
 }
