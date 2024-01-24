@@ -6,7 +6,7 @@
 /*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 00:33:28 by wluedara          #+#    #+#             */
-/*   Updated: 2024/01/22 00:24:51 by wluedara         ###   ########.fr       */
+/*   Updated: 2024/01/22 01:02:14 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,3 +67,4 @@ void List::execute(Client * client, std::vector<std::string> &args) {
 		client->receive_message(ERR_TOOMANYARGUMENTS(_srv->getName(), "LIST"));
 	}
 }
+

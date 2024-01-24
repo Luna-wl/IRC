@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Join.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:58:49 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/20 17:27:58 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/21 20:30:00 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void Join::execute(Client * client, std::vector<std::string> &args)
 			} else if (channel->isInviteMode()) {
 				client->receive_message(ERR_INVITEONLYCHAN(_srv->getName(), client->getNickname(), channel->getName()));
 			} else {
+				if (!channel->getTopic().empty())
+					client->receive_message(RPL_TOPIC(_srv->getName(), "#" + channel_name, channel->getTopic()));
 				client->join(channel);
 			}
 			if (key_it != keys.end())

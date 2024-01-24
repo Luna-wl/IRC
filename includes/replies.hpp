@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replies.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:53:45 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/21 19:58:32 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/22 16:04:26 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 #define ERR_NOLOGIN(source, client, user)						":" + source + " 444 " + client + " :" + user + " :User not logged in"
 #define ERR_SUMMONDISABLED(source, client)						":" + source + " 445 " + client + " :SUMMON has been disabled"
 #define ERR_USERSDISABLED(source, client)						":" + source + " 446 " + client + " :USERS has been disabled"
-#define ERR_NOTREGISTERED(source, client)						":" + source + " 451 " + client + " :You have not registered"
+#define ERR_NOTREGISTERED(source, client)						":" + source + " 451 " + client + " :You have not registered\n" + "More info type 'HELP'"
 #define ERR_NOTAUTHENTICATED(source, client)					":" + source + " 452 " + client + " :You have not authenticated"
 #define ERR_ALREADYAUTHENTICATED(source, client)				":" + source + " 460 " + client + " :You may not reauthenticate"
 #define ERR_NEEDMOREPARAMS(source, client, cmd)					":" + source + " 461 " + client + " :" + cmd + " :Not enough parameters"
@@ -61,7 +61,7 @@
 #define ERR_NOOPERHOST(source, client)							":" + source + " 491 " + client + " :No O-lines for your host"
 #define ERR_UMODEUNKNOWNFLAG(source, client)					":" + source + " 501 " + client + " :Unknown MODE flag"
 #define ERR_USERSDONTMATCH(source, client)						":" + source + " 502 " + client + " :Cant change mode for other users"
-#define ERR_TOOMANYARGUMENTS(source, command)		":" + source + " 512 " + command + " :Too many arguments"
+#define ERR_TOOMANYARGUMENTS(source, command)					":" + source + " 512 " + command + " :Too many arguments"
 
 /* Replies */
 #define RPL_AWAY(source, cmd, nick, message)				":"	+ source + " " + cmd + " " + nick + " :" + message // good
