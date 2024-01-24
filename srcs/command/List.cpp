@@ -72,3 +72,4 @@ void List::execute(Client * client, std::vector<std::string> &args) {
 		client->receive_message(ERR_TOOMANYARGUMENTS(_srv->getName(), "LIST"));
 	}
 }
+

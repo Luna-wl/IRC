@@ -6,7 +6,7 @@
 /*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 23:31:37 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/20 17:27:32 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/22 19:31:00 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ void User::execute(Client * client, std::vector<std::string> & args)
 	if ( args.size() < 5) {
 		client->receive_message(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
 	}
+	else if ( args.size() > 5 ) {
+		client->receive_message(ERR_TOOMANYARGUMENTS(_srv->getName(), args[0]));
+	}
 	else if ( !client->isAuth() ) {
 		client->receive_message(ERR_NOTAUTHENTICATED(_srv->getName(), client->getNickname()));
 	}
@@ -31,7 +34,7 @@ void User::execute(Client * client, std::vector<std::string> & args)
 	{
 		client->setUsername(args[1]);
 		client->setFullname(args[4]);
-		if (!client->getNickname().empty())
+		if (!client->getNickname().empty() && client->getNickname() != "*")
 			client->setRegist(true);
 	}
 }

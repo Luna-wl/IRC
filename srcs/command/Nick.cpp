@@ -18,17 +18,23 @@ Nick::~Nick() {}
 
 void Nick::execute(Client * client, std::vector<std::string> &args)
 {
-	if (!client->isAuth()) {
+	if (args.size() > 2) {
+		client->receive_message(ERR_TOOMANYARGUMENTS(_srv->getName(), args[0]));
+	}
+	else if (!client->isAuth()) {
 		client->receive_message(ERR_NOTAUTHENTICATED(_srv->getName(), client->getNickname()));
 	}
 	else if (args[1].empty()) {
 		client->receive_message(ERR_NONICKNAMEGIVEN(_srv->getName(), client->getNickname()));
-	} else if (args[1][0] == '#' || args[1][0] == ':' || args[1][0] == '$' || 
-        args[1].find_first_of(" \t\n\r\f\v.,*?!@") != std::string::npos) {
+	}
+	else if (args[1][0] == '#' || args[1][0] == ':' || args[1][0] == '$' || 
+		args[1].find_first_of(" \t\n\r\f\v.,*?!@") != std::string::npos) {
 		client->receive_message(ERR_ERRONEUSNICKNAME(_srv->getName(), client->getNickname(), args[1]));
-	} else if (nickIsUsed(args[1])){
+	}
+	else if (nickIsUsed(args[1])) {
 		client->receive_message(ERR_NICKNAMEINUSE(_srv->getName(), client->getNickname(), args[1]));
-	} else {
+	}
+	else {
 		client->setNickname(args[1]);
 		if (!client->getUsername().empty())
 			client->setRegist(true);

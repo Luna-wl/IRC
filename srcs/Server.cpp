@@ -48,6 +48,12 @@ int Server::start( void ) {
 		return(1);
 	}
 
+	if (fcntl(_server_fd, F_SETFL, O_NONBLOCK))
+	{
+		std::cerr << RED << "Error non blocking" << DEFAULT << std::endl;
+		return (1);
+	}
+
 	int optval = 1;
 	if (setsockopt(_server_fd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval)) < 0)
 	{

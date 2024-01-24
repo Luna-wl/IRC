@@ -23,6 +23,7 @@
 #include <arpa/inet.h>
 #include <ctime>
 #include <iomanip>
+#include <fcntl.h>
 
 #include "Color.hpp"
 #include "replies.hpp"
