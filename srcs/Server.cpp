@@ -6,7 +6,7 @@
 /*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/26 17:14:42 by csantivi         ###   ########.fr       */
+/*   Updated: 2024/01/26 18:27:04 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,7 @@ int Server::start( void ) {
 	{
 		std::cerr << RED << "Error creating socket" << DEFAULT << std::endl;
 		return(1);
-	}
-
-	if (fcntl(_server_fd, F_SETFL, O_NONBLOCK))
+	} else if (fcntl(_server_fd, F_SETFL, O_NONBLOCK))
 	{
 		std::cerr << RED << "Error non blocking" << DEFAULT << std::endl;
 		return (1);
@@ -60,9 +58,20 @@ int Server::start( void ) {
 		return(1);
 	}
 
+	if (!std::all_of(_port.begin(), _port.end(), ::isdigit))
+	{
+		std::cerr << RED << "Error port is not digit" << DEFAULT << std::endl;
+		return(1);
+	} else if (!std::all_of(_pass.begin(), _pass.end(), ::isdigit))
+	{
+		std::cerr << RED << "Error password is not digit" << DEFAULT << std::endl;
+		return(1);
+	} else if (atoi(_port.c_str()) < 1024)
+		std::cerr << YELLOW << "Caution: using well-know ports (0-1023), please avoid to using this." << DEFAULT << std::endl;
+
 	struct sockaddr_in addr;
 	addr.sin_family = AF_INET;
-	addr.sin_port = htons(stoi(_port));
+	addr.sin_port = htons(atoi(_port.c_str()));
 	addr.sin_addr.s_addr = INADDR_ANY;
 
 	// bind the socket to the specified address and port
