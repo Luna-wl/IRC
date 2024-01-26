@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Client.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:53:39 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/24 21:00:27 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/26 14:43:27 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ Client::Client( const int &client_fd, std::string hostname ) : _op(false)
 	_client_fd = client_fd;
 	_hostname = hostname;
 	_nickname = "*";
+	_auth = false;
 }
 
 Client::~Client() {}
