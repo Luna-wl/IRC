@@ -6,7 +6,7 @@
 /*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/26 17:00:21 by csantivi         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:14:42 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 bool Server::_run = true;
 
 Server::Server( const std::string & port, const std::string & pass ) {
-	// std::cout << "Server constructor called." << std::endl;
 	_name = "Rudolph";
 	_port = port;
 	_pass = pass;
@@ -25,7 +24,6 @@ Server::Server( const std::string & port, const std::string & pass ) {
 }
 
 Server::~Server( void ) {
-	// std::cout << "Server deconstructure called." << std::endl;
 	delete _parser;
 	for (std::map<const int, Client *>::iterator it=_clients.begin(); it!=_clients.end(); it++)
 	{
@@ -74,6 +72,7 @@ int Server::start( void ) {
 	}
 	listen(_server_fd, 5); // backlog = 5
 	std::cout << "Server starting . . .\n";
+	welcomeServer();
 	return (0);
 }
 

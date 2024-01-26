@@ -6,7 +6,7 @@
 /*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:22:30 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/26 16:51:55 by csantivi         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:13:43 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ class Server
 
 		std::map<std::string, Channel*>& getChannels();
 		void welcomeMessage(Client * client);
+		void welcomeServer();
 };
 
 #include "Channel.hpp"

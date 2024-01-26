@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server_util.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:43:27 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/24 21:44:19 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:06:45 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void Server::createConnection()
 void Server::addClient(int client_fd, std::string hostname)
 {
 	_clients[client_fd] = new Client(client_fd, hostname);
+	welcomeMessage(_clients[client_fd]);
 	std::cout << "Connected from : " << client_fd << std::endl;
 }
 

@@ -6,7 +6,8 @@ SRCS := Client.cpp \
 		Parser.cpp \
 		Server.cpp \
 		Server_util.cpp \
-		Channel.cpp 
+		Channel.cpp \
+		Welcome.cpp
 
 
 CMD_DIR := ./srcs/command/
