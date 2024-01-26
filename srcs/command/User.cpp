@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   User.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 23:31:37 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/24 20:59:11 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/26 16:57:27 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ void User::execute(Client * client, std::vector<std::string> & args)
 		client->setUsername(args[1]);
 		client->setFullname(args[4]);
 		if (!client->getNickname().empty() && client->getNickname() != "*")
+		{		
 			client->setRegist(true);
+			welcomeClient(client, _srv);
+		}
 	}
 }

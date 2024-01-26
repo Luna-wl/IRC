@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Command.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 21:00:27 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/24 22:48:26 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/26 16:57:08 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,11 @@ std::vector<std::string> commaSeperator(std::string arg)
 	if (!tmp.empty())
 		ret.push_back(tmp);
 	return (ret);
+}
+
+void welcomeClient(Client * client, Server * server)
+{
+	client->recieveMessage(RPL_WELCOME(client->source(), server->getName(), client->source()));
+	client->recieveMessage(RPL_YOURHOST(client->source(), server->getName()));
+	client->recieveMessage(RPL_CREATED(client->source(), server->getCreateTime()));
 }

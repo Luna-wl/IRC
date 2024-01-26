@@ -6,7 +6,7 @@
 /*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:22:30 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/26 14:19:28 by csantivi         ###   ########.fr       */
+/*   Updated: 2024/01/26 16:51:55 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ class Server
 		std::map<const int, Client *> 		_clients;
 		Parser*								_parser;
 		static bool							_run;
+		std::string							_createTime;
 	public:
 		
 		Server( const std::string & port, const std::string & pass );
@@ -65,6 +66,7 @@ class Server
 		std::string getName();
 		std::string getPass();
 		std::string getPort();
+		std::string getCreateTime();
 		int getChannelNum();
 		int getClientNum();
 

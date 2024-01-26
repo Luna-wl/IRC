@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replies.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:53:45 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/22 19:13:56 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/26 17:02:30 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,6 @@
 #define RPL_LISTSTART(source)						        ":" + source + " 321 INFO Channel :Users Name"
 #define RPL_LIST(source, channel, user_count, topic)		":" + source + " 322 INFO " + channel + " " + user_count + " :" + topic
 #define RPL_LISTEND(source)							        ":" + source + " 323 INFO :End of /LIST"
-// #define RPL_LISTSTART(source)						":" + source + " :Channel :Users  Name"
-// #define RPL_LIST(channel, user_count, topic)		" CHANNEL NAME: " + channel + "\n USER NUMBER: " + user_count + "\n TOPIC:" + topic + "\n=========="
-// #define RPL_LISTEND(source)							":" + source + " :End of /LIST"
 
 // Topic replies
 #define RPL_NOTOPIC(source, channel)				":" + source + " " + channel + " :No topic is set"
@@ -87,9 +84,9 @@
 #define RPL_TOPICWHOTIME(source, channel, nickname, time)	":" + source + " " + channel + " " + nickname + " " + time
 
 // Help replies
-#define RPL_HELPSTART(source)						":" + source + " :Help message"
+#define RPL_HELPSTART(source, cmd)						":" + source + " 704 val " + cmd + " :Help message"
+#define RPL_HELPTXT(source, cmd, message)				":" + source + " 705 val " + cmd + " :" +  message
 #define RPL_ENDOFHELP(source, message)				":" + source + " " + message
-#define RPL_HELPTXT(source, message)				":" + source + " " +  message
 #define ERR_HELPNOTFOUND(source)					":" + source + " " +  ":No help found"
 
 #define RPL_JOINCHAN(source, channel)						":" + source + " join #" + channel 
@@ -98,5 +95,10 @@
 #define RPL_TIME(source, cmd, server, timestamp, time)      ":" + source + " 391 " + cmd + " : " + server + " " + timestamp + " :" + time // good
 
 #define RPL_PONG(source, token)                             ":" + source + " PONG :" + token
+
+// welcome
+#define RPL_WELCOME(source, servername, usersource)                             ":" + source + " 001 :" + "Welcome to the " + servername + ", " + usersource
+#define RPL_YOURHOST(source, servername)                            ":" + source + " 002 :" + "Your host is " + servername
+#define RPL_CREATED(source, datetime)                             ":" + source + " 003 :" + "This server was created " + datetime
 
 #endif

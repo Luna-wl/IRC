@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/24 22:23:50 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:00:21 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ Server::Server( const std::string & port, const std::string & pass ) {
 	_pass = pass;
 	_run = true;
 	_parser = new Parser(this);
+	_createTime = this->time(1);
 }
 
 Server::~Server( void ) {
@@ -177,4 +178,9 @@ int Server::getChannelNum() {
 
 int Server::getClientNum() {
 	return _clients.size();
+}
+
+std::string Server::getCreateTime()
+{
+	return _createTime;
 }
