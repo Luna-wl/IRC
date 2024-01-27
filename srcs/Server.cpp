@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/27 17:56:04 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/27 19:31:57 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,11 @@ Server::~Server( void ) {
 	{
 		close(_fds[i].fd);
 	}
+	std::cout << MAGENTA << "Server shuting down . . .\n" << DEFAULT;
 }
 
 int Server::start( void ) {
-	_server_fd = socket(AF_INET, SOCK_STREAM, 0); // create a TCP socket
+	_server_fd = socket(AF_INET, SOCK_STREAM, 0);
 	if (_server_fd < 0)
 	{
 		std::cerr << RED << "Error creating socket" << DEFAULT << std::endl;
@@ -69,21 +70,21 @@ int Server::start( void ) {
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(atoi(_port.c_str()));
 	addr.sin_addr.s_addr = INADDR_ANY;
-
-	// bind the socket to the specified address and port
 	if (bind(_server_fd, (struct sockaddr *)&addr, sizeof(addr)) != 0) {
 		std::cerr << RED << "Error binding socket" << std::endl;
 		return(1);
 	}
-	listen(_server_fd, 5); // backlog = 5
-	std::cout << "Server starting . . .\n";
+
+	listen(_server_fd, 5);
+	std::cout << MAGENTA << "\n\nServer starting . . .\n" << DEFAULT;
 	welcomeServer();
+
 	return (0);
 }
 
 void Server::serverLoop() {
+	
 	addPollfd(_server_fd);
-
 	while (_run)
 	{
 		int events = poll(&_fds[0], _fds.size(), -1);

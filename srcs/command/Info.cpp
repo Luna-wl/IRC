@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 01:35:04 by wluedara          #+#    #+#             */
-/*   Updated: 2024/01/27 18:35:06 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/27 19:13:41 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void Info::execute(Client * client, std::vector<std::string> &args) {
 		client->recieveMessage(ERR_TOOMANYARGUMENTS(client->getUsername(), "INFO"));
 		return ;
 	}
-	client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "^-^            "));
+	client->recieveMessage(RPL_INFO(_srv->getName(), args[0], " ^-^            "));
 	client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "(O,O)           "));
 	client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "(_._)   SERVER INFO   "));
 	client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "-\"-\"-------------------"));

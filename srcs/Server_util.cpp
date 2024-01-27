@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:43:27 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/27 18:33:59 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/27 20:17:59 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void Server::createConnection()
 		std::cerr << RED << "Error accepting connection" << DEFAULT << std::endl;
 		return;
 	}
+
 	char client_ip[INET_ADDRSTRLEN];
 	inet_ntop(AF_INET, &(client_addr.sin_addr), client_ip, INET_ADDRSTRLEN); // convert ip to string (human readable)
 
@@ -36,9 +37,9 @@ void Server::createConnection()
 	else
 		hostname = client_ip;
 
-	std::cout << "addr Port : " << client_addr.sin_port << std::endl;
+	std::cout << GREEN << "Connected from : " << client_fd << std::endl;
 	std::cout << "hostname  : " << hostname << std::endl;
-	std::cout << "client ip : " << client_ip << std::endl;
+	std::cout << "client ip : " << client_ip << DEFAULT << "\n";
 	addPollfd(client_fd);
 	addClient(client_fd, hostname);
 }
@@ -47,7 +48,6 @@ void Server::addClient(int client_fd, std::string hostname)
 {
 	_clients[client_fd] = new Client(client_fd, hostname);
 	welcomeMessage(_clients[client_fd]);
-	std::cout << "Connected from : " << client_fd << std::endl;
 }
 
 void Server::addPollfd(int fd)
@@ -69,6 +69,7 @@ void Server::recieveMessage(int fd)
 	unsigned long found = text.find_last_not_of(" \n\r\t\f\v");
 	if (found != std::string::npos)
 		text = text.substr(0, found + 1);
+	std::cout << "receive [" << client->getFd() << "]: " << text << std::endl;
 	_parser->analyze(client, text);
 }
 
@@ -100,18 +101,18 @@ void Server::clientDisconnect(int fd)
 	{
 		client->leave(ch_it->second);
 	}
-	close(fd); // close fd
-	delete _clients[fd]; // release memory
-	_clients.erase(fd); // remove from _client
+	close(fd);
+	delete _clients[fd];
+	_clients.erase(fd);
 	for (std::vector<pollfd>::iterator it = _fds.begin(); it != _fds.end(); it++)
 	{
 		if (it->fd == fd)
 		{
-			_fds.erase(it); // remove from _fds
+			_fds.erase(it);
 			break;
 		}
 	}
-	std::cout << "[server]: Disconnect from user [" << fd << "]\n";
+	std::cout << YELLOW << "Disconnect from user [" << fd << "]\n" << DEFAULT;
 }
 
 bool isStrDigit(std::string str)

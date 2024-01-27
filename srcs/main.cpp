@@ -2,15 +2,10 @@
 #include <signal.h>
 
 #include "../includes/Server.hpp"
-#include "../includes/Color.hpp"
 
 void signalHandler( int signum ) {
-   std::cout << "Interrupt signal (" << signum << ") received.\n";
-
+	std::cout << "\nInterrupt signal (" << signum << ") received.\n";
 	Server::set_state(false);
-   // cleanup and close up stuff here  
-   // terminate program  
-
 }
 
 int main(int argc, char **argv)

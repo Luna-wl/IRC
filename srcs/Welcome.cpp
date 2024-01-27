@@ -1,6 +1,7 @@
 #include "../includes/Server.hpp"
 
 void Server::welcomeMessage(Client * client) {
+	client->recieveMessage("");
 	client->recieveMessage("██████╗ ██╗   ██╗██████╗  ██████╗ ██╗     ██████╗ ██╗  ██╗");
 	client->recieveMessage("██╔══██╗██║   ██║██╔══██╗██╔═══██╗██║     ██╔══██╗██║  ██║");
 	client->recieveMessage("██████╔╝██║   ██║██║  ██║██║   ██║██║     ██████╔╝███████║");
