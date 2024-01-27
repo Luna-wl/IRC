@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/26 18:27:04 by csantivi         ###   ########.fr       */
+/*   Updated: 2024/01/27 17:56:04 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,12 @@ int Server::start( void ) {
 		return(1);
 	}
 
-	if (!std::all_of(_port.begin(), _port.end(), ::isdigit))
+	if (isStrDigit(_port))
 	{
 		std::cerr << RED << "Error port is not digit" << DEFAULT << std::endl;
 		return(1);
-	} else if (!std::all_of(_pass.begin(), _pass.end(), ::isdigit))
-	{
-		std::cerr << RED << "Error password is not digit" << DEFAULT << std::endl;
-		return(1);
 	} else if (atoi(_port.c_str()) < 1024)
-		std::cerr << YELLOW << "Caution: using well-know ports (0-1023), please avoid to using this." << DEFAULT << std::endl;
+		std::cerr << YELLOW << "Caution: Using well-known ports (0-1023), please avoid using this." << DEFAULT << std::endl;
 
 	struct sockaddr_in addr;
 	addr.sin_family = AF_INET;

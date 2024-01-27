@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server_util.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:43:27 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/26 17:06:45 by csantivi         ###   ########.fr       */
+/*   Updated: 2024/01/27 17:55:56 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,4 +112,16 @@ void Server::clientDisconnect(int fd)
 		}
 	}
 	std::cout << "[server]: Disconnect from user [" << fd << "]\n";
+}
+
+bool isStrDigit(std::string str)
+{
+	int size = str.size();
+	const char * cstr = str.c_str();
+	for (int i = 0; i < size; i++)
+	{
+		if (isdigit(cstr[i]))
+			return false;
+	}
+	return true;
 }

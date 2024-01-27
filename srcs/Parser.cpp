@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Parser.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 22:50:18 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/24 21:42:50 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:43:05 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ void Parser::analyze(Client *client, std::string &text) {
 		}
 		args.push_back(temp_text);
 	}
-	std::cout << "args.size(): " << args.size() << std::endl;
-	for (unsigned long i = 0; i < args.size(); i++)
-		std::cout << "args[" << i << "]: " << args[i] << std::endl;
+	// std::cout << "args.size(): " << args.size() << std::endl;
+	// for (unsigned long i = 0; i < args.size(); i++)
+	// 	std::cout << "args[" << i << "]: " << args[i] << std::endl;
 	if (args.size() == 0)
 		return ;
 	if (_cmd.count(args[0]))
