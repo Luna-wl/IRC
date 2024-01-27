@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Names.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 17:42:31 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/24 23:10:02 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/27 23:01:45 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ void Names::execute(Client * client, std::vector<std::string> & args)
  	if ( !client->isRegist() ) {
 		client->recieveMessage(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
 	}
-	else if ( args.size() != 1 ) {
+	else if ( args.size() == 1 )
+		client->recieveMessage(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
+	else {
 		std::vector<std::string> channels = commaSeperator(args[1]);
 		for(std::vector<std::string>::iterator it = channels.begin();it != channels.end(); it++)
 		{

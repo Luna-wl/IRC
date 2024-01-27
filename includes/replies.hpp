@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replies.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:53:45 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/26 17:02:30 by csantivi         ###   ########.fr       */
+/*   Updated: 2024/01/28 01:16:37 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,41 +64,40 @@
 #define ERR_TOOMANYARGUMENTS(source, command)					":" + source + " 512 " + command + " :Too many arguments"
 
 /* Replies */
-#define RPL_AWAY(source, cmd, nick, message)				":"	+ source + " " + cmd + " " + nick + " :" + message // good
-#define RPL_INVITING(source, cmd, nick, channel)			":" + source + " " + cmd + " " + nick + " :" + channel
-#define RPL_NAMREPLY(source, cmd, symbol, channel, nick)	":" + source + " 353 " + cmd + " " + symbol + " " + channel + " : " + nick // enough
-#define RPL_ENDOFNAMES(source, cmd, channel)                ":" + source + " 366 " + cmd + " " + channel + " :  End of /NAMES list." // disapear?
-#define RPL_CHANAWAY(source, cmd, channel, message)			":" + source + " " + cmd + " " + channel + " :" + message // good
-#define RPL_INFO(source, cmd, message)						":" + source + " 371 " + cmd + ": " + message
-#define RPL_ENDOFINFO(source, cmd)							":" + source + " 374 " + cmd + ": End of /INFO list."
-#define RPL_YOUREOPER(source, cmd)							":" + source + " 381 " + cmd + ": You are now an IRC operator" // good
+#define RPL_AWAY(source, cmd, nick, message)				    ":"	+ source + " " + cmd + " " + nick + " :" + message
+#define RPL_INVITING(source, cmd, nick, channel)			    ":" + source + " " + cmd + " " + nick + " :" + channel
+#define RPL_NAMREPLY(source, cmd, symbol, channel, nick)	    ":" + source + " 353 " + cmd + " " + symbol + " " + channel + " : " + nick
+#define RPL_ENDOFNAMES(source, cmd, channel)                    ":" + source + " 366 " + cmd + " " + channel + " :  End of /NAMES list."
+#define RPL_CHANAWAY(source, cmd, channel, message)			    ":" + source + " " + cmd + " " + channel + " :" + message
+#define RPL_INFO(source, cmd, message)						    ":" + source + " 371 " + cmd + ": " + message
+#define RPL_ENDOFINFO(source, cmd)							    ":" + source + " 374 " + cmd + ": End of /INFO list."
+#define RPL_YOUREOPER(source, cmd)							    ":" + source + " 381 " + cmd + ": You are now an IRC operator"
 
 // List replies
-#define RPL_LISTSTART(source)						        ":" + source + " 321 INFO Channel :Users Name"
-#define RPL_LIST(source, channel, user_count, topic)		":" + source + " 322 INFO " + channel + " " + user_count + " :" + topic
-#define RPL_LISTEND(source)							        ":" + source + " 323 INFO :End of /LIST"
+#define RPL_LISTSTART(source)						            ":" + source + " 321 INFO Channel :Users Name"
+#define RPL_LIST(source, channel, user_count, topic)		    ":" + source + " 322 INFO " + channel + " " + user_count + " :" + topic
+#define RPL_LISTEND(source)							            ":" + source + " 323 INFO :End of /LIST"
 
 // Topic replies
-#define RPL_NOTOPIC(source, channel)				":" + source + " " + channel + " :No topic is set"
-#define RPL_TOPIC(source, channel, topic)			":" + source + " " + channel + " :" + topic
-#define RPL_TOPICWHOTIME(source, channel, nickname, time)	":" + source + " " + channel + " " + nickname + " " + time
+#define RPL_NOTOPIC(source, channel)				            ":" + source + " " + channel + " :No topic is set"
+#define RPL_TOPIC(source, channel, topic)			            ":" + source + " " + channel + " :" + topic
+#define RPL_TOPICWHOTIME(source, channel, nickname, time)	    ":" + source + " " + channel + " " + nickname + " " + time
 
 // Help replies
-#define RPL_HELPSTART(source, cmd)						":" + source + " 704 val " + cmd + " :Help message"
-#define RPL_HELPTXT(source, cmd, message)				":" + source + " 705 val " + cmd + " :" +  message
-#define RPL_ENDOFHELP(source, message)				":" + source + " " + message
-#define ERR_HELPNOTFOUND(source)					":" + source + " " +  ":No help found"
+#define RPL_HELPSTART(source, cmd)			    			    ":" + source + " 704 val " + cmd + " :Help message"
+#define RPL_HELPTXT(source, cmd, message)	    			    ":" + source + " 705 val " + cmd + " :" +  message
+#define RPL_ENDOFHELP(source, message)	        			    ":" + source + " " + message
+#define ERR_HELPNOTFOUND(source)		        			    ":" + source + " " +  ":No help found"
 
-#define RPL_JOINCHAN(source, channel)						":" + source + " join #" + channel 
-#define RPL_LEAVECHAN(source, channel)						":" + source + " leave #" + channel
+#define RPL_JOINCHAN(source, channel)						    ":" + source + " join #" + channel 
+#define RPL_LEAVECHAN(source, channel)						    ":" + source + " leave #" + channel
 
-#define RPL_TIME(source, cmd, server, timestamp, time)      ":" + source + " 391 " + cmd + " : " + server + " " + timestamp + " :" + time // good
-
-#define RPL_PONG(source, token)                             ":" + source + " PONG :" + token
+#define RPL_TIME(source, cmd, server, timestamp, time)          ":" + source + " 391 " + cmd + " : " + server + " " + timestamp + " :" + time
+#define RPL_PONG(source, token)                                 ":" + source + " PONG :" + token
 
 // welcome
-#define RPL_WELCOME(source, servername, usersource)                             ":" + source + " 001 :" + "Welcome to the " + servername + ", " + usersource
-#define RPL_YOURHOST(source, servername)                            ":" + source + " 002 :" + "Your host is " + servername
-#define RPL_CREATED(source, datetime)                             ":" + source + " 003 :" + "This server was created " + datetime
+#define RPL_WELCOME(source, servername, usersource)             ":" + source + " 001 :" + "Welcome to the " + servername + ", " + usersource
+#define RPL_YOURHOST(source, servername)                        ":" + source + " 002 :" + "Your host is " + servername
+#define RPL_CREATED(source, datetime)                           ":" + source + " 003 :" + "This server was created " + datetime
 
 #endif

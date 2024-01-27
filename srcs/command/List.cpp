@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 00:33:28 by wluedara          #+#    #+#             */
-/*   Updated: 2024/01/27 18:36:50 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/27 23:52:43 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void List::execute(Client * client, std::vector<std::string> &args) {
 		// LIST <channel> SPECIFIC CHANNEL
 		if (args[1][0] == '#') {
 			std::string target = args[1];
-			target = target.substr(1, target.size() - 1);
+			target = target.erase(0, 1);
 			std::map<std::string, Channel *>::iterator it = _srv->getChannels().find(target);
 			if (it != _srv->getChannels().end()) {
 				client->recieveMessage("+-----LIST CHANNEL-----+");
@@ -55,9 +55,9 @@ void List::execute(Client * client, std::vector<std::string> &args) {
 			// LIST >num SPECIFIC CHANNEL CLIENTS NUM
 			std::map<std::string, Channel *>::iterator it = _srv->getChannels().begin();
 			int num = atoi(args[1].substr(1).c_str());
+			client->recieveMessage("+-----LIST CHANNEL-----+");
 			while (it != _srv->getChannels().end()) {
-				if (it->second->getClietNum() == num) {
-					client->recieveMessage("+-----LIST CHANNEL-----+");
+				if (it->second->getClietNum() > num) {
 					client->recieveMessage(RPL_LIST(_srv->getName(), "#" + it->second->getName(), intToString(it->second->getClietNum()), it->second->getTopic()));
 				}
 				it++;

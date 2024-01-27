@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:50:44 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/24 20:59:11 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/27 23:05:06 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,10 @@ std::string Bot::getName()
 
 void Bot::execute(Client * client, std::vector<std::string> & args)
 {
-	int size = args.size();
 	if ( !client->isRegist() ) {
 		client->recieveMessage(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
 		return ;
-	} else if ( size < 3 ) {
+	} else if ( args.size() < 3 ) {
 		client->recieveMessage(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
 		return ;
 	}
@@ -35,7 +34,7 @@ void Bot::execute(Client * client, std::vector<std::string> & args)
 	std::string message;
 
 	if ( args[1][0] == '#') { // user send message to "channel operator"
-		target = args[1].substr(1, args[1].size() - 1);
+		target = args[1].erase(0, 1);
 		Channel * channel = _srv->getChannel(target);
 		message = args[2];
 		if (!channel)

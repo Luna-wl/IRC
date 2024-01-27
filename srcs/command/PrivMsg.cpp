@@ -27,16 +27,13 @@ void PrivMsg::execute(Client * client, std::vector<std::string> &args)
 	}
 
 	std::vector<std::string> targets = commaSeperator(args[1]);
-	std::string message;
-	for (std::vector<std::string>::iterator it = args.begin() + 2; it != args.end() - 1; it++)
-		message += *it + " ";
-	message += *(args.end() - 1);
+	std::string message = args[2];
 
 	for (std::vector<std::string>::iterator it=targets.begin(); it!=targets.end(); it++)
 	{
 		std::string target = *it;
 		if ( target.at(0) == '#') { // send message to channel
-			target = target.substr(1, target.size() - 1);
+			target = target.erase(0, 1);
 			Channel * channel = _srv->getChannel(target);
 			if (!channel)
 				client->recieveMessage(ERR_NOSUCHCHANNEL(_srv->getName(), client->getNickname(), "#" + target));
