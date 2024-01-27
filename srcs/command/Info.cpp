@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Info.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 01:35:04 by wluedara          #+#    #+#             */
-/*   Updated: 2024/01/27 18:20:31 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/27 18:35:06 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void Info::execute(Client * client, std::vector<std::string> &args) {
 	client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "-\"-\"-------------------"));
 	client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "Server name	: " + _srv->getName()));
 	client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "Port		: " + _srv->getPort()));
-	client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "Client number	: " + std::to_string(_srv->getClientNum())));
-	client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "Channel number	: " + std::to_string(_srv->getChannelNum())));
+	client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "Client number	: " + intToString(_srv->getClientNum())));
+	client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "Channel number	: " + intToString(_srv->getChannelNum())));
 	client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "-----------------------"));
 }

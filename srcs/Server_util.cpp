@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:43:27 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/27 17:55:56 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/27 18:33:59 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,4 +124,11 @@ bool isStrDigit(std::string str)
 			return false;
 	}
 	return true;
+}
+
+std::string intToString(int num)
+{
+	std::stringstream ss;
+	ss << num;
+	return ss.str();
 }
