@@ -1,4 +1,5 @@
 #include <iostream>
+#include <signal.h>
 
 #include "../includes/Server.hpp"
 #include "../includes/Color.hpp"

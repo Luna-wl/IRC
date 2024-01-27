@@ -34,6 +34,7 @@ CMD := 	Nick.cpp \
 		Info.cpp \
 		Bot.cpp
 
+# CC = g++-13
 CC = g++
 
 CFLAGS = -Wall -Wextra -Werror # -g -fsanitize=address

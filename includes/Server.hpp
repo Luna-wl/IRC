@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:22:30 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/27 17:56:01 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/27 18:13:10 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 #include <iomanip>
 #include <fcntl.h>
 #include <vector>
+#include <cstring>
 
 #include "Color.hpp"
 #include "replies.hpp"

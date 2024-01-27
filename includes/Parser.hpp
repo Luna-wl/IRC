@@ -2,6 +2,7 @@
 # define PARSER_HPP
 
 # include <sstream>
+# include <algorithm>
 
 # include "Server.hpp"
 # include "Client.hpp"
