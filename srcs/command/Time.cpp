@@ -15,7 +15,6 @@
 Time::Time(Server * srv) : Command(srv) {}
 Time::~Time() {}
 
-void Time::execute(Client * client, std::vector<std::string> & args)
-{
-    client->recieveMessage(RPL_TIME(client->source(), args[0], _srv->getName(), _srv->time(0), _srv->time(2)));
+void Time::execute(Client * client, std::vector<std::string> & args) {
+	client->receive_message(RPL_TIME(client->source(), args[0], _srv->getName(), _srv->time(0), _srv->time(2)));
 }

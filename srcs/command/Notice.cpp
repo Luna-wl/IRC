@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   Notice.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:20:56 by tkraikua          #+#    #+#             */
 /*   Updated: 2024/01/28 00:49:25 by csantivimol      ###   ########.fr       */
@@ -15,14 +15,17 @@
 Notice::Notice(Server * srv) : Command(srv) {}
 Notice::~Notice() {}
 
-void Notice::execute(Client * client, std::vector<std::string> &args)
-{
+void Notice::execute(Client * client, std::vector<std::string> &args) {
 	if ( !client->isRegist() ) {
 		client->recieveMessage(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
 		return;
 	}
 	else if ( args.size() < 3 ) {
 		client->recieveMessage(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
+		return;
+	}
+	else if ( args.size() > 3 ) {
+		client->receive_message(ERR_TOOMANYARGUMENTS(_srv->getName(), args[0]));
 		return;
 	}
 

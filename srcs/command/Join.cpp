@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Join.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:58:49 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/28 13:49:15 by csantivi         ###   ########.fr       */
+/*   Updated: 2024/01/28 22:42:37 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ void Join::execute(Client * client, std::vector<std::string> &args)
 	}
 	else if ( args.size() == 1 ) {
 		client->recieveMessage(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
+	}
+	else if ( args.size() > 3) {
+		client->receive_message(ERR_TOOMANYARGUMENTS(_srv->getName(), args[0]));
 	}
 	else if ( client->getChannelSize() == CHANLIMIT ) {
 		client->recieveMessage(ERR_TOOMANYCHANNELS(_srv->getName(), client->getNickname(), args[1]));

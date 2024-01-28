@@ -6,7 +6,7 @@
 /*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:43:27 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/28 16:37:49 by csantivi         ###   ########.fr       */
+/*   Updated: 2024/01/28 22:26:56 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void Server::createConnection()
 void Server::addClient(int client_fd, std::string hostname)
 {
 	_clients[client_fd] = new Client(client_fd, hostname);
+	std::cout << "Connected from : " << client_fd << std::endl;
 	welcomeMessage(_clients[client_fd]);
 }
 

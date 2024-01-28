@@ -6,7 +6,7 @@
 /*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 01:35:25 by wluedara          #+#    #+#             */
-/*   Updated: 2024/01/26 16:25:29 by csantivi         ###   ########.fr       */
+/*   Updated: 2024/01/25 13:56:38 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ Help::Help(Server * srv) : Command(srv) {}
 
 Help::~Help() {}
 
-void Help::execute(Client * client, std::vector<std::string> &args)
-{
+void Help::execute(Client * client, std::vector<std::string> &args) {
 	if (args.size() == 1) {
 		client->recieveMessage(RPL_HELPSTART(_srv->getName(), args[0]));
 		client->recieveMessage(RPL_HELPTXT(_srv->getName(), args[0], "If you not register, you can use these commands:"));

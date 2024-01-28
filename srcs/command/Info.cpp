@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Info.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 01:35:04 by wluedara          #+#    #+#             */
-/*   Updated: 2024/01/27 19:13:41 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/25 13:54:23 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void Info::execute(Client * client, std::vector<std::string> &args) {
 	if (!client->isRegist()) {
 		client->recieveMessage(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
 		return ;
-	} else if (args.size() != 1) {
+	}
+  else if (args.size() != 1) {
 		client->recieveMessage(ERR_TOOMANYARGUMENTS(client->getUsername(), "INFO"));
 		return ;
 	}

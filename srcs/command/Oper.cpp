@@ -23,6 +23,9 @@ void Oper::execute(Client * client, std::vector<std::string> &args)
 	else if ( args.size() < 3 ) {
 		client->recieveMessage(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
 	}
+	else if ( args.size() > 3 ) {
+		client->receive_message(ERR_TOOMANYARGUMENTS(_srv->getName(), args[0]));
+	}
 	else
 	{
 		if ( args[1] != "Admin" ) {

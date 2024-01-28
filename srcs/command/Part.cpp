@@ -15,14 +15,17 @@
 Part::Part(Server * srv) : Command(srv) {}
 Part::~Part() {}
 
-void Part::execute(Client * client, std::vector<std::string> &args)
-{
+void Part::execute(Client * client, std::vector<std::string> &args) {
 	if ( !client->isRegist() ) {
 		client->recieveMessage(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
 	}
 	else if ( args.size() == 1 ) {
-		client->recieveMessage(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
-	} else {
+		client->receive_message(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
+	}
+	else if ( args.size() > 3 ) {
+		client->receive_message(ERR_TOOMANYARGUMENTS(_srv->getName(), args[0]));
+	}
+	else {
 		std::vector<std::string> channels = commaSeperator(args[1]);
 
 		std::vector<std::string>::iterator ch_it = channels.begin();
