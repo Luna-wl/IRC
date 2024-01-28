@@ -1,15 +1,15 @@
 #include "../includes/Server.hpp"
 
 void Server::welcomeMessage(Client * client) {
-	client->recieveMessage("");
-	client->recieveMessage("██████╗ ██╗   ██╗██████╗  ██████╗ ██╗     ██████╗ ██╗  ██╗");
-	client->recieveMessage("██╔══██╗██║   ██║██╔══██╗██╔═══██╗██║     ██╔══██╗██║  ██║");
-	client->recieveMessage("██████╔╝██║   ██║██║  ██║██║   ██║██║     ██████╔╝███████║");
-	client->recieveMessage("██╔══██╗██║   ██║██║  ██║██║   ██║██║     ██╔═══╝ ██╔══██║");
-	client->recieveMessage("██║  ██║╚██████╔╝██████╔╝╚██████╔╝███████╗██║     ██║  ██║");
-	client->recieveMessage("╚═╝  ╚═╝ ╚═════╝ ╚═════╝  ╚═════╝ ╚══════╝╚═╝     ╚═╝  ╚═╝");
-	client->recieveMessage("                            welcome to RUDOLPH irc, Enjoy!");
-	client->recieveMessage("                                      " + time(1));
+	client->receiveMessage("");
+	client->receiveMessage("██████╗ ██╗   ██╗██████╗  ██████╗ ██╗     ██████╗ ██╗  ██╗");
+	client->receiveMessage("██╔══██╗██║   ██║██╔══██╗██╔═══██╗██║     ██╔══██╗██║  ██║");
+	client->receiveMessage("██████╔╝██║   ██║██║  ██║██║   ██║██║     ██████╔╝███████║");
+	client->receiveMessage("██╔══██╗██║   ██║██║  ██║██║   ██║██║     ██╔═══╝ ██╔══██║");
+	client->receiveMessage("██║  ██║╚██████╔╝██████╔╝╚██████╔╝███████╗██║     ██║  ██║");
+	client->receiveMessage("╚═╝  ╚═╝ ╚═════╝ ╚═════╝  ╚═════╝ ╚══════╝╚═╝     ╚═╝  ╚═╝");
+	client->receiveMessage("                            welcome to RUDOLPH irc, Enjoy!");
+	client->receiveMessage("                                      " + time(1));
 }
 
 

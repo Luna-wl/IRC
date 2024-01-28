@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Parser.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 22:50:18 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/27 20:21:02 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/28 19:17:34 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,5 @@ void Parser::analyze(Client *client, std::string &text)
 	if (_cmd.count(args[0]))
 		_cmd[args[0]]->execute(client, args);
 	else
-		client->recieveMessage(ERR_UNKNOWNCOMMAND(_srv->getName(), client->getNickname(), args[0]));
+		client->receiveMessage(ERR_UNKNOWNCOMMAND(_srv->getName(), client->getNickname(), args[0]));
 } 

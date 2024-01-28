@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Pass.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:06:48 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/24 20:59:11 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/28 19:17:34 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ Pass::~Pass() {}
 void Pass::execute(Client * client, std::vector<std::string> & args)
 {
 	if ( args.size() == 1 ) {
-		client->recieveMessage(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
+		client->receiveMessage(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
 	}
 	else if ( client->isAuth() ) {
-		client->recieveMessage(ERR_ALREADYAUTHENTICATED(_srv->getName(), client->getNickname()));
+		client->receiveMessage(ERR_ALREADYAUTHENTICATED(_srv->getName(), client->getNickname()));
 	}
 	else if ( args[1] != _srv->getPass() ) {
-		client->recieveMessage(ERR_PASSWDMISMATCH(_srv->getName(), client->getNickname()));
+		client->receiveMessage(ERR_PASSWDMISMATCH(_srv->getName(), client->getNickname()));
 	}
 	else if ( args[1] == _srv->getPass() ) {
 		client->setAuth(true);

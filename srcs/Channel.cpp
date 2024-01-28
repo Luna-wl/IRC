@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:55 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/24 23:16:30 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/28 19:17:34 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void Channel::sendMessage(Client * member, std::string message) {
 	for (std::map<std::string, Client *>::iterator it = _members.begin(); it != _members.end(); it++) {
 		if (it->second == member)
 			continue;
-		it->second->recieveMessage(message);
+		it->second->receiveMessage(message);
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Notice.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:20:56 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/28 00:49:25 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/28 19:17:34 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ Notice::~Notice() {}
 
 void Notice::execute(Client * client, std::vector<std::string> &args) {
 	if ( !client->isRegist() ) {
-		client->recieveMessage(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
+		client->receiveMessage(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
 		return;
 	}
 	else if ( args.size() < 3 ) {
-		client->recieveMessage(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
+		client->receiveMessage(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
 		return;
 	}
 	else if ( args.size() > 3 ) {
-		client->receive_message(ERR_TOOMANYARGUMENTS(_srv->getName(), args[0]));
+		client->receiveMessage(ERR_TOOMANYARGUMENTS(_srv->getName(), args[0]));
 		return;
 	}
 
@@ -44,7 +44,7 @@ void Notice::execute(Client * client, std::vector<std::string> &args) {
 		else { // send message to user
 			Client * target_client = _srv->getClient(target);
 			if (target_client)
-				target_client->recieveMessage(RPL_AWAY(client->source(), args[0], client->getNickname(), message));
+				target_client->receiveMessage(RPL_AWAY(client->source(), args[0], client->getNickname(), message));
 		}	
 	}
 }

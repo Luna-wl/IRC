@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   User.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 23:31:37 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/28 13:46:47 by csantivi         ###   ########.fr       */
+/*   Updated: 2024/01/28 19:17:34 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ void User::execute(Client * client, std::vector<std::string> & args)
 {
 	
 	if ( !client->isAuth() ) {
-		client->recieveMessage(ERR_NOTAUTHENTICATED(_srv->getName(), client->getNickname()));
+		client->receiveMessage(ERR_NOTAUTHENTICATED(_srv->getName(), client->getNickname()));
 	}
 	else if ( client->isRegist() && !client->getFullname().empty() ) {
-		client->recieveMessage(ERR_ALREADYREGISTRED(_srv->getName(), client->getNickname()));
+		client->receiveMessage(ERR_ALREADYREGISTRED(_srv->getName(), client->getNickname()));
 	}
 	else if ( args.size() < 5) {
-		client->recieveMessage(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
+		client->receiveMessage(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
 	}
 	else if ( args.size() > 5 ) {
-		client->recieveMessage(ERR_TOOMANYARGUMENTS(_srv->getName(), args[0]));
+		client->receiveMessage(ERR_TOOMANYARGUMENTS(_srv->getName(), args[0]));
 	}
 	else {
 		client->setUsername(args[1]);

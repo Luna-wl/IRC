@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Client.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:53:39 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/26 14:43:27 by csantivi         ###   ########.fr       */
+/*   Updated: 2024/01/28 19:17:04 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ std::string Client::source() {
 	return _nickname + "!" + _username + "@" + _hostname;
 }
 
-void Client::recieveMessage(std::string str) {
+void Client::receiveMessage(std::string str) {
 	str = str + "\r\n";
 	send(_client_fd, str.c_str(), str.size(), 0);
 }

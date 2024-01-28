@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Nick.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:16:57 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/28 13:46:32 by csantivi         ###   ########.fr       */
+/*   Updated: 2024/01/28 19:17:34 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,20 @@ Nick::~Nick() {}
 void Nick::execute(Client * client, std::vector<std::string> &args)
 {
 	if (!client->isAuth()) {
-		client->recieveMessage(ERR_NOTAUTHENTICATED(_srv->getName(), client->getNickname()));
+		client->receiveMessage(ERR_NOTAUTHENTICATED(_srv->getName(), client->getNickname()));
 	}
 	else if (args.size() > 2) {
-		client->recieveMessage(ERR_TOOMANYARGUMENTS(_srv->getName(), args[0]));
+		client->receiveMessage(ERR_TOOMANYARGUMENTS(_srv->getName(), args[0]));
 	}
 	else if (args[1].empty()) {
-		client->recieveMessage(ERR_NONICKNAMEGIVEN(_srv->getName(), client->getNickname()));
+		client->receiveMessage(ERR_NONICKNAMEGIVEN(_srv->getName(), client->getNickname()));
 	}
 	else if (args[1][0] == '#' || args[1][0] == ':' || args[1][0] == '$' || 
 		args[1].find_first_of(" \t\n\r\f\v.,*?!@") != std::string::npos) {
-		client->recieveMessage(ERR_ERRONEUSNICKNAME(_srv->getName(), client->getNickname(), args[1]));
+		client->receiveMessage(ERR_ERRONEUSNICKNAME(_srv->getName(), client->getNickname(), args[1]));
 	}
 	else if (nickIsUsed(args[1])) {
-		client->recieveMessage(ERR_NICKNAMEINUSE(_srv->getName(), client->getNickname(), args[1]));
+		client->receiveMessage(ERR_NICKNAMEINUSE(_srv->getName(), client->getNickname(), args[1]));
 	}
 	else {
 		client->setNickname(args[1]);
