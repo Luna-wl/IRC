@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Kick.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 14:03:35 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/22 16:56:51 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/28 22:44:45 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ void Kick::execute(Client * client, std::vector<std::string> &args)
 {
 	if ( !client->isRegist() ) {
 		client->receive_message(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
-	} else if ( args.size() < 3 ) {
+	}
+	else if ( args.size() < 3 ) {
 		client->receive_message(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
-	} else if ( args[1][0] != '#' || args[1].size() == 1 ) {
+	}
+	else if ( args[1][0] != '#' || args[1].size() == 1 ) {
 		client->receive_message(ERR_BADCHANMASK(_srv->getName(), client->getNickname(), args[1]));
-	} else {
+	}
+	else {
 		std::string channel_name = args[1];
 		channel_name.erase(0, 1);
 		Channel * channel = _srv->getChannel(channel_name);

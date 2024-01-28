@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Oper.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 16:08:38 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/21 19:40:21 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/28 22:11:48 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ void Oper::execute(Client * client, std::vector<std::string> &args)
 	}
 	else if ( args.size() < 3 ) {
 		client->receive_message(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
+	}
+	else if ( args.size() > 3 ) {
+		client->receive_message(ERR_TOOMANYARGUMENTS(_srv->getName(), args[0]));
 	}
 	else
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Notice.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:20:56 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/22 16:56:51 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/28 22:15:22 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,17 @@
 Notice::Notice(Server * srv) : Command(srv) {}
 Notice::~Notice() {}
 
-void Notice::execute(Client * client, std::vector<std::string> &args)
-{
+void Notice::execute(Client * client, std::vector<std::string> &args) {
 	if ( !client->isRegist() ) {
 		client->receive_message(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
 		return;
 	}
 	else if ( args.size() < 3 ) {
 		client->receive_message(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
+		return;
+	}
+	else if ( args.size() > 3 ) {
+		client->receive_message(ERR_TOOMANYARGUMENTS(_srv->getName(), args[0]));
 		return;
 	}
 
@@ -42,5 +45,5 @@ void Notice::execute(Client * client, std::vector<std::string> &args)
 		Client * target_client = _srv->getClient(target);
 		if (target_client)
 			target_client->receive_message(RPL_AWAY(client->source(), args[0], client->getNickname(), message));
-	}	
+	}
 }

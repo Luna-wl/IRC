@@ -6,7 +6,8 @@ SRCS := Client.cpp \
 		Parser.cpp \
 		Server.cpp \
 		Server_util.cpp \
-		Channel.cpp 
+		Channel.cpp \
+		Welcome.cpp \
 
 
 CMD_DIR := ./srcs/command/
@@ -19,7 +20,7 @@ CMD := 	Nick.cpp \
 		Join.cpp \
 		PrivMsg.cpp \
 		Command.cpp \
-    	Quit.cpp \
+		Quit.cpp \
 		Names.cpp \
 		Part.cpp \
 		Kick.cpp \

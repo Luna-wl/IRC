@@ -6,7 +6,7 @@
 /*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 01:35:25 by wluedara          #+#    #+#             */
-/*   Updated: 2024/01/24 23:53:44 by wluedara         ###   ########.fr       */
+/*   Updated: 2024/01/25 13:56:38 by wluedara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ Help::Help(Server * srv) : Command(srv) {}
 
 Help::~Help() {}
 
-void Help::execute(Client * client, std::vector<std::string> &args)
-{
+void Help::execute(Client * client, std::vector<std::string> &args) {
 	if (args.size() == 1) {
 		std::string message = "\nIf you not register, you can use these commands:\n";
 		message += "> PASS <server's password>: enter password to regist in the server\n";

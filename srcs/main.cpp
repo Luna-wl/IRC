@@ -12,8 +12,7 @@ void signalHandler( int signum ) {
 
 }
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
 	signal(SIGINT, signalHandler);
 	if (argc != 3)
 	{
