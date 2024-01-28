@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replies.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:53:45 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/28 01:16:37 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/28 15:50:49 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@
 #define RPL_LISTEND(source)							            ":" + source + " 323 INFO :End of /LIST"
 
 // Topic replies
-#define RPL_NOTOPIC(source, channel)				            ":" + source + " " + channel + " :No topic is set"
-#define RPL_TOPIC(source, channel, topic)			            ":" + source + " " + channel + " :" + topic
-#define RPL_TOPICWHOTIME(source, channel, nickname, time)	    ":" + source + " " + channel + " " + nickname + " " + time
+#define RPL_NOTOPIC(source, channel)				            ":" + source + " 331 TOPIC " + channel + " :No topic is set"
+#define RPL_TOPIC(source, channel, topic)			            ":" + source + " 332 TOPIC " + channel + " :" + topic
+#define RPL_TOPICWHOTIME(source, channel, nickname, time)	    ":" + source + " 333 TOPIC " + channel + " " + nickname + " " + time
 
 // Help replies
 #define RPL_HELPSTART(source, cmd)			    			    ":" + source + " 704 val " + cmd + " :Help message"
@@ -96,7 +96,7 @@
 #define RPL_PONG(source, token)                                 ":" + source + " PONG :" + token
 
 // welcome
-#define RPL_WELCOME(source, servername, usersource)             ":" + source + " 001 :" + "Welcome to the " + servername + ", " + usersource
+#define RPL_WELCOME(source, servername, usersource)             ":" + source + " 001 :" + servername + ", " + usersource
 #define RPL_YOURHOST(source, servername)                        ":" + source + " 002 :" + "Your host is " + servername
 #define RPL_CREATED(source, datetime)                           ":" + source + " 003 :" + "This server was created " + datetime
 

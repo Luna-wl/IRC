@@ -11,7 +11,7 @@ void signalHandler( int signum ) {
 int main(int argc, char **argv)
 {
 	signal(SIGINT, signalHandler);
-	if (argc != 3)
+	if (argc != 3 || argv[1][0] == '\0' || argv[2][0] == '\0')
 	{
 		std::cerr << YELLOW << "using : ./ircserv <port> <passwd>" << DEFAULT << std::endl;
 		return (1);

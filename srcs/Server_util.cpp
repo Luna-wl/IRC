@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server_util.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:43:27 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/27 20:17:59 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/28 15:22:33 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ void Server::createConnection()
 	struct sockaddr_in client_addr;
 	socklen_t client_addr_len = sizeof(client_addr);
 	int client_fd = accept(_server_fd, (struct sockaddr *)&client_addr, &client_addr_len);
-	if (client_fd < 0)
-	{
+	if (client_fd < 0) {
 		std::cerr << RED << "Error accepting connection" << DEFAULT << std::endl;
 		return;
 	}

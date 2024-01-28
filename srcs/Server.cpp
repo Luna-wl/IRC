@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/27 19:31:57 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/28 15:42:49 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,32 +37,30 @@ Server::~Server( void ) {
 	{
 		close(_fds[i].fd);
 	}
-	std::cout << MAGENTA << "Server shuting down . . .\n" << DEFAULT;
 }
 
 int Server::start( void ) {
 	_server_fd = socket(AF_INET, SOCK_STREAM, 0);
-	if (_server_fd < 0)
-	{
+	if (_server_fd < 0) {
 		std::cerr << RED << "Error creating socket" << DEFAULT << std::endl;
 		return(1);
-	} else if (fcntl(_server_fd, F_SETFL, O_NONBLOCK))
-	{
+	} else if (fcntl(_server_fd, F_SETFL, O_NONBLOCK)) {
 		std::cerr << RED << "Error non blocking" << DEFAULT << std::endl;
 		return (1);
 	}
 
 	int optval = 1;
-	if (setsockopt(_server_fd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval)) < 0)
-	{
+	if (setsockopt(_server_fd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval)) < 0) {
 		std::cerr << RED << "Error set socket" << DEFAULT << std::endl;
 		return(1);
 	}
 
-	if (isStrDigit(_port))
-	{
+	if (isStrDigit(_port)) {
 		std::cerr << RED << "Error port is not digit" << DEFAULT << std::endl;
 		return(1);
+	} else if (atoi(_port.c_str()) > 65535) {
+		std::cerr << RED << "Error port number is out of range" << DEFAULT << std::endl;
+		return (1);
 	} else if (atoi(_port.c_str()) < 1024)
 		std::cerr << YELLOW << "Caution: Using well-known ports (0-1023), please avoid using this." << DEFAULT << std::endl;
 
@@ -75,7 +73,7 @@ int Server::start( void ) {
 		return(1);
 	}
 
-	listen(_server_fd, 5);
+	listen(_server_fd, BACKLOG);
 	std::cout << MAGENTA << "\n\nServer starting . . .\n" << DEFAULT;
 	welcomeServer();
 
@@ -90,40 +88,33 @@ void Server::serverLoop() {
 		int events = poll(&_fds[0], _fds.size(), -1);
 		if (!_run)
 			break;
-		if (events < 0)
-		{
+		if (events < 0) {
 			std::cerr << RED << "Error in poll" << DEFAULT << std::endl;
 			break;
-		}
-		else if (events == 0)
-		{
+		} else if (events == 0) {
 			std::cout << "No events to process." << std::endl;
 			continue;
 		}
 
-		for (std::vector<pollfd>::iterator it = _fds.begin(); it != _fds.end(); it++)
-		{
-			if (it->revents & POLLHUP)
-			{
+		for (std::vector<pollfd>::iterator it = _fds.begin(); it != _fds.end(); it++) {
+			if (it->revents & POLLHUP) {
 				clientDisconnect(it->fd);
 				break;
-			}
-			else if (it->revents & POLLIN)
-			{
+			} else if (it->revents & POLLIN) {
 				if (it->fd == _server_fd)
 					createConnection();
 				else
 					recieveMessage(it->fd);
 				break;
-			}
-			else if (it->revents & POLLOUT)
-				std::cout << YELLOW << "[POLLOUT!]" << DEFAULT << std::endl;
+			} else if (it->revents & POLLOUT)
+				std::cerr << YELLOW << "[POLLOUT!]" << DEFAULT << std::endl;
 			else if (it->revents & POLLERR)
-				std::cout << YELLOW << "[POLLERR!]" << DEFAULT << std::endl;
+				std::cerr << YELLOW << "[POLLERR!]" << DEFAULT << std::endl;
 			else if (it->revents & POLLNVAL)
 				std::cout << YELLOW<< "[POLLNVAL!]" << DEFAULT << std::endl;
 		}
 	}
+	std::cout << MAGENTA << "Server shuting down . . .\n" << DEFAULT;
 }
 
 void Server::set_state(bool state) {
