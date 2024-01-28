@@ -6,7 +6,7 @@
 /*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:22:30 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/28 15:18:34 by csantivi         ###   ########.fr       */
+/*   Updated: 2024/01/28 16:39:14 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ class Server
 #include "Parser.hpp"
 
 bool isStrDigit(std::string str);
+bool isStrPrint(std::string str);
 std::string intToString(int num);
 
 #endif

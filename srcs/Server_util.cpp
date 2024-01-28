@@ -6,7 +6,7 @@
 /*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:43:27 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/28 15:22:33 by csantivi         ###   ########.fr       */
+/*   Updated: 2024/01/28 16:37:49 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,19 @@ bool isStrDigit(std::string str)
 	const char * cstr = str.c_str();
 	for (int i = 0; i < size; i++)
 	{
-		if (isdigit(cstr[i]))
+		if (!isdigit(cstr[i]))
+			return false;
+	}
+	return true;
+}
+
+bool isStrPrint(std::string str)
+{
+	int size = str.size();
+	const char * cstr = str.c_str();
+	for (int i = 0; i < size; i++)
+	{
+		if (!isprint(cstr[i]) || cstr[i] == ' ')
 			return false;
 	}
 	return true;

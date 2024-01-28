@@ -6,7 +6,7 @@
 /*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/28 15:42:49 by csantivi         ###   ########.fr       */
+/*   Updated: 2024/01/28 16:43:03 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int Server::start( void ) {
 		return(1);
 	}
 
-	if (isStrDigit(_port)) {
+	if (!isStrDigit(_port)) {
 		std::cerr << RED << "Error port is not digit" << DEFAULT << std::endl;
 		return(1);
 	} else if (atoi(_port.c_str()) > 65535) {
@@ -63,6 +63,11 @@ int Server::start( void ) {
 		return (1);
 	} else if (atoi(_port.c_str()) < 1024)
 		std::cerr << YELLOW << "Caution: Using well-known ports (0-1023), please avoid using this." << DEFAULT << std::endl;
+
+	if (!isStrPrint(_pass)) {
+		std::cerr << YELLOW << "Invalid Password" << DEFAULT << std::endl;
+		return (1);
+	}
 
 	struct sockaddr_in addr;
 	addr.sin_family = AF_INET;
