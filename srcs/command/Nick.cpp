@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Nick.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:16:57 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/28 19:17:34 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/28 19:39:14 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ void Nick::execute(Client * client, std::vector<std::string> &args)
 	else {
 		client->setNickname(args[1]);
 		if (!client->getUsername().empty()) {
+			if (!client->isRegist())
+				welcomeClient(client, _srv);
 			client->setRegist(true);
-			welcomeClient(client, _srv);
 		}
 	}
 }
