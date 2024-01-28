@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Command.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:12:18 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/22 19:11:21 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/26 16:56:47 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ class Command
 };
 
 std::vector<std::string> commaSeperator(std::string arg);
+void	welcomeClient(Client * client, Server * server);
 
 /* Command */
 
@@ -190,7 +191,7 @@ class Mode : public Command
 		void _setInviteMode(Channel* channel, bool flag, std::vector<std::string> params);
 		void _setTopicMode(Channel* channel, bool flag, std::vector<std::string> params);
 		void _setKeyMode(Channel* channel, bool flag, std::vector<std::string> params);
-		void _setChanOperMode(Channel* channel, bool flag, std::vector<std::string> params);
+		void _setChanOperMode(Client* client, Channel* channel, bool flag, std::vector<std::string> params);
 		void _setLimitMode(Channel* channel, bool flag, std::vector<std::string> params);
 	public:
 		Mode(Server * srv);

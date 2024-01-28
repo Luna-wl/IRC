@@ -18,16 +18,16 @@ Join::~Join() {}
 void Join::execute(Client * client, std::vector<std::string> &args)
 {
 	if ( !client->isRegist() ) {
-		client->receive_message(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
+		client->recieveMessage(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
 	}
 	else if ( args.size() == 1 ) {
-		client->receive_message(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
+		client->recieveMessage(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
 	}
 	else if ( args.size() > 3) {
 		client->receive_message(ERR_TOOMANYARGUMENTS(_srv->getName(), args[0]));
 	}
 	else if ( client->getChannelSize() == CHANLIMIT ) {
-		client->receive_message(ERR_TOOMANYCHANNELS(_srv->getName(), client->getNickname(), args[1]));
+		client->recieveMessage(ERR_TOOMANYCHANNELS(_srv->getName(), client->getNickname(), args[1]));
 	}
 	else {
 		std::vector<std::string> channels = commaSeperator(args[1]);
@@ -43,12 +43,11 @@ void Join::execute(Client * client, std::vector<std::string> &args)
 			std::string channel_key = key_it != keys.end() ? *key_it : "";
 
 			if (channel_name[0] != '#' || channel_name.size() == 1) {
-				client->receive_message(ERR_BADCHANMASK(_srv->getName(), client->getNickname(), channel_name));
+				client->recieveMessage(ERR_BADCHANMASK(_srv->getName(), client->getNickname(), channel_name));
 				ch_it++;
 				continue;
 			}
 			channel_name.erase(0, 1);
-			
 			Channel * channel;
 			if (!_srv->isChanExist(channel_name)) {
 				channel = new Channel(_srv, channel_name, channel_key);
@@ -59,14 +58,14 @@ void Join::execute(Client * client, std::vector<std::string> &args)
 			}
 
 			if (channel->isKeyMode() && channel_key != channel->getKey()) {
-				client->receive_message(ERR_BADCHANNELKEY(_srv->getName(), client->getNickname(), channel->getName()));
+				client->recieveMessage(ERR_BADCHANNELKEY(_srv->getName(), client->getNickname(), channel->getName()));
 			} else if (channel->isLimitMode() && channel->isFull()) {
-				client->receive_message(ERR_CHANNELISFULL(_srv->getName(), client->getNickname(), channel->getName()));
+				client->recieveMessage(ERR_CHANNELISFULL(_srv->getName(), client->getNickname(), channel->getName()));
 			} else if (channel->isInviteMode()) {
-				client->receive_message(ERR_INVITEONLYCHAN(_srv->getName(), client->getNickname(), channel->getName()));
+				client->recieveMessage(ERR_INVITEONLYCHAN(_srv->getName(), client->getNickname(), channel->getName()));
 			} else {
 				if (!channel->getTopic().empty())
-					client->receive_message(RPL_TOPIC(_srv->getName(), "#" + channel_name, channel->getTopic()));
+					client->recieveMessage(RPL_TOPIC(_srv->getName(), "#" + channel_name, channel->getTopic()));
 				client->join(channel);
 			}
 			if (key_it != keys.end())

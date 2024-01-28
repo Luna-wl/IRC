@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Invite.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 15:39:17 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/25 13:57:36 by wluedara         ###   ########.fr       */
+/*   Updated: 2024/01/24 23:23:14 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void Invite::execute(Client * client, std::vector<std::string> &args) {
 	else if ( args[2][0] != '#' || args[2].size() == 1 ) {
 		client->receive_message(ERR_BADCHANMASK(_srv->getName(), client->getNickname(), args[1]));
 	}
-	else {
+  else {
 		std::string user_name = args[1];
 		Client * user = _srv->getClient(user_name);
 		
@@ -51,8 +51,11 @@ void Invite::execute(Client * client, std::vector<std::string> &args) {
 		else if ( user->getChannel(channel_name) ) {
 			client->receive_message(ERR_USERONCHANNEL(_srv->getName(), client->getNickname(), user_name, "#" + channel_name));
 		}
-		else {
-			client->receive_message(RPL_INVITING(_srv->getName(), args[0], user_name, channel_name));
+    else if (channel->isLimitMode() && channel->isFull()) {
+			client->recieveMessage(ERR_CHANNELISFULL(_srv->getName(), client->getNickname(), channel->getName()));
+		}
+    else {
+			client->recieveMessage(RPL_INVITING(_srv->getName(), args[0], user_name, channel_name));
 			user->join(channel);
 		}
 	}

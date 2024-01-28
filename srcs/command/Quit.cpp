@@ -17,6 +17,5 @@ Quit::~Quit() {}
 
 void Quit::execute(Client * client, std::vector<std::string> & args) {
 	(void) args;
-	// disconnect with server
 	_srv->clientDisconnect(client->getFd());
 }

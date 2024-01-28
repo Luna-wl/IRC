@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Client.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:50:51 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/20 01:27:18 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/24 20:59:22 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ class Client
 		Client( const int &client_fd, std::string hostname );
 		~Client( void );
 
-		void receive_message(std::string str);
-		void send_error(std::string str);
-		void send_debug(std::string str);
+		void recieveMessage(std::string str);
 
 		std::string source();
 

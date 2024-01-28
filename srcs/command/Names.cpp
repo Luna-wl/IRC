@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Names.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 17:42:31 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/21 19:58:46 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/27 23:01:45 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,17 @@ std::string getUserPrefix(Client * client)
 void Names::execute(Client * client, std::vector<std::string> & args)
 {
  	if ( !client->isRegist() ) {
-		client->receive_message(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
+		client->recieveMessage(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
 	}
-	else if ( args.size() != 1 ) {
+	else if ( args.size() == 1 )
+		client->recieveMessage(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
+	else {
 		std::vector<std::string> channels = commaSeperator(args[1]);
 		for(std::vector<std::string>::iterator it = channels.begin();it != channels.end(); it++)
 		{
 			std::string channel_name = *it;
 			if (channel_name[0] != '#' || channel_name.size() == 1) {
-				client->receive_message(ERR_BADCHANMASK(_srv->getName(), args[0], channel_name));
+				client->recieveMessage(ERR_BADCHANMASK(_srv->getName(), args[0], channel_name));
 				continue;
 			}
 			channel_name.erase(0, 1);
@@ -52,7 +54,7 @@ void Names::execute(Client * client, std::vector<std::string> & args)
 			Channel * channel;
 			if (!_srv->isChanExist(channel_name))
 			{
-				client->receive_message(ERR_NOSUCHCHANNEL(_srv->getName(), args[0], channel_name));
+				client->recieveMessage(ERR_NOSUCHCHANNEL(_srv->getName(), args[0], channel_name));
 				continue;
 			}
 
@@ -63,8 +65,8 @@ void Names::execute(Client * client, std::vector<std::string> & args)
 			std::string nick;
 			for (std::map<std::string, Client *>::iterator it = member.begin(); it != member.end(); it++)
 				nick += getUserPrefix(it->second) + " "; // not yet (add prefix @op_user)
-			client->receive_message(RPL_NAMREPLY(client->source(), args[0], symbol, "#" + channel_name, nick));
-			client->receive_message(RPL_ENDOFNAMES(client->source(), args[0], "#" + channel_name));
+			client->recieveMessage(RPL_NAMREPLY(client->source(), args[0], symbol, "#" + channel_name, nick));
+			client->recieveMessage(RPL_ENDOFNAMES(client->source(), args[0], "#" + channel_name));
 		}
 	}
 }

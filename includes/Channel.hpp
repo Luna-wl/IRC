@@ -6,7 +6,7 @@
 /*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:08 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/22 15:06:30 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/24 21:01:13 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ class Channel
 		void removeChanOp(std::string nick);
 		bool isChanOp(std::string nick);
 
-		void send_message(Client * member, std::string message);
+		void sendMessage(Client * member, std::string message);
 
 		// getter
 		std::string getName();

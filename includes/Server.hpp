@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:22:30 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/25 00:00:07 by wluedara         ###   ########.fr       */
+/*   Updated: 2024/01/28 16:39:14 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,12 @@
 #include <ctime>
 #include <iomanip>
 #include <fcntl.h>
+#include <vector>
+#include <cstring>
 
 #include "Color.hpp"
 #include "replies.hpp"
+#define BACKLOG 5
 
 class Channel;
 class Client;
@@ -44,17 +47,18 @@ class Server
 		std::map<const int, Client *> 		_clients;
 		Parser*								_parser;
 		static bool							_run;
+		std::string							_createTime;
 	public:
 		
 		Server( const std::string & port, const std::string & pass );
 		~Server( void );
 
 		int start( void );
-		void server_loop( void );
-		void create_connection( void );
-		void receive_message(int fd);
-		void add_client(int client_fd, std::string hostname);
-		void add_pollfd(int fd);
+		void serverLoop( void );
+		void createConnection( void );
+		void recieveMessage(int fd);
+		void addClient(int client_fd, std::string hostname);
+		void addPollfd(int fd);
 		std::string time(int format);
 		void clientDisconnect(int fd);
 
@@ -64,6 +68,7 @@ class Server
 		std::string getName();
 		std::string getPass();
 		std::string getPort();
+		std::string getCreateTime();
 		int getChannelNum();
 		int getClientNum();
 
@@ -77,10 +82,15 @@ class Server
 
 		std::map<std::string, Channel*>& getChannels();
 		void welcomeMessage(Client * client);
+		void welcomeServer();
 };
 
 #include "Channel.hpp"
 #include "Client.hpp"
 #include "Parser.hpp"
+
+bool isStrDigit(std::string str);
+bool isStrPrint(std::string str);
+std::string intToString(int num);
 
 #endif

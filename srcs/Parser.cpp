@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Parser.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 22:50:18 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/22 15:22:56 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/27 20:21:02 by csantivimol      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,30 +46,27 @@ Parser::~Parser()
 	}
 }
 
-void Parser::analyze(Client *client, std::string &text) {
-	std::cout << "receive [" << client->getFd() << "]: " << text << std::endl;
-
+void Parser::analyze(Client *client, std::string &text)
+{
 	std::string temp_text;
 	std::vector<std::string> args;
-	std::stringstream ssin(text);
-	while (ssin >> temp_text) {
+	std::stringstream ss(text);
+	while (ss >> temp_text) {
 		size_t colon = temp_text.find(':');
 		if (colon != std::string::npos) {
 			temp_text.erase(std::remove(temp_text.begin(), temp_text.end(), ':'), temp_text.end());
 			std::string next_text;
-			while (ssin.good())
-			{
-				ssin >> next_text;
+			while (ss.good()) {
+				ss >> next_text;
 				temp_text += " " + next_text;
 			}
 		}
 		args.push_back(temp_text);
 	}
-	std::cout << "args.size(): " << args.size() << std::endl;
-	for (unsigned long i = 0; i < args.size(); i++)
-		std::cout << "args[" << i << "]: " << args[i] << std::endl;
+	if (args.size() == 0)
+		return ;
 	if (_cmd.count(args[0]))
 		_cmd[args[0]]->execute(client, args);
 	else
-		client->receive_message(ERR_UNKNOWNCOMMAND(_srv->getName(), client->getNickname(), args[0]));
+		client->recieveMessage(ERR_UNKNOWNCOMMAND(_srv->getName(), client->getNickname(), args[0]));
 } 

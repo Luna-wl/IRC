@@ -16,9 +16,7 @@ Pong::Pong(Server * srv) : Command(srv) {}
 Pong::~Pong() {}
 
 void Pong::execute(Client * client, std::vector<std::string> & args) {
-	if (args.size() < 2)
-		client->receive_message(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));
-	else if (args.size() > 2)
+  if (args.size() > 2)
 		client->receive_message(ERR_TOOMANYARGUMENTS(_srv->getName(), args[0]));
 	else if (args[1].empty())
 		client->receive_message(ERR_NEEDMOREPARAMS(_srv->getName(), client->getNickname(), args[0]));

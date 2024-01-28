@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Client.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wluedara <wluedara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:53:39 by csantivimol       #+#    #+#             */
-/*   Updated: 2024/01/25 00:02:09 by wluedara         ###   ########.fr       */
+/*   Updated: 2024/01/26 14:43:27 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ Client::Client( const int &client_fd, std::string hostname ) : _op(false)
 	_client_fd = client_fd;
 	_hostname = hostname;
 	_nickname = "*";
+	_auth = false;
 }
 
 Client::~Client() {}
@@ -25,21 +26,9 @@ std::string Client::source() {
 	return _nickname + "!" + _username + "@" + _hostname;
 }
 
-void Client::receive_message(std::string str) {
+void Client::recieveMessage(std::string str) {
 	str = str + "\r\n";
 	send(_client_fd, str.c_str(), str.size(), 0);
-}
-
-void Client::send_error(std::string str)
-{
-	std::string err_str = "Error : " + str;
-	receive_message(err_str);
-}
-
-void Client::send_debug(std::string str)
-{
-	std::string err_str = "Debug : " + str;
-	receive_message(err_str);
 }
 
 int Client::getFd()

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:16:55 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/21 20:59:48 by tkraikua         ###   ########.fr       */
+/*   Updated: 2024/01/24 23:16:30 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ Channel::~Channel() {}
 
 void Channel::addMember(Client * member)
 {
-	send_message(member, RPL_JOINCHAN(member->source(), getName()));
+	sendMessage(member, RPL_JOINCHAN(member->source(), getName()));
 	_members[member->getNickname()] = member;
 }
 
@@ -41,7 +41,7 @@ void Channel::removeClient(Client * member)
 		_srv->removeChannel(_name);
 		return ;
 	}
-	send_message(member, RPL_LEAVECHAN(member->source(), getName()));
+	sendMessage(member, RPL_LEAVECHAN(member->source(), getName()));
 }
 
 void Channel::addChanOp(std::string nick)
@@ -60,11 +60,11 @@ bool Channel::isChanOp(std::string nick)
 	return _opMembers.count(nick) ? true : false;
 }
 
-void Channel::send_message(Client * member, std::string message) {
+void Channel::sendMessage(Client * member, std::string message) {
 	for (std::map<std::string, Client *>::iterator it = _members.begin(); it != _members.end(); it++) {
 		if (it->second == member)
 			continue;
-		it->second->receive_message(message);
+		it->second->recieveMessage(message);
 	}
 }
 

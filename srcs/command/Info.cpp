@@ -17,17 +17,21 @@ Info::Info(Server * srv) : Command(srv) {}
 Info::~Info() {}
 
 void Info::execute(Client * client, std::vector<std::string> &args) {
-	if (args.size() != 1) {
-		client->receive_message(ERR_TOOMANYARGUMENTS(client->getUsername(), "INFO"));
+	if (!client->isRegist()) {
+		client->recieveMessage(ERR_NOTREGISTERED(_srv->getName(), client->getNickname()));
 		return ;
 	}
-	client->receive_message(RPL_INFO(_srv->getName(), args[0], "^-^            "));
-	client->receive_message(RPL_INFO(_srv->getName(), args[0], "(O,O)           "));
-	client->receive_message(RPL_INFO(_srv->getName(), args[0], "(_._)   SERVER INFO   "));
-	client->receive_message(RPL_INFO(_srv->getName(), args[0], "-\"-\"-------------------"));
-	client->receive_message(RPL_INFO(_srv->getName(), args[0], "Server name	: " + _srv->getName()));
-	client->receive_message(RPL_INFO(_srv->getName(), args[0], "Port		: " + _srv->getPort()));
-	client->receive_message(RPL_INFO(_srv->getName(), args[0], "Client number	: " + std::to_string(_srv->getClientNum())));
-	client->receive_message(RPL_INFO(_srv->getName(), args[0], "Channel number	: " + std::to_string(_srv->getChannelNum())));
-	client->receive_message(RPL_INFO(_srv->getName(), args[0], "-----------------------"));
+  else if (args.size() != 1) {
+		client->recieveMessage(ERR_TOOMANYARGUMENTS(client->getUsername(), "INFO"));
+		return ;
+	}
+	client->recieveMessage(RPL_INFO(_srv->getName(), args[0], " ^-^            "));
+	client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "(O,O)           "));
+	client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "(_._)   SERVER INFO   "));
+	client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "-\"-\"-------------------"));
+	client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "Server name	: " + _srv->getName()));
+	client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "Port		: " + _srv->getPort()));
+	client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "Client number	: " + intToString(_srv->getClientNum())));
+	client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "Channel number	: " + intToString(_srv->getChannelNum())));
+	client->recieveMessage(RPL_INFO(_srv->getName(), args[0], "-----------------------"));
 }

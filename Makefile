@@ -7,7 +7,7 @@ SRCS := Client.cpp \
 		Server.cpp \
 		Server_util.cpp \
 		Channel.cpp \
-		Welcome.cpp \
+		Welcome.cpp 
 
 
 CMD_DIR := ./srcs/command/
@@ -34,6 +34,7 @@ CMD := 	Nick.cpp \
 		Info.cpp \
 		Bot.cpp
 
+# CC = g++-13
 CC = g++
 
 CFLAGS = -Wall -Wextra -Werror # -g -fsanitize=address

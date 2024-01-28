@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:23:58 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/22 16:56:51 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/28 16:43:03 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,15 @@
 bool Server::_run = true;
 
 Server::Server( const std::string & port, const std::string & pass ) {
-	// std::cout << "Server constructor called." << std::endl;
 	_name = "Rudolph";
 	_port = port;
 	_pass = pass;
 	_run = true;
 	_parser = new Parser(this);
+	_createTime = this->time(1);
 }
 
 Server::~Server( void ) {
-	// std::cout << "Server deconstructure called." << std::endl;
 	delete _parser;
 	for (std::map<const int, Client *>::iterator it=_clients.begin(); it!=_clients.end(); it++)
 	{
@@ -41,83 +40,86 @@ Server::~Server( void ) {
 }
 
 int Server::start( void ) {
-	_server_fd = socket(AF_INET, SOCK_STREAM, 0); // create a TCP socket
-	if (_server_fd < 0)
-	{
+	_server_fd = socket(AF_INET, SOCK_STREAM, 0);
+	if (_server_fd < 0) {
 		std::cerr << RED << "Error creating socket" << DEFAULT << std::endl;
 		return(1);
-	}
-
-	if (fcntl(_server_fd, F_SETFL, O_NONBLOCK))
-	{
+	} else if (fcntl(_server_fd, F_SETFL, O_NONBLOCK)) {
 		std::cerr << RED << "Error non blocking" << DEFAULT << std::endl;
 		return (1);
 	}
 
 	int optval = 1;
-	if (setsockopt(_server_fd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval)) < 0)
-	{
+	if (setsockopt(_server_fd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval)) < 0) {
 		std::cerr << RED << "Error set socket" << DEFAULT << std::endl;
 		return(1);
 	}
 
+	if (!isStrDigit(_port)) {
+		std::cerr << RED << "Error port is not digit" << DEFAULT << std::endl;
+		return(1);
+	} else if (atoi(_port.c_str()) > 65535) {
+		std::cerr << RED << "Error port number is out of range" << DEFAULT << std::endl;
+		return (1);
+	} else if (atoi(_port.c_str()) < 1024)
+		std::cerr << YELLOW << "Caution: Using well-known ports (0-1023), please avoid using this." << DEFAULT << std::endl;
+
+	if (!isStrPrint(_pass)) {
+		std::cerr << YELLOW << "Invalid Password" << DEFAULT << std::endl;
+		return (1);
+	}
+
 	struct sockaddr_in addr;
 	addr.sin_family = AF_INET;
-	addr.sin_port = htons(stoi(_port));
+	addr.sin_port = htons(atoi(_port.c_str()));
 	addr.sin_addr.s_addr = INADDR_ANY;
-
-	// bind the socket to the specified address and port
 	if (bind(_server_fd, (struct sockaddr *)&addr, sizeof(addr)) != 0) {
 		std::cerr << RED << "Error binding socket" << std::endl;
 		return(1);
 	}
-	listen(_server_fd, 5); // backlog = 5
-	std::cout << "Server starting . . .\n";
+
+	listen(_server_fd, BACKLOG);
+	std::cout << MAGENTA << "\n\nServer starting . . .\n" << DEFAULT;
+	welcomeServer();
+
 	return (0);
 }
 
-void Server::server_loop() {
-	add_pollfd(_server_fd);
-
+void Server::serverLoop() {
+	
+	addPollfd(_server_fd);
 	while (_run)
 	{
 		int events = poll(&_fds[0], _fds.size(), -1);
 		if (!_run)
 			break;
-		if (events < 0)
-		{
+		if (events < 0) {
 			std::cerr << RED << "Error in poll" << DEFAULT << std::endl;
 			break;
-		}
-		else if (events == 0)
-		{
+		} else if (events == 0) {
 			std::cout << "No events to process." << std::endl;
 			continue;
 		}
 
-		for (std::vector<pollfd>::iterator it = _fds.begin(); it != _fds.end(); it++)
-		{
-			if (it->revents & POLLHUP)
-			{
+		for (std::vector<pollfd>::iterator it = _fds.begin(); it != _fds.end(); it++) {
+			if (it->revents & POLLHUP) {
 				clientDisconnect(it->fd);
 				break;
-			}
-			else if (it->revents & POLLIN)
-			{
+			} else if (it->revents & POLLIN) {
 				if (it->fd == _server_fd)
-					create_connection();
+					createConnection();
 				else
-					receive_message(it->fd);
+					recieveMessage(it->fd);
 				break;
-			}
-			else if (it->revents & POLLOUT)
-				std::cout << YELLOW << "[POLLOUT!]" << DEFAULT << std::endl;
+			} else if (it->revents & POLLOUT)
+				std::cerr << YELLOW << "[POLLOUT!]" << DEFAULT << std::endl;
 			else if (it->revents & POLLERR)
-				std::cout << YELLOW << "[POLLERR!]" << DEFAULT << std::endl;
+				std::cerr << YELLOW << "[POLLERR!]" << DEFAULT << std::endl;
 			else if (it->revents & POLLNVAL)
 				std::cout << YELLOW<< "[POLLNVAL!]" << DEFAULT << std::endl;
 		}
 	}
+	std::cout << MAGENTA << "Server shuting down . . .\n" << DEFAULT;
 }
 
 void Server::set_state(bool state) {
@@ -177,4 +179,9 @@ int Server::getChannelNum() {
 
 int Server::getClientNum() {
 	return _clients.size();
+}
+
+std::string Server::getCreateTime()
+{
+	return _createTime;
 }
