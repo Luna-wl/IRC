@@ -6,7 +6,7 @@
 /*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 21:00:27 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/26 16:57:08 by csantivi         ###   ########.fr       */
+/*   Updated: 2024/01/28 14:04:42 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,13 @@ std::vector<std::string> commaSeperator(std::string arg)
 	std::vector<std::string> ret;
 	size_t pos = 0;
 	std::string tmp; 
-	while ((pos = arg.find(",")) != std::string::npos)
-	{
+	do {
+		pos = arg.find(",");
 		tmp = arg.substr(0, pos);
         if (!tmp.empty())
             ret.push_back(tmp);
         arg.erase(0, pos + 1);
-	}
-	tmp = arg.substr(0, pos);
-	if (!tmp.empty())
-		ret.push_back(tmp);
+	} while (pos != std::string::npos);
 	return (ret);
 }
 

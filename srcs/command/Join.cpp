@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Join.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivimol <csantivimol@student.42.fr>    +#+  +:+       +#+        */
+/*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:58:49 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/24 20:59:11 by csantivimol      ###   ########.fr       */
+/*   Updated: 2024/01/28 13:49:15 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void Join::execute(Client * client, std::vector<std::string> &args)
 				continue;
 			}
 			channel_name.erase(0, 1);
-			
 			Channel * channel;
 			if (!_srv->isChanExist(channel_name)) {
 				channel = new Channel(_srv, channel_name, channel_key);

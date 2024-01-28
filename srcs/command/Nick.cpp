@@ -6,7 +6,7 @@
 /*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:16:57 by tkraikua          #+#    #+#             */
-/*   Updated: 2024/01/26 16:57:17 by csantivi         ###   ########.fr       */
+/*   Updated: 2024/01/28 13:46:32 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ Nick::~Nick() {}
 
 void Nick::execute(Client * client, std::vector<std::string> &args)
 {
-	if (args.size() > 2) {
-		client->recieveMessage(ERR_TOOMANYARGUMENTS(_srv->getName(), args[0]));
-	}
-	else if (!client->isAuth()) {
+	if (!client->isAuth()) {
 		client->recieveMessage(ERR_NOTAUTHENTICATED(_srv->getName(), client->getNickname()));
+	}
+	else if (args.size() > 2) {
+		client->recieveMessage(ERR_TOOMANYARGUMENTS(_srv->getName(), args[0]));
 	}
 	else if (args[1].empty()) {
 		client->recieveMessage(ERR_NONICKNAMEGIVEN(_srv->getName(), client->getNickname()));
@@ -36,8 +36,7 @@ void Nick::execute(Client * client, std::vector<std::string> &args)
 	}
 	else {
 		client->setNickname(args[1]);
-		if (!client->getUsername().empty())
-		{
+		if (!client->getUsername().empty()) {
 			client->setRegist(true);
 			welcomeClient(client, _srv);
 		}
@@ -47,8 +46,7 @@ void Nick::execute(Client * client, std::vector<std::string> &args)
 bool Nick::nickIsUsed(std::string name)
 {
 	std::map<const int, Client *> clients	= _srv->getAllClient();
-	for (std::map<const int, Client *>::iterator it = clients.begin(); it != clients.end(); it++)
-	{
+	for (std::map<const int, Client *>::iterator it = clients.begin(); it != clients.end(); it++) {
 		if (it->second->getNickname() == name)
 			return true;
 	}
